@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DDD is meaningful</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/blood.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+				<textarea data-template>
+				## When we are coding...
+				</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+					## We expect
+					* 恰当的设计
+					* 优雅的实现
+					* 最佳实践
+					</textarea>
+
+					<aside class="notes">
+					</aside>
+				</section>			
+
+				<section data-markdown>
+					<textarea data-template>
+					## Nonetheless we got
+					</textarea>
+				</section>		
+
+				<section data-markdown>
+					<textarea data-template>
+					### 过程式
+
+					(which is often toooooo long)
+					</textarea>
+					<section>
+					TODO example
+					</section>
+				</section>
+
+				<section data-markdown>
+					<section>
+						<textarea data-template>
+						### Stiff "MVC"
+
+						too simple, sometimes naive
+						</textarea>
+					</section>
+					<section>
+						<textare data-template>
+						试看一例
+
+						```kotlin
+						class RecommendUser{
+							/*********
+							......
+							some hidden details
+							......
+							**********/
+							
+							override fun getRecommendUsersV3(uid: Int, deviceId: String, limit: Int): List<RecommendUser> {
+								return recommendUserService.getRecommendUsers(uid, deviceId, limit)
+							}
+						}
+
+						class RecommendUserService {
+							/*********
+							......
+							some hidden details
+							......
+							**********/
+							
+							fun getRecommendUsers(uid: Int, deviceId: String, limit: Int): List<RecommendUser> {
+								val defaultRes = emptyList<RecommendUser>()
+								return runBlocking {
+									try {
+										val not = getUserDiff(uid, deviceId)
+										val configured = getConfiguredRecommendUsers(not, limit)
+										val personal = getPersonalRecommendUsers(uid, deviceId, not)
+										val result = if (personal.values.flatten().isEmpty()) {
+											configured.map { RecommendUser(it) }.take(limit)
+										} else {
+											val confs = configured.map { RecommendUser(it) }
+											val comics = personal[PeopleCardType.COMIC_AUTHOR]
+													?.map(personalUserMapper(RecommendReasons.ComicAuthor, RecommendUserSource.COMIC_AUTHOR.code))
+													?: emptyList()
+											val posts = personal[PeopleCardType.POST_AUTHOR]
+													?.map(personalUserMapper(RecommendReasons.PostAuthor, RecommendUserSource.POST_AUTHOR.code))
+													?: emptyList()
+											val co = personal[PeopleCardType.CF_AUTHOR]
+													?.map(personalUserMapper(RecommendReasons.CoUser, RecommendUserSource.CF_AUTHOR.code))
+													?: emptyList()
+											//完成排序策略
+											mixRecommendUsers(total = limit, confs = confs, comics = comics, posts = posts, cf = co, move = getMoverForRecommendUser())
+										}
+										logger.info(
+												"getRecommendUsers(uid={},deviceId={},limit={}) not={}, configured={}, personal={}, result={}",
+												uid, deviceId, limit, not, configured, personal, result
+										)
+										val user = if (uid > 0) uid.toString() else deviceId
+										seenUserProcessor.onNext(user to result.map { it.uid })
+										result
+									} catch (e: Throwable) {
+										logger.error("getRecommendUser caught exception {}", e)
+										defaultRes
+									}
+								}
+							}
+						}
+						```
+						</textarea>
+					</section>
+				</section>		
+
+				<section data-markdown>
+					<textarea data-template>
+					## What's wrong?
+					"没有设计"
+					</textarea>
+
+					<aside class="notes">
+					这是一个恰如其分的评价, 正如字面上所述, 我看到的大多数代码都"没有设计"
+
+					Xy. Ma 曾经说过 "有设计比没有设计要强"; 在我所见的代码范围内, 这句话是很适用的.
+
+					先看看我们常见的"设计"思路: 嗯, 这个功能的**数据**需要这样一张表存储, 先写好 dao 层; 再把接口定义好, 剩下的业务逻辑, 嗯, 全部放在 service 层...
+
+					我的设计思路是这样: 先给出接口协议, 然后再实现; 但是我也仍然逃不开先设计表的窠臼; 而且自顶向下设计时, **顶层抽象**做的总是不够好. 比如:
+
+					TODO 举例说明顶层抽象的困难
+					</aside>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+					## DDD comes to rescue?
+					</textarea>
+
+					<aside class="notes">
+					在我的小实践之后, 我要给出我的结论: DDD 很有用;
+
+					DDD 提供了一整套**方法论**, 能够指导我们**设计出较高质量的代码结构**; 
+
+					"抽象"这件事长期困扰我, 现在我有了一套指导原则和行动手册;
+
+					TODO 后面就是合集相关的设计思路和示例
+					</aside>
+				</section>
+
+				<section>Q & A</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
