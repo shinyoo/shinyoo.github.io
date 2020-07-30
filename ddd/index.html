@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>DDD is meaningful</title>
+		<title>Meaningful DDD</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -22,7 +22,7 @@
 				</textarea>
 				</section>
 				<section>
-					<h2 class="fragment">We expect</h2>
+					<h2>We expect</h2>
 					<p class="fragment">恰当的设计</p>
 					<p class="fragment">优雅的实现</p>
 					<p class="fragment">最佳实践</p>
@@ -32,35 +32,21 @@
 					</aside>
 				</section>			
 
-				<section data-markdown>
-					<textarea data-template>
-					## Nonetheless we got
-					</textarea>
+				<section>
+					<h2>Nonetheless...</h2>
+					<h2 class="fragment">We got</h2>
 				</section>		
 
 				<section>
-					<section data-markdown>
-						<textarea data-template>
-						### 过程式
-						(which is often toooooo long)
-						</textarea>
+					<section>
+						<h3>"过程式"</h3>
+						<p class="fragment">which is often toooooo damn long</p>
 					</section>
 					<section>
-					TODO example
+						<h3>Stiff "MVC"</h3>
+						<p class="fragment">too simple, sometimes naive</p>
 					</section>
-				</section>
-
-				<section>
-					<section data-markdown>
-						<textarea data-template>
-						### Stiff "MVC"
-						too simple, sometimes naive
-						</textarea>
-					</section>
-					<section>
-						<h3>试看一例</h4>
-					</section>
-					<section>
+										<section>
 					<p>A RestController</p>
 					<pre><code class="kotlin" data-trim data-noescape>
 					class RecommendUser{
@@ -71,74 +57,86 @@
 					</code></pre>
 					</section>
 
-					<section style="fontsize=12">
-					<pre><code class="kotlin" data-trim data-noescape >
-					class RecommendUserService {
+<section>
+<pre><code class="kotlin" data-trim data-noescape>
+fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers {
+    val defaultRes = AppHomeRecommendUsers(-1, "", emptyList())
+    return runBlocking(LocalPool) {
+        try {
+            if (uid < 0 && deviceId.isBlank()) return@runBlocking defaultRes
+            //获取首页位置
+            val position: Int = getHomePosition()
+            if (position == 0) return@runBlocking defaultRes
 
-						fun getRecommendUsers(uid: Int, deviceId: String, limit: Int): List<RecommendUser> {
-							val defaultRes = emptyList<RecommendUser>()
-							return runBlocking {
-								try {
-									val not = getUserDiff(uid, deviceId)
-									val configured = getConfiguredRecommendUsers(not, limit)
-									val personal = getPersonalRecommendUsers(uid, deviceId, not)
-									val result = if (personal.values.flatten().isEmpty()) {
-										configured.map { RecommendUser(it) }.take(limit)
-									} else {
-										val confs = configured.map { RecommendUser(it) }
-										val comics = personal[PeopleCardType.COMIC_AUTHOR]
-												?.map(personalUserMapper(
-													RecommendReasons.ComicAuthor,
-													RecommendUserSource.COMIC_AUTHOR.code
-												)) ?: emptyList()
-										val posts = personal[PeopleCardType.POST_AUTHOR]
-												?.map(personalUserMapper(
-													RecommendReasons.PostAuthor,
-													RecommendUserSource.POST_AUTHOR.code
-												)) ?: emptyList()
-										val co = personal[PeopleCardType.CF_AUTHOR]
-												?.map(personalUserMapper(
-													RecommendReasons.CoUser, 
-													RecommendUserSource.CF_AUTHOR.code
-												)) ?: emptyList()
-										//完成排序策略
-										mixRecommendUsers(
-											total = limit, 
-											confs = confs, 
-											comics = comics, 
-											posts = posts, 
-											cf = co, 
-											move = getMoverForRecommendUser()
-										)
-									}
-									logger.info(
-											"getRecommendUsers(uid={},deviceId={},limit={}) not={}, configured={}, personal={}, result={}",
-											uid, deviceId, limit, not, configured, personal, result
-									)
-									val user = if (uid > 0) uid.toString() else deviceId
-									seenUserProcessor.onNext(user to result.map { it.uid })
-									result
-								} catch (e: Throwable) {
-									logger.error("getRecommendUser caught exception {}", e)
-									defaultRes
-								}
-							}
-						}
-					}
-					</code></pre>
-					</section>
-						
+            val fetched = async(RedisPool) { getUserFetched(uid, deviceId) }
+            val screened = async(RedisPool) { 
+				if (uid > 0) getScreenedRecommendUsers(uid) else emptySet() 
+			}
+            val followed = async(RemotePool) {
+				 if (uid > 0) userClient.getAllFollowings(uid) + uid 
+				 else emptyList<Int>() 
+			}
+            //首页默认取5个
+            var given = getAppHomeConfiguredUsers(fetched.await() + 
+				screened.await() + followed.await(), 5)
+            //循环展示..
+            if (given.size < 5) {
+                val not = screened.await() + followed.await()
+                given += getAppHomeConfiguredUsers(
+					given.map { it.uid } + not,
+				 	5 - given.size
+				)
+                threadPool.safeExecute {
+                    clearUserSeen(uid, deviceId)
+                }
+            }
 
-				</section>		
+            //少于2个不下发
+            if (given.size < 2) return@runBlocking defaultRes
+
+            //获取conf
+            val confs = given.map { it.uid to RecommendUser(it) }.toMap()
+            val uids = given.map { it.uid }
+
+            //获取post
+            val posts = getTopPostsOf(uids, 5)
+
+
+            val title = "他们都在快看世界"
+            val users = uids.mapNotNull { uid ->
+                val userPosts = posts.get(uid)
+                if (confs[uid] == null || 
+				userPosts == null || 
+				userPosts.isEmpty()) return@mapNotNull null
+                //posts只取一个
+                RecommendUserWithPosts(confs[uid] ?: return@mapNotNull null, userPosts.subList(0, 1))
+            }
+
+            if (users.isEmpty()) return@runBlocking defaultRes
+
+            //记录看过的
+            val user = if (uid > 0) uid.toString() else deviceId
+            seenUserProcessor.onNext(user to users.map { it.user.uid })
+            //置底
+            AppHomeRecommendUsers(if (position != 999999) position - 1 else 999999, title, users)
+        } catch (e: Throwable) {
+            logger.error("getAppHomeRecommendUsers($uid, $deviceId) caught exception", e)
+            defaultRes
+        }
+    }
+}
+</code></pre>
+</section>
+				</section>
 
 				<section data-markdown>
 					<textarea data-template>
-					## What's wrong?
-					"没有设计"
+					<h2>What's wrong?</h2>
+					<p class="fragment">"没有设计"</p>
 					</textarea>
 
 					<aside class="notes">
-						这是一个恰如其分的评价, 正如字面上所述, 我看到的大多数代码都"没有设计"
+						这是一个恰如其分的评价, 正如字面上所述, 我看到的大多数代码都"没有设计";
 
 						Xy. Ma 曾经说过 "有设计比没有设计要强"; 在我所见的代码范围内, 这句话是很适用的.
 
@@ -162,13 +160,40 @@
 
 					"抽象"这件事长期困扰我, 现在我有了一套指导原则和行动手册;
 
-					TODO 后面就是合集相关的设计思路和示例
 					</aside>
 				</section>
 
 				<section>
+					<section>
+						<h3>What's "DDD", anyway?</h3>
+						<p class="fragment">Domain Driven Design</p>
+						<p class="fragment">"领域驱动设计"</p>
+						<p class="fragment">它是一套行动的<span class="ustrong">方法论</span></p>
+					</section>
+					<section>
+						<h4>Why DDD?</h4>
+						<ul>						
+						<li class="fragment">以<b>业务</b>为核心, 围绕业务开展活动</p>
+						<li class="fragment">建立全员一致的业务理解</p>
+						<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
+						<li class="fragment">更好的发掘/梳理业务价值, 聚焦高价值的业务</p>
+						<li class="fragment">代码即业务逻辑</p>
+						<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
+						</ul>
+					</section>
+					<section>
+						<h3>Kick Off Steps<sup title="参考自">*</sup></h3>
+						<ul>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h3>References</h3>
 					<p>
-						<a href="https://git.quickcan.com/social/social-feed-service/" target="blank">detailed</a>
+						<a href="https://git.quickcan.com/social/social-feed-service/" target="_blank">社区的帖子合集需求实现</a>
 					</p>
 				</section>
 
@@ -195,6 +220,10 @@
 		<style type="text/css">
 			.reveal section pre code {
 				font-size: 0.7em !important;
+			}
+			.reveal section span .ustrong {
+				color: #CC3300;
+				font-style:	bold;
 			}
 		</style>
 	</body>
