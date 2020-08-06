@@ -16,10 +16,9 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section data-markdown>
-				<textarea data-template>
-				## When we are coding...
-				</textarea>
+			<section>
+				<section>
+					<h2>When we are coding...</h2>
 				</section>
 				<section>
 					<h2>We expect</h2>
@@ -29,24 +28,30 @@
 
 					<aside class="notes">
 					TODO some examples and axioms or idioms?
+					TODO some memes/comics
 					</aside>
 				</section>			
 
 				<section>
 					<h2>Nonetheless...</h2>
-					<h2 class="fragment">We got</h2>
 				</section>		
-
+				
 				<section>
-					<section>
-						<h3>"过程式"</h3>
+					<h2>We got</h2>
+
+						<h3 class="fragment fade-in">"过程式"</h3>
 						<p class="fragment">which is often toooooo damn long</p>
-					</section>
-					<section>
-						<h3>Stiff "MVC"</h3>
-						<p class="fragment">too simple, sometimes naive</p>
-					</section>
-										<section>
+					<h3 class="fragment">Stiff "MVC"</h3>
+					<p class="fragment">too simple, sometimes naive</p>
+						<aside class="notes">
+						TODO some memes/comics
+						</aside>
+				</section>
+				<section>
+					<h3>Stiff "MVC"</h3>
+					<p class="fragment">too simple, sometimes naive</p>
+				</section>
+				<section>
 					<p>A RestController</p>
 					<pre><code class="kotlin" data-trim data-noescape>
 					class RecommendUser{
@@ -55,7 +60,7 @@
 						}
 					}
 					</code></pre>
-					</section>
+				</section>
 
 <section>
 <pre><code class="kotlin" data-trim data-noescape>
@@ -127,77 +132,147 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 }
 </code></pre>
 </section>
-				</section>
+			</section>
 
-				<section data-markdown>
-					<textarea data-template>
+			<section>
+				<section>
 					<h2>What's wrong?</h2>
-					<p class="fragment">"没有设计"</p>
-					</textarea>
-
-					<aside class="notes">
-						这是一个恰如其分的评价, 正如字面上所述, 我看到的大多数代码都"没有设计";
-
-						Xy. Ma 曾经说过 "有设计比没有设计要强"; 在我所见的代码范围内, 这句话是很适用的.
-
-						先看看我们常见的"设计"思路: 嗯, 这个功能的**数据**需要这样一张表存储, 先写好 dao 层; 再把接口定义好, 剩下的业务逻辑, 嗯, 全部放在 service 层...
-
-						我的设计思路是这样: 先给出接口协议, 然后再实现; 但是我也仍然逃不开先设计表的窠臼; 而且自顶向下设计时, **顶层抽象**做的总是不够好. 比如:
-
-						TODO 举例说明顶层抽象的困难
-					</aside>
-				</section>
-
-				<section data-markdown>
-					<textarea data-template>
-					## DDD comes to rescue?
-					</textarea>
-
-					<aside class="notes">
-					在我的小实践之后, 我要给出我的结论: DDD 很有用;
-
-					DDD 提供了一整套**方法论**, 能够指导我们**设计出较高质量的代码结构**; 
-
-					"抽象"这件事长期困扰我, 现在我有了一套指导原则和行动手册;
-
-					</aside>
-				</section>
-
-				<section>
-					<section>
-						<h3>What's "DDD", anyway?</h3>
-						<p class="fragment">Domain Driven Design</p>
-						<p class="fragment">"领域驱动设计"</p>
-						<p class="fragment">它是一套行动的<span class="ustrong">方法论</span></p>
-					</section>
-					<section>
-						<h4>Why DDD?</h4>
-						<ul>						
-						<li class="fragment">以<b>业务</b>为核心, 围绕业务开展活动</p>
-						<li class="fragment">建立全员一致的业务理解</p>
-						<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
-						<li class="fragment">更好的发掘/梳理业务价值, 聚焦高价值的业务</p>
-						<li class="fragment">代码即业务逻辑</p>
-						<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
-						</ul>
-					</section>
-					<section>
-						<h3>Kick Off Steps<sup title="参考自">*</sup></h3>
-						<ul>
-							<li></li>
-							<li></li>
-							<li></li>
-						</ul>
-					</section>
+					<p class="fragment">缺乏设计</p>
 				</section>
 				<section>
-					<h3>References</h3>
-					<p>
-						<a href="https://git.quickcan.com/social/social-feed-service/" target="_blank">社区的帖子合集需求实现</a>
+					<h3>可能的原因</h3>
+					<p class="fragment">没有意识</p>
+					<p class="fragment">懒于思考</p>
+					<p class="fragment"><span class="ustrong">方法不足</span></p>
+				</section>
+				<aside class="notes">
+					这是一个恰如其分的评价, 正如字面上所述, 我看到的大多数代码都"没有设计";
+
+					Xy. Ma 曾经说过 "有设计比没有设计要强"; 在我所见的代码范围内, 这句话是很适用的.
+
+					先看看我们常见的"设计"思路: 嗯, 这个功能的**数据**需要这样一张表存储, 先写好 dao 层; 再把接口定义好, 剩下的业务逻辑, 嗯, 全部放在 service 层...
+
+					我的设计思路是这样: 先给出接口协议, 然后再实现; 但是我也仍然逃不开先设计表的窠臼; 而且自顶向下设计时, **顶层抽象**做的总是不够好. 比如:
+
+					TODO 举例说明顶层抽象的困难
+				</aside>
+			</section>
+
+	
+
+			<section>
+				<section>
+					<h2>DDD comes to rescue?</h2>
+				</section>
+				<section>
+					<h3>What's "DDD", anyway?</h3>
+					<p class="fragment">"DDD" <span class="fragment"> = </span> <span class="fragment">Domain Driven Design</span></p>
+					<p class="fragment">"领域驱动设计"</p>
+					<p class="fragment">一套指导行动的<span class="ustrong">方法论</span></p>
+				</section>
+				<section>
+					<h4>More bites of DDD</h4>
+					<ul>						
+					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
+					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
+					<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
+					<li class="fragment">更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</p>
+					<li class="fragment">代码即<span class="ustrong">业务</span>逻辑</p>
+					<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>实例小剧场<!--<a title="参考"><sup>*</sup></a>--></h3>
+					<table title="小剧场">
+						<tr>
+							<th>姓名</th>
+							<th>角色</th>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>研发</td>
+						</tr>
+						<tr>
+							<td>Lucy</td>
+							<td>产品经理</td>
+						</tr>
+						<tr>
+							<td>Tony</td>
+							<td>运营</td>
+						</tr>
+					</table>
+				</section>
+				<section class="dialogue">
+					<h4>"Event Storming"</h4>
+					<div>
+						<p>张三: <q>关于<span class="term">帖子合集</span>这个新需求, 我有几个疑问, 找大家<span class="ustrong">一起来确认</span>下; 首先, 只有<span class="term">作者用户</span>才能创建合集吗?</q></p>
+						<p>Lucy: <q>不是这样的,我们希望给所有有<span class="term">创作者权限</span>的用户<span class="ustrong">自动授予</span>这个权限的呢</q></p>
+						<p>张三: <q>自动授予? 什么意思呢?</q></p>
+						<p>Tony: <q>只要保证运营有能力控制哪些用户能发布、哪些不能发布合集就可以啦</q></p>
+						<p>张三: <q>那么只要用户是创作者就可以发合集吗?</q></p>
+						<p>Lucy: <q>不是的, 一开始会让所有的创作者权限用户都拥有合集权限, 但是可以单独取消某个创作者用户的合集权限</q></p>
+						
+						
+						<!--<p>张三:<q></q></p>-->
+						<!--<p>Tony:<q></q></p>-->
+						<!--<p>Lucy:<q></q></p>-->
+					</div>
+					<div style="font-size:0.5em;text-align:right;color:grey">continue on next page...</div>
+
+					<aside class="notes">
+					TODO more dialogue...
+					<p>: 我们需要开发一个合集功能, 让用户可以把自己的帖子加进去</p>
+					<p>张三: 为啥要做这样一个功能? 这个和 xxx 有啥区别?</p> 
+					<p>陈六: 未来要把投稿行为融合到社区,
+						合集类似于漫画专题, 承载同属一个主题的帖子</p>
+					<p>张三: 理解了</p>
+					<p>王五: OK, 那我继续</p>
+					</aside>
+				</section>
+				<section class="dialogue">
+					<div style="font-size:0.5em;text-align:left;color:grey">...continued from last page</div>
+
+					<p>张三: <q>那我认为合集操作应该是一个单独的权限, 和其他权限一样进行管理; 至于你要的自动授予, 则在其上进行操作</q></p>
+					<p>Lucy:<q>好的呢; 还有一个点需要三三确认下----我们需要在收回某个用户的合集权限之后, 能够<span class="ustrong">自动地移除</span>他创建的所有合集呢</q></p>
+					<p>张三:<q>自动地移除? 那不会还要求恢复吧?</q></p>
+					<p>Lucy:<q>不不, 不需要恢复的呢</q></p>
+						......
+						<h4></h4>
+				</section>
+				<section>
+					<h3>输出共识</h3>
+					<p class="fragment">
+					共识即<span class="term">领域通用语言</span>
 					</p>
+					<p class="fragment">通用语言可能包含:</p>
+					<ul>
+						<li class="fragment"><a>领域定义</a></li>
+						<li class="fragment"><a>用语词典</a></li>
+						<li class="fragment"><a>业务流程图</a></li>
+					</ul>
 				</section>
+			</section>
+			<section>
+				<h3>To sum it up</h3>
+				<aside class="notes">
+				在我的小实践之后, 我要给出我的结论: DDD 很有用;
 
-				<section><h3>Q & A</h3></section>
+				DDD 提供了一整套**方法论**, 能够指导我们**设计出较高质量的代码结构**; 
+
+				"抽象"这件事长期困扰我, 现在我有了一套指导原则和行动手册;
+
+				</aside>
+			</section>
+			<section>
+				<h3>References</h3>
+				<p>
+					<a href="https://git.quickcan.com/social/social-feed-service/" target="_blank">社区的帖子合集需求实现</a>
+				</p>
+			</section>
+
+			<section><h3>Q & A</h3></section>
 			</div>
 		</div>
 
@@ -221,9 +296,20 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 			.reveal section pre code {
 				font-size: 0.7em !important;
 			}
-			.reveal section span .ustrong {
+			.reveal section .ustrong {
 				color: #CC3300;
-				font-style:	bold;
+				font-style:	bold !important;
+				#font-weight: 500px !important;
+			}
+			.reveal section.dialogue p {
+				font-size: 0.6em !important;
+				text-align: left;
+				padding-left: 2em ;
+			}
+			.reveal section .term {
+				font-style: normal; !important;
+				color: #0099ff;		!important;
+				border-bottom: 1px solid;
 			}
 		</style>
 	</body>
