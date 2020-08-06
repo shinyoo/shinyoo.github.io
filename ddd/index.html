@@ -43,18 +43,15 @@
 						<p class="fragment">which is often toooooo damn long</p>
 					<h3 class="fragment">Stiff "MVC"</h3>
 					<p class="fragment">too simple, sometimes naive</p>
-						<aside class="notes">
-						TODO some memes/comics
-						</aside>
-				</section>
-				<section>
-					<h3>Stiff "MVC"</h3>
-					<p class="fragment">too simple, sometimes naive</p>
+					<aside class="notes">
+					TODO some memes/comics
+					</aside>
 				</section>
 				<section>
 					<p>A RestController</p>
 					<pre><code class="kotlin" data-trim data-noescape>
-					class RecommendUser{
+					@RestController
+					class RecommendUserController{
 						override fun getRecommendUsersV3(uid: Int, deviceId: String, limit: Int): List<RecommendUser> {
 							return recommendUserService.getRecommendUsers(uid, deviceId, limit)
 						}
@@ -63,7 +60,7 @@
 				</section>
 
 <section>
-<pre><code class="kotlin" data-trim data-noescape>
+<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers {
     val defaultRes = AppHomeRecommendUsers(-1, "", emptyList())
     return runBlocking(LocalPool) {
@@ -171,7 +168,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					<p class="fragment">一套指导行动的<span class="ustrong">方法论</span></p>
 				</section>
 				<section>
-					<h4>More bites of DDD</h4>
+					<h4>More tastes of DDD</h4>
 					<ul>						
 					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
 					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
@@ -184,8 +181,8 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 			</section>
 			<section>
 				<section>
-					<h3>实例小剧场<!--<a title="参考"><sup>*</sup></a>--></h3>
-					<table title="小剧场">
+					<h3>实例小剧场</h3>
+					<table>
 						<tr>
 							<th>姓名</th>
 							<th>角色</th>
@@ -205,19 +202,23 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					</table>
 				</section>
 				<section class="dialogue">
-					<h4>"Event Storming"</h4>
-					<div>
-						<p>张三: <q>关于<span class="term">帖子合集</span>这个新需求, 我有几个疑问, 找大家<span class="ustrong">一起来确认</span>下; 首先, 只有<span class="term">作者用户</span>才能创建合集吗?</q></p>
-						<p>Lucy: <q>不是这样的,我们希望给所有有<span class="term">创作者权限</span>的用户<span class="ustrong">自动授予</span>这个权限的呢</q></p>
-						<p>张三: <q>自动授予? 什么意思呢?</q></p>
+					<h4>"event storming"</h4>
+					<div class="fragment">
+						<p>张三:<q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
+						<p>Lucy:<q>我们有创建合集, 修改合集, 向合集中添加<span class="term">帖子</span></q></p>
+						<p>张三:<q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
+						<p>张三:<q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
+					</div>
+				</section>
+				<section class="dialogue">
+					<h4>达成共识</h4>
+					<div class="fragment">
+						<p>张三: <q>关于<span class="term">帖子合集</span>这个新需求, 我有几个疑问, 找大家<span class="ustrong">一起来确认</span>下; 首先, 只有作者<span class="term">用户</span>才能创建合集吗?</q></p>
+						<p>Lucy: <q>不是这样的,我们希望给所有有创作者<span class="term">权限</span>的用户<span class="ustrong">自动授予</span>创建合集权限呢</q></p>
+						<p>张三: <q>自动授予? 什么意思?</q></p>
 						<p>Tony: <q>只要保证运营有能力控制哪些用户能发布、哪些不能发布合集就可以啦</q></p>
 						<p>张三: <q>那么只要用户是创作者就可以发合集吗?</q></p>
 						<p>Lucy: <q>不是的, 一开始会让所有的创作者权限用户都拥有合集权限, 但是可以单独取消某个创作者用户的合集权限</q></p>
-						
-						
-						<!--<p>张三:<q></q></p>-->
-						<!--<p>Tony:<q></q></p>-->
-						<!--<p>Lucy:<q></q></p>-->
 					</div>
 					<div style="font-size:0.5em;text-align:right;color:grey">continue on next page...</div>
 
@@ -233,25 +234,40 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 				</section>
 				<section class="dialogue">
 					<div style="font-size:0.5em;text-align:left;color:grey">...continued from last page</div>
-
-					<p>张三: <q>那我认为合集操作应该是一个单独的权限, 和其他权限一样进行管理; 至于你要的自动授予, 则在其上进行操作</q></p>
-					<p>Lucy:<q>好的呢; 还有一个点需要三三确认下----我们需要在收回某个用户的合集权限之后, 能够<span class="ustrong">自动地移除</span>他创建的所有合集呢</q></p>
+					<div class="fragment">
+					<p>张三: <q>那么合集应该有一个单独的权限, 具有通常的权限的所有行为; 至于你要的自动授予, 则在权限管理的<span class="term">领域</span>内处理</q></p>
+					<p>Lucy:<q>好的呢; 还有一个点需要确认下----我们需要在收回某个用户的合集权限之后, 能够<span class="ustrong">自动地移除</span>他创建的所有合集呢</q></p>
 					<p>张三:<q>自动地移除? 那不会还要求恢复吧?</q></p>
 					<p>Lucy:<q>不不, 不需要恢复的呢</q></p>
-						......
+					......
+					</div>
 						<h4></h4>
+
 				</section>
-				<section>
+				<section id="output">
 					<h3>输出共识</h3>
 					<p class="fragment">
 					共识即<span class="term">领域通用语言</span>
 					</p>
 					<p class="fragment">通用语言可能包含:</p>
 					<ul>
-						<li class="fragment"><a>领域定义</a></li>
-						<li class="fragment"><a>用语词典</a></li>
-						<li class="fragment"><a>业务流程图</a></li>
+						<li class="fragment"><a href="#/context">领域&限界上下文</a></li>
+						<li class="fragment"><a href="#/dict">用语词典</a></li>
+						<li class="fragment"><a href="#/flow">业务流程图</a></li>
 					</ul>
+				</section>
+				<section id="context" class="invisible">
+					<p>领域: 问题空间</p>
+					<p>限界上下文: 解空间</p>
+					<blockquote>二者均需要<span class="ustrong">由我们给出</span></blockquote>
+					<a href="#/output">back</a>
+				</section>
+				<section id="dict" class="invisible">
+					<a href="#/output">back</a>
+
+				</section>
+				<section id="flow" class="invisible">
+					<a href="#/output">back</a>
 				</section>
 			</section>
 			<section>
@@ -307,7 +323,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 				padding-left: 2em ;
 			}
 			.reveal section .term {
-				font-style: normal; !important;
+				#font-style: normal; !important;
 				color: #0099ff;		!important;
 				border-bottom: 1px solid;
 			}
