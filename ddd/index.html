@@ -278,7 +278,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					</p>
 					<p class="fragment">通用语言可能包含:</p>
 					<ul>
-						<li class="fragment"><a href="#/context">领域&限界上下文</a></li>
+						<li class="fragment"><a href="#/context">领域&限界上下文定义</a></li>
 						<li class="fragment"><a href="#/dict">用语词典</a></li>
 						<li class="fragment"><a href="#/flow">业务流程图</a></li>
 					</ul>
@@ -289,10 +289,11 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 						<p class="fragment">需要<span class="ustrong">由团队确定</span></p>
 
 						<h4 class="fragment">"限界上下文": 解空间的定义</h4>
-						<p class="fragment">需要<span class="ustrong">由团队人为划定</span>; 例如, 对于帖子合集功能</p>
+						<p class="fragment">需要<span class="ustrong">由团队人为划定</span></p> 
+						<p class="fragment">例如, 对于帖子合集功能</p>
 					
-						<p class="fragment">"领域"=帖子合集的所有功能点</p>
-						<p class="fragment">"限界上下文"="<span class="term">合集上下文</span>", 包含对合集的操作、帖子与合集关系的操作的实际工作流程(代码实现)</p>
+						<p class="fragment">"领域" = 帖子合集的所有功能点</p>
+						<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含对合集的操作、帖子与合集关系的操作的实际工作流程(代码实现)</p>
 					</div>
 					<a class="fragment" style="color:grey" href="#/output">back</a>
 
@@ -312,10 +313,23 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					<a class="fragment" style="color:grey" href="#/output">back</a>
 				</section>
 				<section id="flow" class="invisible">
-					<div></div>
+					<h4>流程图</h4>
+					<div>
+						<img src="./img/compilation.png"/>
+					</div>
 					<a class="fragment" style="color:grey" href="#/output">back</a>
-
 				</section>
+			</section>
+			<section>
+				<h3>first line of DDD codes</h3>
+				<p class="fragment">before we proceed</p>
+				<p class="fragment">remember DO NOT</p>
+				<ul>
+					<li>先考虑存储层怎么做</li>
+					<li></li>
+				</ul>
+
+				<aside class="notes">有了业务的共识以后, 业务逻辑都是清晰的, 我们可以开始敲下第一行代码了</aside>
 			</section>
 			<section>
 				<h3>To sum it up</h3>
