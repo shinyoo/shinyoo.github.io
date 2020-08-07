@@ -202,36 +202,62 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					</table>
 				</section>
 				<section class="dialogue">
-					<h4>"event storming"</h4>
+					<h4>会议室里</h4>
 					<div class="fragment">
-						<p>张三:<q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
-						<p>Lucy:<q>我们有创建合集, 修改合集, 向合集中添加<span class="term">帖子</span></q></p>
-						<p>张三:<q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
-						<p>张三:<q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
+						<p>张三: <q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
+						<p>Lucy: <q>我们有创建合集, 修改合集, 向合集中添加<span class="term">帖子</span>, 还有...</q></p>
+						<p>张三: <q>慢着, 一个一个来, 让我把这些<span class="ustrong">事件</span>写在便签上, 然后贴在白板上; 先从创建合集开始, <span class="term">用户</span>需要提交的信息有标题,描述,封面对吧?</q></p>
+						<p>Lucy: <q>是的, 但是除了标题, 另外的信息都是<span class="ustrong">可选</span>的呢.</q></p>
+						<p>张三: <q>用户<span class="ustrong">请求创建之后</span>, 我们要对合集进行<span class="term">内容审核</span></q>(将"内容审核"贴在白板上,并用笔连接"请求创建合集"到"内容审核"); <q>如果初审通过, 我就直接让合集公开.</q></p>
+						<p>Tony: <q>可是后面还有两步审核, 这个合集可能不能通过啦.</q></p>
+						<p>张三: <q>如果初审不公开, 可能出现后续永远无法公开的问题, 比如第一次审核过之后就没有后续审核了.</q></p>
+						<p>Lucy: <q>我理解了; 只要保证最后的审核结果能够及时作用在合集上,我们就没有问题了呢.</q></p>
+						<p>Tony: (点头)</p>
+						......
 					</div>
+					<aside class="notes">				
+						<p>这里通过举例子, 引出 eventstorming 的概念</p>
+					</aside>
+				</section>
+				<section>
+					<h3 class="ustrong">梳理业务逻辑</h3>
+					<p class="fragment">这是 ddd 开启阶段要做的第一件事</p>
+					<p class="fragment">刚才的场景里用到了名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
+					<div class="fragment" style="font-size:0.5em;color:grey;">
+						<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
+						<ol>
+							<li>确定要讨论的业务</li>
+							<li>召集相关方聚在有白板的会议室中</li>
+							<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
+							<li>如果事件之间有触发的关系, <span class="ustrong">连接</span>它们</li>
+							<li>重复3-4步</li>
+						</ol>
+						<p>最后我们就得到了业务的所有流转逻辑</p>
+					</div>
+					<aside class="notes">				
+						<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
+						<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
+					</aside>
 				</section>
 				<section class="dialogue">
 					<h4>达成共识</h4>
 					<div class="fragment">
-						<p>张三: <q>关于<span class="term">帖子合集</span>这个新需求, 我有几个疑问, 找大家<span class="ustrong">一起来确认</span>下; 首先, 只有作者<span class="term">用户</span>才能创建合集吗?</q></p>
-						<p>Lucy: <q>不是这样的,我们希望给所有有创作者<span class="term">权限</span>的用户<span class="ustrong">自动授予</span>创建合集权限呢</q></p>
+						<p>张三: <q>合集相关的功能我整理了一下, 现在还有几个疑问, 找大家<span class="ustrong">一起来确认</span>下; 首先, 只有具有创作者<span class="term">身份</span>的<span class="term">用户</span>才能创建合集吗?</q></p>
+						<p>Lucy: <q>不是这样的,我们希望给所有有创作者<span class="term">权限</span>的用户自动授予创建合集权限呢</q></p>
 						<p>张三: <q>自动授予? 什么意思?</q></p>
-						<p>Tony: <q>只要保证运营有能力控制哪些用户能发布、哪些不能发布合集就可以啦</q></p>
-						<p>张三: <q>那么只要用户是创作者就可以发合集吗?</q></p>
-						<p>Lucy: <q>不是的, 一开始会让所有的创作者权限用户都拥有合集权限, 但是可以单独取消某个创作者用户的合集权限</q></p>
+						<p>Tony: (举手)<q>只要保证运营有能力控制哪些用户能发布、哪些不能发布合集就可以啦</q></p>
+						<p>张三: <q>那么只要用户是创作者就可以创建合集吗?</q></p>
+						<p>Lucy: <q>不是的, 一开始会让所有的创作者用户都能创建合集, 但是可以单独禁止某些创作者用户创建合集</q></p>
+						<p>张三: <q>那么应该存在一个单独的<span class="ustrong">合集权限</span>, 具有<span class="ustrong">通常的权限的所有行为</span>; 至于你要的自动授予, 则在权限管理的<span class="term">领域</span>内处理</q></p>
 					</div>
-					<div style="font-size:0.5em;text-align:right;color:grey">continue on next page...</div>
-
+					<!--
+						<div class="fragment" style="font-size:0.5em;text-align:right;color:grey">continue on next page...</div>
+					-->
 					<aside class="notes">
-					TODO more dialogue...
-					<p>: 我们需要开发一个合集功能, 让用户可以把自己的帖子加进去</p>
-					<p>张三: 为啥要做这样一个功能? 这个和 xxx 有啥区别?</p> 
-					<p>陈六: 未来要把投稿行为融合到社区,
-						合集类似于漫画专题, 承载同属一个主题的帖子</p>
-					<p>张三: 理解了</p>
-					<p>王五: OK, 那我继续</p>
+					这里主要是说明对于某些名词/概念, 要做到精确定义, 从而能够最终映射到"术语词典"和"流程图"上
 					</aside>
 				</section>
+				<!--
 				<section class="dialogue">
 					<div style="font-size:0.5em;text-align:left;color:grey">...continued from last page</div>
 					<div class="fragment">
@@ -244,6 +270,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 						<h4></h4>
 
 				</section>
+				-->
 				<section id="output">
 					<h3>输出共识</h3>
 					<p class="fragment">
@@ -257,17 +284,37 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					</ul>
 				</section>
 				<section id="context" class="invisible">
-					<p>领域: 问题空间</p>
-					<p>限界上下文: 解空间</p>
-					<blockquote>二者均需要<span class="ustrong">由我们给出</span></blockquote>
-					<a href="#/output">back</a>
-				</section>
-				<section id="dict" class="invisible">
-					<a href="#/output">back</a>
+					<div>
+						<h4 class="fragment">"领域": 问题空间的定义</h4>
+						<p class="fragment">需要<span class="ustrong">由团队确定</span></p>
+
+						<h4 class="fragment">"限界上下文": 解空间的定义</h4>
+						<p class="fragment">需要<span class="ustrong">由团队人为划定</span>; 例如, 对于帖子合集功能</p>
+					
+						<p class="fragment">"领域"=帖子合集的所有功能点</p>
+						<p class="fragment">"限界上下文"="<span class="term">合集上下文</span>", 包含对合集的操作、帖子与合集关系的操作的实际工作流程(代码实现)</p>
+					</div>
+					<a class="fragment" style="color:grey" href="#/output">back</a>
 
 				</section>
+				<section id="dict" class="invisible">
+					<h4>用语词典</h4>
+					<div>
+						<table>
+							<tr><th>用语</th><th>解释说明</th></tr>
+							<tr><td>合集</td><td>用于组织用户发布的帖子的一种承载物</td></tr>
+							<tr><td>用户</td><td>一个用户即代表一个社区账号</td></tr>
+							<tr><td>帖子</td><td>社区单个用户单次生产内容的主要形式, 可以包含文本,图片,视频多种内容</td></tr>
+							<tr><td>...</td><td>...</td></tr>
+							<tr><td>删除合集</td><td>合集删除后在业务流程上不可恢复</td></tr>
+						</table>
+					</div>
+					<a class="fragment" style="color:grey" href="#/output">back</a>
+				</section>
 				<section id="flow" class="invisible">
-					<a href="#/output">back</a>
+					<div></div>
+					<a class="fragment" style="color:grey" href="#/output">back</a>
+
 				</section>
 			</section>
 			<section>
@@ -315,7 +362,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 			.reveal section .ustrong {
 				color: #CC3300;
 				font-style:	bold !important;
-				#font-weight: 500px !important;
+				font-weight: 500px !important;
 			}
 			.reveal section.dialogue p {
 				font-size: 0.6em !important;
