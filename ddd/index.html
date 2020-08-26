@@ -221,7 +221,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 				</section>
 				<section>
 					<h3 class="ustrong">梳理业务逻辑</h3>
-					<p class="fragment">这是 ddd 开启阶段要做的第一件事</p>
+					<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
 					<p class="fragment">刚才的场景里用到了名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
 					<div class="fragment" style="font-size:0.5em;color:grey;">
 						<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
@@ -229,15 +229,20 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 							<li>确定要讨论的业务</li>
 							<li>召集相关方聚在有白板的会议室中</li>
 							<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
-							<li>如果事件之间有触发的关系, <span class="ustrong">连接</span>它们</li>
+							<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
 							<li>重复3-4步</li>
 						</ol>
-						<p>最后我们就得到了业务的所有流转逻辑</p>
+						<p>最后我们就得到了业务的全部流转逻辑</p>
 					</div>
 					<aside class="notes">				
 						<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
 						<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
 					</aside>
+				</section>
+				<section>
+					<h4>还没完...</h4>
+					<h4 class="fragment">我们需要不断地修正对于业务的理解</h4>
+					<h4 class="fragment">直到</h4>
 				</section>
 				<section class="dialogue">
 					<h4>达成共识</h4>
@@ -257,20 +262,7 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					这里主要是说明对于某些名词/概念, 要做到精确定义, 从而能够最终映射到"术语词典"和"流程图"上
 					</aside>
 				</section>
-				<!--
-				<section class="dialogue">
-					<div style="font-size:0.5em;text-align:left;color:grey">...continued from last page</div>
-					<div class="fragment">
-					<p>张三: <q>那么合集应该有一个单独的权限, 具有通常的权限的所有行为; 至于你要的自动授予, 则在权限管理的<span class="term">领域</span>内处理</q></p>
-					<p>Lucy:<q>好的呢; 还有一个点需要确认下----我们需要在收回某个用户的合集权限之后, 能够<span class="ustrong">自动地移除</span>他创建的所有合集呢</q></p>
-					<p>张三:<q>自动地移除? 那不会还要求恢复吧?</q></p>
-					<p>Lucy:<q>不不, 不需要恢复的呢</q></p>
-					......
-					</div>
-						<h4></h4>
-
-				</section>
-				-->
+	
 				<section id="output">
 					<h3>输出共识</h3>
 					<p class="fragment">
@@ -278,31 +270,38 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 					</p>
 					<p class="fragment">通用语言可能包含:</p>
 					<ul>
-						<li class="fragment"><a href="#/context">领域&限界上下文定义</a></li>
+						<li class="fragment"><a href="#/context">领域 和 限界上下文</a></li>
 						<li class="fragment"><a href="#/dict">用语词典</a></li>
 						<li class="fragment"><a href="#/flow">业务流程图</a></li>
 					</ul>
 				</section>
-				<section id="context" class="invisible">
+				<section id="context">
 					<div>
-						<h4 class="fragment">"领域": 问题空间的定义</h4>
-						<p class="fragment">需要<span class="ustrong">由团队确定</span></p>
-
-						<h4 class="fragment">"限界上下文": 解空间的定义</h4>
-						<p class="fragment">需要<span class="ustrong">由团队人为划定</span></p> 
+						<h4>领域 & 限界上下文</h4>
+						<p class="fragment"><span class="term">领域</span>= 问题空间</p>
+						<p class="fragment"><span class="term">限界上下文</span>= 解空间 <span class="fragment">需要<span class="ustrong">由团队人为划定边界</span></span> </p>
+						
 						<p class="fragment">例如, 对于帖子合集功能</p>
 					
 						<p class="fragment">"领域" = 帖子合集的所有功能点</p>
-						<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含对合集的操作、帖子与合集关系的操作的实际工作流程(代码实现)</p>
+						<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含
+							<ol class="fragment">
+								<li>对合集操作的实际工作流程(交互与代码实现)</li>
+								<li>对帖子与合集关系的操作的实际工作流程</li>
+							</ol>
+						</p>
 					</div>
 					<a class="fragment" style="color:grey" href="#/output">back</a>
-
+					<aside class="notes">
+						TODO 修改样式
+					</aside>
 				</section>
 				<section id="dict" class="invisible">
 					<h4>用语词典</h4>
+					<p style="font-size:0.7em">"合集"领域的词典</p>
 					<div>
 						<table>
-							<tr><th>用语</th><th>解释说明</th></tr>
+							<tr><th>用语</th><th>说明</th></tr>
 							<tr><td>合集</td><td>用于组织用户发布的帖子的一种承载物</td></tr>
 							<tr><td>用户</td><td>一个用户即代表一个社区账号</td></tr>
 							<tr><td>帖子</td><td>社区单个用户单次生产内容的主要形式, 可以包含文本,图片,视频多种内容</td></tr>
@@ -311,25 +310,49 @@ fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers 
 						</table>
 					</div>
 					<a class="fragment" style="color:grey" href="#/output">back</a>
+					<aside class="notes">
+						用语词典的全称是"领域 XXX 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的领域以及上下文中表达一个清晰无歧义的概念;
+					</aside>
 				</section>
-				<section id="flow" class="invisible">
+				<section id="flow">
 					<h4>流程图</h4>
-					<div>
+					<div class="notes">
 						<img src="./img/compilation.png"/>
 					</div>
 					<a class="fragment" style="color:grey" href="#/output">back</a>
+					<aside class="notes">
+						在合集开发中, 用流程图和产品方进行了确认
+					</aside>
 				</section>
 			</section>
 			<section>
-				<h3>first line of DDD codes</h3>
-				<p class="fragment">before we proceed</p>
-				<p class="fragment">remember DO NOT</p>
-				<ul>
-					<li>先考虑存储层怎么做</li>
-					<li></li>
-				</ul>
+				<section>
+					<h3>first line of DDD codes</h3>
+					<div class="fragment">
+						<img src="./img/first_line.jpeg" />
+					</div>
 
-				<aside class="notes">有了业务的共识以后, 业务逻辑都是清晰的, 我们可以开始敲下第一行代码了</aside>
+					<aside class="notes">
+						"有了业务的共识以后, 业务逻辑都是清晰的, 我们可以开始敲下第一行代码了"
+						一定不要先写 dao 层
+					</aside>
+				</section>
+				<section>
+					<h4>小例子</h4>
+					<div class="fragment">
+
+<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class Title(
+        val title: String
+) : SimpleValueObject&lt;Title> {
+    init {
+        Validator.require(title.isNotBlank()) { "标题不能为空" }
+        Validator.require(title.length <= 30) { "标题字符数不得超过 30 字" }
+    }
+}
+</code></pre>
+				</div>
+				</section>
 			</section>
 			<section>
 				<h3>To sum it up</h3>
