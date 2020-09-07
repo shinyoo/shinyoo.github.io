@@ -1,0 +1,523 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Meaningful DDD</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/blood.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			<section>
+				<section>
+					<h2>When we are coding...</h2>
+				</section>
+				<section>
+					<h2>We expect</h2>
+					<p class="fragment">恰当的设计</p>
+					<p class="fragment">优雅的实现</p>
+					<p class="fragment">最佳实践</p>
+
+					<aside class="notes">
+					TODO some examples and axioms or idioms?
+					TODO some memes/comics
+					</aside>
+				</section>			
+
+				<section>
+					<h2>Nonetheless...</h2>
+				</section>		
+				
+				<section>
+					<h2>We got</h2>
+
+						<h3 class="fragment fade-in">"过程式"</h3>
+						<p class="fragment">which is often toooooo damn long</p>
+					<h3 class="fragment">Stiff "MVC"</h3>
+					<p class="fragment">too simple, sometimes naive</p>
+					<aside class="notes">
+					TODO some memes/comics
+					</aside>
+				</section>
+				<section>
+					<p>A RestController</p>
+					<pre><code class="kotlin" data-trim data-noescape>
+					@RestController
+					class RecommendUserController{
+						override fun getRecommendUsersV3(uid: Int, deviceId: String, limit: Int): List<RecommendUser> {
+							return recommendUserService.getRecommendUsers(uid, deviceId, limit)
+						}
+					}
+					</code></pre>
+				</section>
+
+<section>
+<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+fun getAppHomeRecommendUsers(uid: Int, deviceId: String): AppHomeRecommendUsers {
+    val defaultRes = AppHomeRecommendUsers(-1, "", emptyList())
+    return runBlocking(LocalPool) {
+        try {
+            if (uid < 0 && deviceId.isBlank()) return@runBlocking defaultRes
+            //获取首页位置
+            val position: Int = getHomePosition()
+            if (position == 0) return@runBlocking defaultRes
+
+            val fetched = async(RedisPool) { getUserFetched(uid, deviceId) }
+            val screened = async(RedisPool) { 
+				if (uid > 0) getScreenedRecommendUsers(uid) else emptySet() 
+			}
+            val followed = async(RemotePool) {
+				 if (uid > 0) userClient.getAllFollowings(uid) + uid 
+				 else emptyList<Int>() 
+			}
+            //首页默认取5个
+            var given = getAppHomeConfiguredUsers(fetched.await() + 
+				screened.await() + followed.await(), 5)
+            //循环展示..
+            if (given.size < 5) {
+                val not = screened.await() + followed.await()
+                given += getAppHomeConfiguredUsers(
+					given.map { it.uid } + not,
+				 	5 - given.size
+				)
+                threadPool.safeExecute {
+                    clearUserSeen(uid, deviceId)
+                }
+            }
+
+            //少于2个不下发
+            if (given.size < 2) return@runBlocking defaultRes
+
+            //获取conf
+            val confs = given.map { it.uid to RecommendUser(it) }.toMap()
+            val uids = given.map { it.uid }
+
+            //获取post
+            val posts = getTopPostsOf(uids, 5)
+
+
+            val title = "他们都在快看世界"
+            val users = uids.mapNotNull { uid ->
+                val userPosts = posts.get(uid)
+                if (confs[uid] == null || 
+				userPosts == null || 
+				userPosts.isEmpty()) return@mapNotNull null
+                //posts只取一个
+                RecommendUserWithPosts(confs[uid] ?: return@mapNotNull null, userPosts.subList(0, 1))
+            }
+
+            if (users.isEmpty()) return@runBlocking defaultRes
+
+            //记录看过的
+            val user = if (uid > 0) uid.toString() else deviceId
+            seenUserProcessor.onNext(user to users.map { it.user.uid })
+            //置底
+            AppHomeRecommendUsers(if (position != 999999) position - 1 else 999999, title, users)
+        } catch (e: Throwable) {
+            logger.error("getAppHomeRecommendUsers($uid, $deviceId) caught exception", e)
+            defaultRes
+        }
+    }
+}
+</code></pre>
+</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>What's wrong?</h2>
+					<p class="fragment">缺乏设计</p>
+				</section>
+				<section>
+					<h3>可能的原因</h3>
+					<p class="fragment">没有意识</p>
+					<p class="fragment">懒于思考</p>
+					<p class="fragment"><span class="ustrong">方法不足</span></p>
+				</section>
+				<aside class="notes">
+					这是一个恰如其分的评价, 正如字面上所述, 我看到的大多数代码都"没有设计";
+
+					Xy. Ma 曾经说过 "有设计比没有设计要强"; 在我所见的代码范围内, 这句话是很适用的.
+
+					先看看我们常见的"设计"思路: 嗯, 这个功能的**数据**需要这样一张表存储, 先写好 dao 层; 再把接口定义好, 剩下的业务逻辑, 嗯, 全部放在 service 层...
+
+					我的设计思路是这样: 先给出接口协议, 然后再实现; 但是我也仍然逃不开先设计表的窠臼; 而且自顶向下设计时, **顶层抽象**做的总是不够好. 比如:
+
+					TODO 举例说明顶层抽象的困难
+				</aside>
+			</section>
+
+			<section>
+				<section>
+					<h2>DDD comes to rescue?</h2>
+				</section>
+				<section>
+					<h3>What's "DDD", anyway?</h3>
+					<p class="fragment">"DDD" <span class="fragment"> = </span> <span class="fragment">Domain Driven Design</span></p>
+					<p class="fragment">"领域驱动设计"</p>
+					<p class="fragment">一套指导行动的<span class="ustrong">方法论</span></p>
+				</section>
+				<section>
+					<h4>More tastes of DDD</h4>
+					<ul>						
+					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
+					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
+					<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
+					<li class="fragment">更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</p>
+					<li class="fragment">代码即<span class="ustrong">业务</span>逻辑</p>
+					<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
+					</ul>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>实例小剧场</h3>
+					<table>
+						<tr>
+							<th>姓名</th>
+							<th>角色</th>
+						</tr>
+						<tr>
+							<td>张三</td>
+							<td>研发</td>
+						</tr>
+						<tr>
+							<td>Lucy</td>
+							<td>产品经理</td>
+						</tr>
+						<tr>
+							<td>Tony</td>
+							<td>运营</td>
+						</tr>
+					</table>
+				</section>
+				<section class="dialogue">
+					<aside class="notes">
+						TODO
+						1. 体现相关方"纠偏"、"清晰地"定义某个功能点
+						2. 找到一个确实有歧义，需要讨论的功能点
+						3. 将例子简化并移到"理解业务"后面
+						4. 使用一个更加浅显的例子来说明 event storming(比如管理后台)
+					</aside>
+					<h4>会议室里</h4>
+					<div class="fragment">
+						<p>张三: <q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
+						<p>Lucy: <q>我们有创建合集, 修改合集, 向合集中添加<span class="term">帖子</span>, 还有...</q></p>
+						<p>张三: <q>慢着, 一个一个来, 让我把这些<span class="ustrong">事件</span>写在便签上, 然后贴在白板上; 先从创建合集开始, <span class="term">用户</span>需要提交的信息有标题,描述,封面对吧?</q></p>
+						<p>Lucy: <q>是的, 但是除了标题, 另外的信息都是<span class="ustrong">可选</span>的呢.</q></p>
+						<p>张三: <q>用户<span class="ustrong">请求创建之后</span>, 我们要对合集进行<span class="term">内容审核</span></q>(将"内容审核"贴在白板上,并用笔连接"请求创建合集"到"内容审核"); <q>如果初审通过, 我就直接让合集公开.</q></p>
+						<p>Tony: <q>可是后面还有两步审核, 这个合集可能不能通过啦.</q></p>
+						<p>张三: <q>如果初审不公开, 可能出现后续永远无法公开的问题, 比如第一次审核过之后就没有后续审核了.</q></p>
+						<p>Lucy: <q>我理解了; 只要保证最后的审核结果能够及时作用在合集上,我们就没有问题了呢.</q></p>
+						<p>Tony: (点头)</p>
+						......
+					</div>
+					<aside class="notes">				
+						<p>这里通过举例子, 引出 eventstorming 的概念</p>
+					</aside>
+				</section>
+				<section>
+					<h3 class="ustrong">梳理业务逻辑</h3>
+					<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
+					<p class="fragment">刚才的场景里用到了名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
+					<div class="fragment" style="font-size:0.5em;color:grey;">
+						<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
+						<ol>
+							<li>确定要讨论的业务</li>
+							<li>召集相关方聚在有白板的会议室中</li>
+							<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
+							<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
+							<li>重复3-4步</li>
+						</ol>
+						<p>最后我们就得到了业务的全部流转逻辑</p>
+					</div>
+					<aside class="notes">				
+						<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
+						<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
+					</aside>
+				</section>
+				<section>
+					<h4>还没完...</h4>
+					<h4 class="fragment">我们需要不断地修正对于业务的理解</h4>
+					<h4 class="fragment">直到</h4>
+				</section>
+				<section class="dialogue">
+					<h4>达成共识</h4>
+					<div class="fragment">
+						<p>张三: <q>合集相关的功能我整理了一下, 现在还有几个疑问, 找大家<span class="ustrong">一起来确认</span>下; 首先, 只有具有创作者<span class="term">身份</span>的<span class="term">用户</span>才能创建合集吗?</q></p>
+						<p>Lucy: <q>不是这样的,我们希望给所有有创作者<span class="term">权限</span>的用户自动授予创建合集权限呢</q></p>
+						<p>张三: <q>自动授予? 什么意思?</q></p>
+						<p>Tony: (举手)<q>只要保证运营有能力控制哪些用户能发布、哪些不能发布合集就可以啦</q></p>
+						<p>张三: <q>那么只要用户是创作者就可以创建合集吗?</q></p>
+						<p>Lucy: <q>不是的, 一开始会让所有的创作者用户都能创建合集, 但是可以单独禁止某些创作者用户创建合集</q></p>
+						<p>张三: <q>那么应该存在一个单独的<span class="ustrong">合集权限</span>, 具有<span class="ustrong">通常的权限的所有行为</span>; 至于你要的自动授予, 则在权限管理的<span class="term">领域</span>内处理</q></p>
+					</div>
+					<!--
+						<div class="fragment" style="font-size:0.5em;text-align:right;color:grey">continue on next page...</div>
+					-->
+					<aside class="notes">
+					这里主要是说明对于某些名词/概念, 要做到精确定义, 从而能够最终映射到"术语词典"和"流程图"上
+					</aside>
+				</section>
+	
+				<section id="output">
+					<h3>输出共识</h3>
+					<p class="fragment">
+					共识即<span class="term">领域通用语言</span>
+					</p>
+					<p class="fragment">通用语言可能包含:</p>
+					<ul>
+						<li class="fragment"><a href="#/context">领域 和 限界上下文</a></li>
+						<li class="fragment"><a href="#/dict">用语词典</a></li>
+						<li class="fragment"><a href="#/flow">业务流程图</a></li>
+					</ul>
+				</section>
+				<section id="context">
+					<div>
+						<h4>领域 & 限界上下文</h4>
+						<p class="fragment"><span class="term">领域</span>= 问题空间</p>
+						<p class="fragment"><span class="term">限界上下文</span>= 解空间 <span class="fragment">需要<span class="ustrong">由团队人为划定边界</span></span> </p>
+						
+						<p class="fragment">例如, 对于帖子合集功能</p>
+					
+						<p class="fragment">"领域" = 帖子合集的所有功能点</p>
+						<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含
+							<ol class="fragment">
+								<li>对合集操作的实际工作流程(交互与代码实现)</li>
+								<li>对帖子与合集关系的操作的实际工作流程</li>
+							</ol>
+						</p>
+					</div>
+					<a class="fragment" style="color:grey" href="#/output">back</a>
+					<aside class="notes">
+						TODO 修改样式
+					</aside>
+				</section>
+				<section id="dict" class="invisible">
+					<h4>用语词典</h4>
+					<p style="font-size:0.7em">"合集"领域的词典</p>
+					<div>
+						<table>
+							<tr><th>用语</th><th>说明</th></tr>
+							<tr><td>合集</td><td>用于组织用户发布的帖子的一种承载物</td></tr>
+							<tr><td>用户</td><td>一个用户即代表一个社区账号</td></tr>
+							<tr><td>帖子</td><td>社区单个用户单次生产内容的主要形式, 可以包含文本,图片,视频多种内容</td></tr>
+							<tr><td>...</td><td>...</td></tr>
+							<!--<tr><td>删除合集</td><td>合集删除后在业务流程上不可恢复</td></tr>-->
+						</table>
+					</div>
+					<a class="fragment" style="color:grey" href="#/output">back</a>
+					<aside class="notes">
+						用语词典的全称是"领域 XXX 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的领域以及上下文中表达一个清晰无歧义的概念;
+					</aside>
+				</section>
+				<section id="flow">
+					<h4>流程图</h4>
+					<div class="notes">
+						<img src="./img/compilation.png"/>
+					</div>
+					<a class="fragment" style="color:grey" href="#/output">back</a>
+					<aside class="notes">
+						在合集开发中, 用流程图和产品方进行了确认
+					</aside>
+				</section>
+				<section>
+					<h3>conclusion 1</h3>
+					<p>DDD 以业务为中心</p>
+					<p>"理解领域" 是实施 DDD 的第一步</p>
+					<p>输出共识的重要性</p>
+					<aside class="notes">也是最重要的一步</aside>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h3>first line of DDD codes</h3>
+					<div class="fragment">
+						<img src="./img/first_line.jpeg" />
+					</div>
+
+					<aside class="notes">
+						"有了业务的共识以后, 业务逻辑都是清晰的, 我们可以开始敲下第一行代码了"
+						举例来说, 使用限界上下文划定我们的服务边界, 使用"用语词典"为类型命名, 使用流程图构建我们的业务逻辑!
+						注意: 一定不要先写 dao 层!
+					</aside>
+				</section>
+
+				<section>
+					<h4>试看一例</h4>
+					<div>
+
+<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class Title(
+        val title: String
+) : SimpleValueObject&lt;Title> {
+    init {
+        if (title.isBlank()) {
+            throw BadRequestException()
+        }
+        if (title.length > 30) {
+            throw BadRequestException()
+        }
+    }
+}
+</code></pre>
+<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class CompilationID(
+        val id: Long
+) : SimpleValueObject&lt;CompilationID> {
+    init {
+        if(id &lt;= 0) { 
+            throw BadRequestException()
+        }
+    }
+}
+</code></pre>
+
+					</div>
+				</section>
+				<section>
+
+					<p class="fragment">Introducing...</p>
+					<h3 class="fragment ustrong">"值对象"</h3>
+
+					<ul class="fragment">
+						<li>不唯一</li>
+						<li>生命周期短</li>
+						<li>不可变</li>
+					</ul>
+				
+					<aside class="notes">
+						1. 请试着说出这段代码的业务逻辑
+						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+							2. 不可变
+					</aside>
+				</section>
+				<section>
+					<h4>试看一例</h4>
+					<div class="fragment">
+						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+						class Compilation private constructor(
+								val compilationID: CompilationID,
+								val author: Author,
+								private var title: Title,
+								private var description: Description?,
+								private var cover: String?,
+								private var status: CompilationStatus,
+								private var createTime: Long
+						) : SmartEntity&lt;Compilation>() {
+						
+							fun title() = title
+						
+							fun updateTitle(newTitle: Title) {
+								title = newTitle
+								refreshTouchTime()
+							}
+						
+							/* 
+							......... some other detail
+							*/
+						}
+						</code></pre>
+					</div>
+				</section>
+				<section>
+					<p class="fragment">Introducing...</p>
+					<h3 class="fragment ustrong">"实体对象"</h3>
+					<ul class="fragment">
+						<li>唯一性/身份</li>
+						<li>生命周期长</li>
+						<li>可变</li>
+					</ul>
+					<aside class="notes">
+						<pre>
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请观众说明该段代码的业务含义
+							1. 成员对象的可变性(val, var)
+							2. 可变属性的变更=替换操作
+						2. "实体"解释
+							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
+							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
+							3. Compilation 对象是可变的, 体现在其可变成员属性上
+
+						</pre>
+					</aside>
+				</section>
+				<section>
+					<h3>conclusion 2</h3>
+					<p>代码体现业务逻辑</p>
+					<p><span class="term">实体对象</span>用于表示业务中具备长生命周期的对象</p>
+					<p><span class="term">值对象</span>用于表示业务中短生命周期的对象</p>
+				</section>
+			</section>
+			<section>
+				<h3>To sum it up</h3>
+				<aside class="notes">
+				在我的小实践之后, 我要给出我的结论: DDD 很有用;
+
+				DDD 提供了一整套**方法论**, 能够指导我们**设计出较高质量的代码结构**; 
+
+				"抽象"这件事长期困扰我, 现在我有了一套指导原则和行动手册;
+
+				</aside>
+			</section>
+			<section>
+				<h3>References</h3>
+				<p>
+					<a href="https://git.quickcan.com/social/social-feed-service/" target="_blank">社区的帖子合集需求实现</a>
+				</p>
+			</section>
+
+			<section><h3>Q & A</h3></section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+
+		</script>
+		<style type="text/css">
+			.reveal section pre code {
+				font-size: 0.7em !important;
+			}
+			.reveal section .ustrong {
+				color: #CC3300;
+				font-style:	bold !important;
+				font-weight: 500px !important;
+			}
+			.reveal section.dialogue p {
+				font-size: 0.6em !important;
+				text-align: left;
+				padding-left: 2em ;
+			}
+			.reveal section .term {
+				font-style: normal !important;
+				color: #0099ff	!important;
+				border-bottom: 1px solid;
+			}
+		</style>
+	</body>
+</html>
