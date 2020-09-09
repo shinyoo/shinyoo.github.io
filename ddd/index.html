@@ -18,6 +18,103 @@
 			<div class="slides">
 			<section>
 				<section>
+					<h1>DDD 领域驱动设计入门</h1>
+					<p class="fragment">应对软件复杂性</p>
+				</section>
+				<section>
+					<h2>Contents</h2>
+					<ul>
+						<li>DDD 是什么 ?</li>
+						<li>为什么要学习 DDD ?</li>
+						<li>如何实施 DDD ?</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h3>What's DDD?</h3>
+						<p class="fragment">"DDD" <span class="fragment"> = </span> <span class="fragment">Domain Driven Design</span></p>
+						<p class="fragment">"领域驱动设计"</p>
+						<p class="fragment">一套指导行动的<span class="ustrong">方法论</span></p>
+					</section>
+					<section>
+						<h4>关键术语</h4>
+						<table>
+							<tr><th>术语</th><th>意义</th><th>示例</th></tr>
+							<tr>
+								<td class="term">领域</td>
+								<td>问题空间</td>
+								<td>某一类业务问题, 比如如何发布内容</td>
+							</tr>
+							<tr>
+								<td class="term">限界上下文</td>
+								<td>解空间</td>
+								<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容发布系统</td>
+							</tr>
+							<tr>
+								<td class="term">领域模型</td>
+								<td>对领域内的对象建模, 封装业务逻辑</td>
+								<td>内容发布系统中的"评论"对象, 具有删除动作</td>
+							</tr>
+							<tr>
+								<td class="term">实体对象</td>
+								<td>领域模型的一种, 具有全局唯一性</td>
+								<td>"发布系统"上下文中的"评论"对象是实体对象</td>
+							</tr>
+							<tr>
+								<td class="term">值对象</td>
+								<td>领域模型的一种, 生命周期短, 不唯一</td>
+								<td>"发布系统"上下文中的"评论"对象的的发布者 ID 是值对象</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<h3>以例子开始</h3>
+						<p>对于<span class="term">领域</span>"发布帖子"</p>
+						<p></p>
+
+						<aside class="notes">
+							TODO 找到更适合的例子
+						</aside>
+
+					</section>
+				</section>
+
+				<section>
+					<h4>More tastes of DDD</h4>
+					<ul>						
+					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
+					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
+					<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
+					<li class="fragment">更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</p>
+					<li class="fragment">代码即<span class="ustrong">业务</span>逻辑</p>
+					<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
+					</ul>
+				</section>
+				</section>
+				<section>
+					<h2>为什么要学习 DDD ?</h2>
+					<table class="fragment">
+						<th><td>现状</td></th>
+						<tr><td>面条代码</td></tr>
+						<tr><td>假·过程式</td></tr>
+						<tr><td>贫血模型</td></tr>
+						<tr><td>高耦合,低内聚</td></tr>
+					</table>
+				</section>
+				<section>
+					<h2>为什么要学习 DDD ?</h2>
+					<table class="fragment" style="inline-block">
+						<th><td>现状</td></th>
+						<tr><td>面条代码</td></tr>
+						<tr><td>假·过程式</td></tr>
+						<tr><td>贫血模型</td></tr>
+						<tr><td>高耦合,低内聚</td></tr>
+					</table>
+				</section>
+			</section>
+
+			<section>
+				<section>
 					<h2>When we are coding...</h2>
 				</section>
 				<section>
