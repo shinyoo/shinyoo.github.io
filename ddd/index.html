@@ -44,30 +44,30 @@
 				<!--1.2 概念说明-->
 				<section>
 					<h3>关键术语</h3>
-					<table style="table-style:auto">
+					<table style="font-size:0.7em">
 						<tr><th>术语</th><th>意义</th><th>示例</th></tr>
 						<tr>
-							<td class="term">领域</td>
+							<td><span class="term">领域</span></td>
 							<td>问题空间</td>
 							<td>某一类业务问题, 比如如何发布内容</td>
 						</tr>
 						<tr>
-							<td class="term">限界上下文</td>
+							<td><span class="term">限界上下文</span></td>
 							<td>解空间</td>
 							<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容发布系统</td>
 						</tr>
 						<tr>
-							<td class="term">领域模型</td>
+							<td><span class="term">领域模型</span></td>
 							<td>对领域内的对象建模, 封装业务逻辑</td>
 							<td>内容发布系统中的"评论"对象, 具有删除动作</td>
 						</tr>
 						<tr>
-							<td class="term">实体对象</td>
+							<td><span class="term">实体对象</span></td>
 							<td>领域模型的一种, 具有全局唯一性</td>
 							<td>"发布系统"上下文中的"评论"对象是实体对象</td>
 						</tr>
 						<tr>
-							<td class="term">值对象</td>
+							<td><span class="term">值对象</span></td>
 							<td>领域模型的一种, 生命周期短, 不唯一</td>
 							<td>"发布系统"上下文中的"评论"对象的的发布者 ID 是值对象</td>
 						</tr>
@@ -75,8 +75,8 @@
 				</section>
 				<!--1.3 举例说明-->
 				<section>
-					<h3>以例子开始</h3>
-					<p class="fragment">对于"社区帖子"问题(<span class="term">领域</span>),</p>
+					<h3>举例说明</h3>
+					<p class="fragment">对于"社区帖子"问题(<span class="term">领域</span>):</p>
 					<p class="fragment">我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
 					<p class="fragment">在该上下文中, 我们有帖子</span>(<span class="term">实体对象</span>);</p> 
 					<p class="fragment">该对象可能包含的属性有"帖子 ID", "帖子作者", "帖子标题", "帖子内容"</p>
