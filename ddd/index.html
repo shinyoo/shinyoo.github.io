@@ -37,50 +37,51 @@
 				<!--1.1 引子-->
 				<section>
 					<h2>DDD 是什么?</h2>
+					<h3 class="fragment">初识 DDD</h3>
 					<p class="fragment">"DDD" <span class="fragment"> = </span> <span class="fragment">Domain Driven Design</span></p>
 					<p class="fragment">"领域驱动设计"</p>
-					<p class="fragment">一套指导行动的<span class="ustrong">方法论</span></p>
+					<p class="fragment">一套指导软件设计与实施的<span class="ustrong">方法论</span></p>
 				</section>
 				<!--1.2 概念说明-->
 				<section>
 					<h3>关键术语</h3>
 					<table style="font-size:0.7em">
-						<tr><th>术语</th><th>意义</th><th>示例</th></tr>
-						<tr>
+						<tr class="fragment"><th>术语</th><th>意义</th><th>说明</th></tr>
+						<tr class="fragment">
 							<td><span class="term">领域</span></td>
 							<td>问题空间</td>
-							<td>某一类业务问题, 比如如何发布内容</td>
+							<td>某一类业务问题, 比如"如何发布内容"</td>
 						</tr>
-						<tr>
+						<tr class="fragment">
 							<td><span class="term">限界上下文</span></td>
 							<td>解空间</td>
 							<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容发布系统</td>
 						</tr>
-						<tr>
+						<tr class="fragment">
 							<td><span class="term">领域模型</span></td>
 							<td>对领域内的对象建模, 封装业务逻辑</td>
 							<td>内容发布系统中的"评论"对象, 具有删除动作</td>
 						</tr>
-						<tr>
+						<tr class="fragment">
 							<td><span class="term">实体对象</span></td>
 							<td>领域模型的一种, 具有全局唯一性</td>
 							<td>"发布系统"上下文中的"评论"对象是实体对象</td>
 						</tr>
-						<tr>
+						<tr class="fragment">
 							<td><span class="term">值对象</span></td>
 							<td>领域模型的一种, 生命周期短, 不唯一</td>
-							<td>"发布系统"上下文中的"评论"对象的的发布者 ID 是值对象</td>
+							<td>"发布系统"上下文中的"评论"对象的发布者 ID 是值对象</td>
 						</tr>
 					</table>
 				</section>
 				<!--1.3 举例说明-->
 				<section>
 					<h3>举例说明</h3>
-					<p class="fragment">对于"社区帖子"问题(<span class="term">领域</span>):</p>
+					<p class="fragment">对于"社区内容"问题(<span class="term">领域</span>):</p>
 					<p class="fragment">我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
-					<p class="fragment">在该上下文中, 我们有帖子</span>(<span class="term">实体对象</span>);</p> 
+					<p class="fragment">在该上下文中, 我们有帖子这一</span>(<span class="term">实体</span>)对象;</p> 
 					<p class="fragment">该对象可能包含的属性有"帖子 ID", "帖子作者", "帖子标题", "帖子内容"</p>
-					<p class="fragment">这些属性都是<span class="term">值对象</span>, 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可</p>
+					<p class="fragment">这些属性都是<span class="term">值对象</span></p>
 					<aside class="notes">
 						
 					</aside>
@@ -350,7 +351,7 @@ data class CompilationID(
 							3. ? = @Nullable
 						1. 请观众说明该段代码的业务含义
 							1. 成员对象的可变性(val, var)
-							2. 可变属性的变更=替换操作
+							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
 						2. "实体"解释
 							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
 							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
