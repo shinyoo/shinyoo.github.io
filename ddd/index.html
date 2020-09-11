@@ -47,28 +47,28 @@
 				<section>
 					<h3>关键术语</h3>
 					<table style="font-size:0.7em">
-						<tr class="fragment"><th>术语</th><th>意义</th><th>说明</th></tr>
-						<tr class="fragment">
+						<tr><th>术语</th><th>意义</th><th>说明</th></tr>
+						<tr>
 							<td><span class="term">领域</span></td>
 							<td>问题空间</td>
 							<td>某一类业务问题, 比如"如何发布内容"</td>
 						</tr>
-						<tr class="fragment">
+						<tr>
 							<td><span class="term">限界上下文</span></td>
 							<td>解空间</td>
 							<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容发布系统</td>
 						</tr>
-						<tr class="fragment">
+						<tr>
 							<td><span class="term">领域模型</span></td>
 							<td>对领域内的对象建模, 封装业务逻辑</td>
 							<td>内容发布系统中的"评论"对象, 具有删除动作</td>
 						</tr>
-						<tr class="fragment">
+						<tr>
 							<td><span class="term">实体对象</span></td>
 							<td>领域模型的一种, 具有全局唯一性</td>
 							<td>"发布系统"上下文中的"评论"对象是实体对象</td>
 						</tr>
-						<tr class="fragment">
+						<tr>
 							<td><span class="term">值对象</span></td>
 							<td>领域模型的一种, 生命周期短, 不唯一</td>
 							<td>"发布系统"上下文中的"评论"对象的发布者 ID 是值对象</td>
@@ -78,13 +78,15 @@
 				<!--1.3 举例说明-->
 				<section>
 					<h3>举例说明</h3>
-					<p class="fragment">对于"社区内容"问题(<span class="term">领域</span>):</p>
-					<p class="fragment">我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
-					<p class="fragment">在该上下文中, 我们有帖子这一</span>(<span class="term">实体</span>)对象;</p> 
-					<p class="fragment">该对象可能包含的属性有"帖子 ID", "帖子作者", "帖子标题", "帖子内容"</p>
-					<p class="fragment">这些属性都是<span class="term">值对象</span></p>
+					<div class="fragment">
+						<p>对于"社区内容"问题(<span class="term">领域</span>):</p>
+						<p>我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
+						<p>在该上下文中, 我们有帖子这一</span>(<span class="term">实体</span>)对象;</p> 
+						<p>该对象可能包含的属性有"帖子 ID", "帖子作者", "帖子标题", "帖子内容"</p>
+						<p>这些属性都是<span class="term">值对象</span></p>
+					</div>
 					<aside class="notes">
-						点到为止, 只需要
+						点到为止
 					</aside>
 
 				</section>
@@ -104,7 +106,7 @@
 						4. 业务扩展困难: 好吧, 这应该是程序员的锅, 软件设计上做的不够灵活多变
 					</aside>
 					<h3>产研实践的缺陷</h3>
-					<ul>
+					<ul class="fragment">
 						<li class="fragment">业务定义不清晰</li>
 						<li class="fragment">业务用语有歧义</li>
 						<li class="fragment">业务逻辑丢失</li>
@@ -113,13 +115,13 @@
 				</section>
 				<section>
 					<h3>DDD 的优点</h3>
-					<ul>						
-					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
-					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
-					<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
-					<li class="fragment">更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</p>
-					<li class="fragment">代码即<span class="ustrong">业务</span>逻辑</p>
-					<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
+					<ul class="fragment">						
+						<li>以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</li>
+						<li>建立全员一致的<span class="ustrong">业务</span>理解</li>
+						<li>更好的团队投入与参与(产品, 运营, 开发者, etc)</li>
+						<li>更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</li>
+						<li>代码即<span class="ustrong">业务</span>逻辑</li>
+						<li>代码更加易于维护,扩展;(可能)更高的代码质量</li>
 					</ul>
 				</section>
 				
@@ -130,13 +132,14 @@
 				<section>
 					<h2>如何实施 DDD?</h2>
 					<p>For everybody</p>
-					<ol>
+					<ol class="fragment">
 						<li>梳理业务逻辑</li>
 						<li>输出共识</li>
 					</ol>
 				</section>
 				<section>
 					<h3 class="ustrong"> 1. 梳理业务逻辑</h3>
+					
 					<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
 					<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
 					<div class="fragment" style="font-size:0.5em;color:grey;">
@@ -150,6 +153,7 @@
 						</ol>
 						<p>最后我们就得到了业务的全部流转逻辑</p>
 					</div>
+					
 					<aside class="notes">				
 						<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
 						<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
@@ -157,20 +161,22 @@
 				</section>
 				<section id="output">
 					<h3>2. 输出共识</h3>
-					<p class="fragment">
-					共识即<span class="term">领域通用语言</span>
-					</p>
-					<p class="fragment">通用语言包含:</p>
-					<ul>
-						<!--
-						<li class="fragment"><a href="#/context">领域 和 限界上下文</a></li>
-						<li class="fragment"><a href="#/dict">用语词典</a></li>
-						<li class="fragment"><a href="#/flow">业务流程图</a></li>
-						-->
-						<li class="fragment">领域 和 限界上下文</li>
-						<li class="fragment">用语词典</li>
-						<li class="fragment">业务流程图</li>
-					</ul>
+					<div class="fragment">
+						<p>
+						共识即<span class="term">领域通用语言</span>
+						</p>
+						<p>通用语言包含:</p>
+						<ul>
+							<!--
+							<li class="fragment"><a href="#/context">领域 和 限界上下文</a></li>
+							<li class="fragment"><a href="#/dict">用语词典</a></li>
+							<li class="fragment"><a href="#/flow">业务流程图</a></li>
+							-->
+							<li>领域 和 限界上下文</li>
+							<li>用语词典</li>
+							<li>业务流程图</li>
+						</ul>
+					</div>
 				</section>
 				<section id="context">
 					<div>
@@ -236,7 +242,7 @@
 				<section>
 					<h2>如何实施 DDD</h2>
 					<p>for programmers</p>
-					<div>
+					<div class="fragment">
 						<p>0. 达成共识</p>
 						<p>1. 为领域建模</p>
 						<p>2. 架构概述</p>
@@ -250,7 +256,7 @@
 				<section>
 					<h3>为领域建模</h3>
 					<p>原则</p>
-					<ul>
+					<ul class="fragment">
 						<li>忘记 DB, 领域优先</li>
 						<li>创建纯洁的领域模型</li>
 					</ul>
@@ -264,13 +270,17 @@
 
 				<section>
 					<h4>创建纯洁的领域对象</h4>
+					<p>"纯洁"是指:</p>
+					<ol class="fragment">
+						<li>对应于领域中的一个术语</li>
+						<li>单一职责(SRP)</li>
+						<li>不知道任何自己职责以外的知识</li>
+					</ol>
 					<aside class="notes" data-markdown data-template>
-						纯洁的领域对象应该
-						1. 对应于领域中的一个术语
-						2. 单一职责(SRP)
-						3. 不知道任何自己职责以外的知识
+						TODO 举例子? 或者换掉后面的两个例子
 					</aside>
 				</section>
+				<!--
 				<section>
 					<h5 class="fragment ustrong">"值对象"</h5>
 					<ul class="fragment">
@@ -289,6 +299,7 @@
 							2. 不可变
 					</aside>
 				</section>
+				-->
 				<section>
 					<h5>试看一例</h5>
 					<div>
