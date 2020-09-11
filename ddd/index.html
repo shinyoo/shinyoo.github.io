@@ -83,7 +83,7 @@
 					<p class="fragment">该对象可能包含的属性有"帖子 ID", "帖子作者", "帖子标题", "帖子内容"</p>
 					<p class="fragment">这些属性都是<span class="term">值对象</span></p>
 					<aside class="notes">
-						
+						点到为止, 只需要
 					</aside>
 
 				</section>
@@ -93,17 +93,6 @@
 			<section>
 				<section>
 					<h2>为什么要学习 DDD?</h2>
-				</section>
-				<section>
-					<h3>DDD 的优点</h3>
-					<ul>						
-					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
-					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
-					<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
-					<li class="fragment">更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</p>
-					<li class="fragment">代码即<span class="ustrong">业务</span>逻辑</p>
-					<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
-					</ul>
 				</section>
 				<section>
 					<aside class="notes">
@@ -121,16 +110,32 @@
 						<li class="fragment">业务扩展困难</li>
 					</ul>
 				</section>
+				<section>
+					<h3>DDD 的优点</h3>
+					<ul>						
+					<li class="fragment">以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</p>
+					<li class="fragment">建立全员一致的<span class="ustrong">业务</span>理解</p>
+					<li class="fragment">更好的团队投入与参与(产品, 运营, 开发者, etc)</p>
+					<li class="fragment">更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</p>
+					<li class="fragment">代码即<span class="ustrong">业务</span>逻辑</p>
+					<li class="fragment">代码更加易于维护,扩展;(可能)更高的代码质量</p>
+					</ul>
+				</section>
+				
 			</section>
 
-			<!--3. 如何实施 DDD part I-->
+			<!--3. 如何实施 DDD for everyone-->
 			<section>
 				<section>
-					<h2>如何实施 DDD</h2>
-					<p>for everyone</p>
+					<h2>如何实施 DDD?</h2>
+					<p>For everybody</p>
+					<ol>
+						<li>梳理业务逻辑</li>
+						<li>输出共识</li>
+					</ol>
 				</section>
 				<section>
-					<h3 class="ustrong">梳理业务逻辑</h3>
+					<h3 class="ustrong"> 1. 梳理业务逻辑</h3>
 					<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
 					<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
 					<div class="fragment" style="font-size:0.5em;color:grey;">
@@ -149,34 +154,8 @@
 						<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
 					</aside>
 				</section>
-				<!--删除该例子-->
-				<section class="dialogue">
-					<aside class="notes">
-						TODO
-						1. 体现相关方"纠偏"、"清晰地"定义某个功能点
-						2. 找到一个确实有歧义，需要讨论的功能点
-						3. 将例子简化并移到"理解业务"后面
-						4. 使用一个更加浅显的例子来说明 event storming(比如管理后台)
-					</aside>
-					<h4>会议室里</h4>
-					<div class="fragment">
-						<p>张三: <q>关于这个新功能<span class="term">"合集"</span>, 都有哪些操作呢?</q></p>
-						<p>Lucy: <q>我们有创建合集, 修改合集, 向合集中添加<span class="term">帖子</span>, 还有...</q></p>
-						<p>张三: <q>慢着, 一个一个来, 让我把这些<span class="ustrong">事件</span>写在便签上, 然后贴在白板上; 先从创建合集开始, <span class="term">用户</span>需要提交的信息有标题,描述,封面对吧?</q></p>
-						<p>Lucy: <q>是的, 但是除了标题, 另外的信息都是<span class="ustrong">可选</span>的呢.</q></p>
-						<p>张三: <q>用户<span class="ustrong">请求创建之后</span>, 我们要对合集进行<span class="term">内容审核</span></q>(将"内容审核"贴在白板上,并用笔连接"请求创建合集"到"内容审核"); <q>如果初审通过, 我就直接让合集公开.</q></p>
-						<p>Tony: <q>可是后面还有两步审核, 这个合集可能不能通过啦.</q></p>
-						<p>张三: <q>如果初审不公开, 可能出现后续永远无法公开的问题, 比如第一次审核过之后就没有后续审核了.</q></p>
-						<p>Lucy: <q>我理解了; 只要保证最后的审核结果能够及时作用在合集上,我们就没有问题了呢.</q></p>
-						<p>Tony: (点头)</p>
-						......
-					</div>
-					<aside class="notes">				
-						<p>这里通过举例子, 引出 eventstorming 的概念</p>
-					</aside>
-				</section>
 				<section id="output">
-					<h3>输出共识</h3>
+					<h3>2. 输出共识</h3>
 					<p class="fragment">
 					共识即<span class="term">领域通用语言</span>
 					</p>
@@ -238,30 +217,70 @@
 				</section>
 				<section>
 					<h3>conclusion 1</h3>
-					<p>DDD 以业务为中心</p>
-					<p>"理解领域" 是实施 DDD 的第一步</p>
-					<p>输出共识的重要性</p>
-					<aside class="notes">也是最重要的一步</aside>
+					<p>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</p>
+					<p>"理解领域"是实施 DDD 的第一步</p>
+					<p>达成并输出<span class="ustrong">共识</span>十分重要</p>
+					<aside class="notes">
+
+					</aside>
 				</section>
 			</section>
+
+			<!--4. 如何实施 DDD for-->
 			<section>
 				<section>
 					<h2>如何实施 DDD</h2>
 					<p>for programmers</p>
 				</section>
+
 				<section>
-					<h3>first line of DDD codes</h3>
+					<h3>步骤</h3>
+					<ol>
+						<li>达成共识</li>
+						<li>为领域建模</li>
+						<li>CQRS 模型</li>
+					</ol>
+
+				</section>
+				<section>
+					<h4>1. 忘记 DB, 领域优先</h4>
 					<div class="fragment">
 						<img src="./img/first_line.jpeg" />
 					</div>
-
 					<aside class="notes">
 						"有了业务的共识以后, 业务逻辑都是清晰的, 我们可以开始敲下第一行代码了"
 						举例来说, 使用限界上下文划定我们的服务边界, 使用"用语词典"为类型命名, 使用流程图构建我们的业务逻辑!
 						注意: 一定不要先写 dao 层!
 					</aside>
 				</section>
-
+				<section>
+					<h3>2. 为领域建模</h3>
+					<p>原则</p>
+					<ul>
+						<li>创建纯洁的领域模型</li>
+						<li>将 IO 推到系统边界</li>
+					</ul>
+					<aside class="notes" data-markdown data-template>
+						纯洁的领域对象应该
+						1. 对应于领域中的一个术语
+						2. 单一职责(SRP)
+						3. 不知道任何自己职责以外的知识
+					</aside>
+				</section>
+				<section>
+					<h4 class="fragment ustrong">"值对象"</h4>
+					<ul class="fragment">
+						<li>不唯一</li>
+						<li>生命周期短</li>
+						<li>不可变</li>
+					</ul>
+					<aside class="notes">
+						1. 请试着说出这段代码的业务逻辑
+						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+							2. 不可变
+					</aside>
+				</section>
 				<section>
 					<h4>试看一例</h4>
 					<div>
@@ -295,17 +314,27 @@ data class CompilationID(
 					</div>
 				</section>
 				<section>
-					<h3 class="fragment ustrong">"值对象"</h3>
+					<h3 class="fragment ustrong">"实体对象"</h3>
 					<ul class="fragment">
-						<li>不唯一</li>
-						<li>生命周期短</li>
-						<li>不可变</li>
+						<li>唯一性/身份</li>
+						<li>生命周期长</li>
+						<li>可变</li>
 					</ul>
 					<aside class="notes">
-						1. 请试着说出这段代码的业务逻辑
-						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-							2. 不可变
+						<pre>
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请观众说明该段代码的业务含义
+							1. 成员对象的可变性(val, var)
+							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
+						2. "实体"解释
+							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
+							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
+							3. Compilation 对象是可变的, 体现在其可变成员属性上
+
+						</pre>
 					</aside>
 				</section>
 				<section>
@@ -336,29 +365,9 @@ data class CompilationID(
 						</code></pre>
 					</div>
 				</section>
-				<section>
-					<h3 class="fragment ustrong">"实体对象"</h3>
-					<ul class="fragment">
-						<li>唯一性/身份</li>
-						<li>生命周期长</li>
-						<li>可变</li>
-					</ul>
-					<aside class="notes">
-						<pre>
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请观众说明该段代码的业务含义
-							1. 成员对象的可变性(val, var)
-							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
-						2. "实体"解释
-							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
-							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
-							3. Compilation 对象是可变的, 体现在其可变成员属性上
 
-						</pre>
-					</aside>
+				<section>
+					<h3></h3>
 				</section>
 				<section>
 					<h3>conclusion 2</h3>
@@ -370,22 +379,21 @@ data class CompilationID(
 			<section>
 				<h3>To sum it up</h3>
 				<aside class="notes">
-				在我的小实践之后, 我要给出我的结论: DDD 很有用;
 
-				DDD 提供了一整套**方法论**, 能够指导我们**设计出较高质量的代码结构**; 
 
-				"抽象"这件事长期困扰我, 现在我有了一套指导原则和行动手册;
+					TODO
 
 				</aside>
 			</section>
 			<section>
-				<h3>References</h3>
-				<p>
-					<a href="https://git.quickcan.com/social/social-feed-service/" target="_blank">社区的帖子合集需求实现</a>
+				<h3>References(if you're still interested)</h3>
+				<p>欢迎阅读我写的 <a href="https://wiki.quickcan.com/pages/viewpage.action?pageId=175243524#DDD(领域驱动设计)实践-review_log">DDD 实战记录</a></p>
+				<p><a href="https://git.quickcan.com/social/social-feed-service/-/tree/master/src/main/kotlin/com/kk/social/experimental/ddd/compilation" target="_blank">社区合集实现</a>
 				</p>
 			</section>
 
 			<section><h3>Q & A</h3></section>
+
 			</div>
 		</div>
 
