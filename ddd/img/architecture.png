@@ -1,0 +1,120 @@
+digraph architecture {
+	graph [bb="0,0,410,433.19",
+		label=架构,
+		lheight=0.21,
+		lp="205,11.5",
+		lwidth=0.40
+	];
+	node [label="\N"];
+	edge [head=invis,
+		headport=none
+	];
+	subgraph cluster_domain {
+		graph [bb="57,121,399,335.19",
+			fillcolor=lightyellow,
+			fontsize=20,
+			label=领域,
+			lheight=0.31,
+			lp="228,320.19",
+			lwidth=0.57,
+			style=filled
+		];
+		node [fillcolor=white,
+			style=filled
+		];
+		app	[fillcolor=lightblue,
+			height=0.5,
+			label=应用,
+			pos="228,279.19",
+			shape=box,
+			style="rounded,filled",
+			width=0.75];
+		o	[height=1.336,
+			label=领域对象,
+			pos="113,177.1",
+			shape=circle,
+			width=1.336];
+		app -> o	[head="",
+			pos="e,149.21,209.61 208.23,260.98 194.2,248.77 174.79,231.88 157.16,216.53"];
+		repo	[height=0.5,
+			label="资源库(Repo)",
+			pos="228,177.1",
+			shape=cylinder,
+			width=1.3472];
+		app -> repo	[head="",
+			pos="e,228,195.33 228,260.76 228,245.54 228,223.21 228,205.59"];
+		d_ser	[height=0.5,
+			label=领域服务,
+			pos="343,177.1",
+			width=1.336];
+		app -> d_ser	[head="",
+			pos="e,324.63,194.09 247.77,260.98 266.9,244.33 296.01,218.99 317.01,200.71"];
+		out	[height=0.5,
+			pos="124,279.19",
+			rank=min,
+			style=invisible,
+			width=0.75];
+	}
+	subgraph cluster_infr {
+		graph [bb="8,31,402,113",
+			fillcolor=darkorange,
+			fontsize=20,
+			label=基础设施,
+			lheight=0.31,
+			lp="205,98",
+			lwidth=1.14,
+			style=filled
+		];
+		node [fillcolor=white,
+			style=filled
+		];
+		in	[fillcolor="",
+			height=0.5,
+			pos="367,57",
+			style=invisible,
+			width=0.75];
+		db	[height=0.5,
+			label=数据库,
+			pos="292,57",
+			shape=cylinder,
+			width=0.81944];
+		mq	[height=0.5,
+			label=消息中间件,
+			pos="187,57",
+			width=1.5887];
+		ex_ser	[height=0.5,
+			label=外部服务,
+			pos="64,57",
+			width=1.336];
+	}
+	subgraph cluster_entry {
+		graph [bb="38,343.19,372,425.19",
+			fillcolor=lightblue,
+			fontsize=20,
+			label=入口,
+			lheight=0.31,
+			lp="205,410.19",
+			lwidth=0.57,
+			style=filled
+		];
+		node [fillcolor=white,
+			style=filled
+		];
+		f	[height=0.5,
+			label="表面(facade)",
+			pos="256,369.19",
+			shape=box,
+			width=3];
+		a	[height=0.5,
+			label=适配器,
+			pos="88,369.19",
+			shape=octagon,
+			width=1.1529];
+	}
+	repo -> in:w	[pos="e,339,57 241.34,158.86 252.03,146.32 268.15,130.02 286,121 304.13,111.84 316.88,127.61 331,113 337.35,106.43 332.06,79.846 333.51,\
+65.798"];
+	d_ser -> in:w	[pos="e,339,57 340.71,159.03 337.45,133.43 332.13,85.978 334.66,66.115"];
+	f -> app:none	[pos="e,233.43,297.24 250.47,350.81 246.49,338.31 241.06,321.23 236.53,307"];
+	a -> app:none	[pos="e,210.12,297.31 113.99,354.88 121.95,350.96 130.77,346.77 139,343.19 148.16,339.21 151.34,340.17 160,335.19 175.12,326.5 190.35,\
+314.53 202.56,303.99"];
+}

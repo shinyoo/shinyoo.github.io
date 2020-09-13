@@ -1,0 +1,54 @@
+digraph architecture {
+    subgraph cluster_domain{
+        node[style=filled;fillcolor=white]
+        app[label="应用";style="rounded,filled";shape=box;fillcolor=lightblue]
+        o[label="领域对象";shape=circle]
+        repo[label="资源库(Repo)";shape=cylinder]
+        d_ser[label="领域服务"]
+
+        
+        app->repo
+        app->o
+        app->d_ser
+
+        label="领域";
+        fontsize=20;
+        style=filled;
+        fillcolor=lightyellow;
+        out[style=invisible;rank=min]
+        
+    }
+
+    edge[head=invis;headport=w]
+    d_ser->in
+    repo->in
+    edge[headport=none]
+    subgraph cluster_infr{
+        in[style=invisible;]
+        node[style=filled;fillcolor=white]
+        db[label="数据库";shape=cylinder]
+        mq[label="消息中间件"]
+        ex_ser[label="外部服务"];
+        fontsize=20;
+        label="基础设施";
+        style=filled;
+        fillcolor=darkorange;
+    }
+
+    subgraph cluster_entry{
+        node[style=filled;fillcolor=white]
+        f[label="表面(facade)";shape=box;width=3];
+        a[label="适配器";shape=octagon]
+        f->app;    
+        a->app;
+        fontsize=20
+        label="入口";
+        style=filled;
+        fillcolor=lightblue;       
+    }
+
+    
+
+    label="架构";
+}
+

@@ -138,7 +138,7 @@
 					</ol>
 				</section>
 				<section>
-					<h3 class="ustrong"> 1. 梳理业务逻辑</h3>
+					<h3> 1. 梳理业务逻辑</h3>
 					
 					<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
 					<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
@@ -241,7 +241,7 @@
 			<section>
 				<section>
 					<h2>如何实施 DDD</h2>
-					<p>for programmers</p>
+					<p>For programmers</p>
 					<div class="fragment">
 						<p>0. 达成共识</p>
 						<p>1. 为领域建模</p>
@@ -255,26 +255,186 @@
 				</section>
 				<section>
 					<h3>为领域建模</h3>
-					<p>原则</p>
-					<ul class="fragment">
-						<li>忘记 DB, 领域优先</li>
-						<li>创建纯洁的领域模型</li>
-					</ul>
+					<p class="fragment">原则: 创建纯洁的领域对象</p>
 				</section>
 				<section>
-					<h4>忘记 DB, 领域优先</h4>
-					<div class="fragment">
+					<h3>创建纯洁的领域对象</h3>
+					<h5>忘记 DB, 领域优先</h5>
+					<aside class="notes">
+						例子中是一个典型的 POJO, 或者说 DTO (data transfer object), 而且拥有与 schema 一一对应的字段
+					</aside>
+					<div class="fragment fade-out">
 						<img src="./img/first_line.jpeg" />
 					</div>
+					<table class="fragment fade-in">
+						<th>
+							<td>NO</td><td>YES</td>
+						</th>
+						<tr>
+							<td>
+								<pre><code class="kotlin" data-noescape data-trim">
+									class BadDomain {
+										private var id:Int =0;
+										private var name:String="";
+										private var createTime:Long=0L;
+										private var updateTime:Long=0L;
+										private var status:Byte=0L
+										/*...
+												setters and getters
+										...*/
+									}
+								</code></pre>
+							</td>
+
+							<td>
+								<pre><code class="kotlin data-noescape data-trim">
+									class GoodDomain {
+										private var name:String
+										fun setName(newName:String){
+											if (newName.length > 30) throw BadRequestException("名称长度过长")
+										}
+									}
+								</code></pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h4>创建纯洁的领域对象</h4>
+					<h5>对象对应于<span class="term">上下文</span>中的一个清晰概念</h5>
+					<table class="fragment fade-in">
+						<th>
+							<td>NO</td><td>YES</td>
+						</th>
+						<tr>
+							<td>
+								<pre><code class="kotlin" data-noescape data-trim">
+									class User {
+										private var id: Int =0
+										private var name: String=""
+										private var gender: Gender=FEMALE
+										private var phone: String?=null
+										private var mail: String?= null
+										private var posts: Int = 0
+										private var lastLoginTime: Long=0L
+										
+									}
+								</code></pre>
+							</td>
+
+							<td>
+								<pre><code class="kotlin data-noescape data-trim">
+									class Author {
+										private var id:Int = 0
+										private var gender:Gender=FEMALE
+										private var posts:Int=0
+										init {
+											if(id <= 0) throw BadRequestException("用户 id 无效")
+										}
+									}
+									/*.......*/
+									interface addPost(author:Author, post:Post)
+								</code></pre>
+							</td>
+						</tr>
+					</table>
 				</section>
 
 				<section>
 					<h4>创建纯洁的领域对象</h4>
+					<h5>对象只有单一的<span class="ustrong">职责</span>(SRP)</h5>
+					<table class="fragment fade-in">
+						<th>
+							<td>NO</td><td>YES</td>
+						</th>
+						<tr>
+							<td>
+								<pre><code class="kotlin" data-noescape data-trim">
+									class UserAccount {
+										private var id: Int =0
+										private var status:Status=OK
+										private var followings: Set&lt;UserAccount>
+										
+										fun addFollowing(other:UserAccount) {
+											followings.add(other)
+										}
+
+										fun ban(){
+											status = BANNED
+										}
+									}
+								</code></pre>
+							</td>
+
+							<td>
+								<pre><code class="kotlin data-noescape data-trim">
+									class UserAccount {
+										private val id: Int =0
+										private var status:Status=OK
+										fun ban(){
+											status = BANNED
+										}
+									}
+									class SocialNetworkUser {
+										private val id: Int = 0
+										private var followings: Set&lt;SocialNetworkUser>
+										fun follow(other:SocialNetworkUser){ /*...*/ }
+										fun unfollow(toUnfollow:SocialNetworkUser) { /*...*/ }
+									}
+								</code></pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h4>创建纯洁的领域对象</h4>
+					<h5>对象不知道其职责以外的任何知识</h5>
+					<table class="fragment fade-in">
+						<th>
+							<td>NO</td><td>YES</td>
+						</th>
+						<tr>
+							<td>
+								<pre><code class="kotlin" data-noescape data-trim">
+									class UserAccount {
+										private val id: Int =0
+										private var status: Status=OK
+										private var banReason: String?=null
+										fun ban(reason: OutSideReason){
+											status = BANNED
+											banReason = when (reason) {
+												BAD_BEHAVIOR -> DomainEnum.BAD_BEHAVIOR.str
+												ADMIN_BAN -> DomainEnum.ADMIN_BAN.str
+												else->null
+											}
+										}
+									}
+								</code></pre>
+							</td>
+
+							<td>
+								<pre><code class="kotlin data-noescape data-trim">
+									class UserAccount {
+										private val id: Int =0
+										private var status: Status=OK
+										private var banReason: String?=null
+										fun ban(reason: DomainEnum){
+											status = BANNED
+											banReason = reason.str
+										}
+									}
+								</code></pre>
+							</td>
+						</tr>
+					</table>
+				</section>
+				<section>
+					<h4>创建纯洁的领域对象</h4>
 					<p>"纯洁"是指:</p>
 					<ol class="fragment">
-						<li>对应于领域中的一个术语</li>
-						<li>单一职责(SRP)</li>
-						<li>不知道任何自己职责以外的知识</li>
+						<li>对象对应于<span class="term">上下文</span>中的一个清晰概念</li>
+						<li>对象只有单一的<span class="ustrong">职责</span>(SRP)</li>
+						<li>对象不知道其职责以外的任何知识</li>
 					</ol>
 					<aside class="notes" data-markdown data-template>
 						TODO 举例子? 或者换掉后面的两个例子
@@ -302,6 +462,16 @@
 				-->
 				<section>
 					<h5>试看一例</h5>
+					<aside class="notes">
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请试着说出这段代码的业务逻辑
+						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+							2. 不可变
+					</aside>
 					<div>
 
 <pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
@@ -332,6 +502,7 @@ data class CompilationID(
 
 					</div>
 				</section>
+			<!--
 				<section>
 					<h5 class="fragment ustrong">"实体对象"</h5>
 					<ul class="fragment">
@@ -356,8 +527,22 @@ data class CompilationID(
 						</pre>
 					</aside>
 				</section>
+			-->
 				<section>
 					<h5>试看一例</h5>
+					<aside class="notes">
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请观众说明该段代码的业务含义
+							1. 成员对象的可变性(val, var)
+							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
+						2. "实体"解释
+							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
+							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
+							3. Compilation 对象是可变的, 体现在其可变成员属性上
+					</aside>
 					<div class="fragment">
 						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 						class Compilation private constructor(
@@ -397,6 +582,11 @@ data class CompilationID(
 					<aside class="notes">
 						TODO 考虑不是用列表, 而是使用图来举例说明合集上下文的架构是如何实现的
 					</aside>
+				</section>
+				<section>
+					<h3>架构概述</h3>
+					<h4>示例</h4>
+					<p><img src="./img/architecture.png"/></p>
 				</section>
 				<section>
 					<h3>conclusion 2</h3>
