@@ -71,7 +71,7 @@
 						<tr>
 							<td><span class="term">值对象</span></td>
 							<td>领域模型的一种, 生命周期短, 不唯一</td>
-							<td>"发布系统"上下文中的"评论"对象的发布者 ID 是值对象</td>
+							<td>"发布系统"上下文中的"帖子"对象的内容文本是值对象</td>
 						</tr>
 					</table>
 				</section>
@@ -82,7 +82,7 @@
 						<p>对于"社区内容"问题(<span class="term">领域</span>):</p>
 						<p>我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
 						<p>在该上下文中, 我们有帖子这一</span>(<span class="term">实体</span>)对象;</p> 
-						<p>该对象可能包含的属性有"帖子 ID", "帖子作者", "帖子标题", "帖子内容"</p>
+						<p>该对象可能包含的属性有 "帖子标题", "帖子内容"</p>
 						<p>这些属性都是<span class="term">值对象</span></p>
 					</div>
 					<aside class="notes">
@@ -120,21 +120,25 @@
 						<li>建立全员一致的<span class="ustrong">业务</span>理解</li>
 						<li>更好的团队投入与参与(产品, 运营, 开发者, etc)</li>
 						<li>更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</li>
-						<li>代码即<span class="ustrong">业务</span>逻辑</li>
+						<li>领域模型即<span class="ustrong">业务</span>逻辑</li>
 						<li>代码更加易于维护,扩展;(可能)更高的代码质量</li>
 					</ul>
+					<aside class="notes">
+						model 中的业务逻辑, service 中没有业务逻辑!
+					</aside>
 				</section>
 				
 			</section>
 
-			<!--3. 如何实施 DDD for everyone-->
+			<!--3. 如何实施 DDD-->
 			<section>
 				<section>
 					<h2>如何实施 DDD?</h2>
-					<p>For everybody</p>
 					<ol class="fragment">
 						<li>梳理业务逻辑</li>
 						<li>输出共识</li>
+						<li>为领域建模</li>
+						<li>完整架构</li>
 					</ol>
 				</section>
 				<section>
@@ -167,11 +171,6 @@
 						</p>
 						<p>通用语言包含:</p>
 						<ul>
-							<!--
-							<li class="fragment"><a href="#/context">领域 和 限界上下文</a></li>
-							<li class="fragment"><a href="#/dict">用语词典</a></li>
-							<li class="fragment"><a href="#/flow">业务流程图</a></li>
-							-->
 							<li>领域 和 限界上下文</li>
 							<li>用语词典</li>
 							<li>业务流程图</li>
@@ -229,34 +228,151 @@
 				<section>
 					<h3>conclusion 1</h3>
 					<p>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</p>
-					<p>"理解领域"是实施 DDD 的第一步</p>
+					<p><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</p>
 					<p>达成并输出<span class="ustrong">共识</span>十分重要</p>
 					<aside class="notes">
 
 					</aside>
 				</section>
-			</section>
-
-			<!--4. 如何实施 DDD for-->
-			<section>
 				<section>
-					<h2>如何实施 DDD</h2>
-					<p>For programmers</p>
-					<div class="fragment">
-						<p>0. 达成共识</p>
-						<p>1. 为领域建模</p>
-						<p>2. 架构概述</p>
-					</div>
+					<h3> 3. 为领域建模</h3>
+					<p class="ustrong">将业务逻辑封装在领域模型中!</p>
 					<aside class="notes">
-						"有了业务的共识以后, 业务逻辑都是清晰的, 我们可以开始敲下第一行代码了"
-						举例来说, 使用限界上下文划定我们的服务边界, 使用"用语词典"为类型命名, 使用流程图构建我们的业务逻辑!
-						注意: 一定不要先写 dao 层!
+						TODO 对比 service 和 Domain Object
+					</aside>
+					<div>
+						<pre><code>
+							class SomeService
+						</code></pre>
+					</div>
+				</section>
+				<section>
+					<h5 class="fragment ustrong">"值对象"</h5>
+					<ul class="fragment">
+						<li>不唯一</li>
+						<li>生命周期短</li>
+						<li>不可变</li>
+					</ul>
+					<aside class="notes">
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请试着说出这段代码的业务逻辑
+						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+							2. 不可变
 					</aside>
 				</section>
 				<section>
-					<h3>为领域建模</h3>
-					<p class="fragment">原则: 创建纯洁的领域对象</p>
+					<h5>试看一例</h5>
+					<aside class="notes">
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请试着说出这段代码的业务逻辑
+						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+							2. 不可变
+					</aside>
+					<div>
+
+<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class Title(
+        val title: String
+) : SimpleValueObject&lt;Title> {
+    init {
+        if (title.isBlank()) {
+            throw BadRequestException()
+        }
+        if (title.length > 30) {
+            throw BadRequestException()
+        }
+    }
+}
+</code></pre>
+<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class CompilationID(
+        val id: Long
+) : SimpleValueObject&lt;CompilationID> {
+    init {
+        if(id &lt;= 0) { 
+            throw BadRequestException()
+        }
+    }
+}
+</code></pre>
+
+					</div>
 				</section>
+
+				<section>
+					<h5 class="fragment ustrong">"实体对象"</h5>
+					<ul class="fragment">
+						<li>唯一性/身份</li>
+						<li>生命周期长</li>
+						<li>可变</li>
+					</ul>
+					<aside class="notes">
+						<pre>
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请观众说明该段代码的业务含义
+							1. 成员对象的可变性(val, var)
+							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
+						2. "实体"解释
+							1. 唯一性: Compilation 由 compilationId 成员属性全局唯一地标识了它的身份
+							2. 生命周期长, 一个 Compilation 对象会通过"资源库"存活在持久化层, 具有最长的生命周期
+							3. Compilation 对象是可变的, 体现在其可变成员属性上
+
+						</pre>
+					</aside>
+				</section>
+				<section>
+					<h5>试看一例</h5>
+					<aside class="notes">
+						0. 首先简要介绍一下 kotlin 语法
+							1. val = final
+							2. var = mutable prop
+							3. ? = @Nullable
+						1. 请观众说明该段代码的业务含义
+							1. 成员对象的可变性(val, var)
+							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
+						2. "实体"解释
+							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
+							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
+							3. Compilation 对象是可变的, 体现在其可变成员属性上
+					</aside>
+					<div class="fragment">
+						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+						class Compilation private constructor(
+								val compilationID: CompilationID,
+								val author: Author,
+								private var title: Title,
+								private var description: Description?,
+								private var cover: String?,
+								private var status: CompilationStatus,
+								private var createTime: Long
+						) : SmartEntity&lt;Compilation>() {
+						
+							fun title() = title
+						
+							fun updateTitle(newTitle: Title) {
+								title = newTitle
+								refreshTouchTime()
+							}
+						
+							/* 
+							......... some other detail
+							*/
+						}
+						</code></pre>
+					</div>
+				</section>
+
 				<section>
 					<h3>创建纯洁的领域对象</h3>
 					<h5>忘记 DB, 领域优先</h5>
@@ -302,6 +418,9 @@
 				<section>
 					<h4>创建纯洁的领域对象</h4>
 					<h5>对象对应于<span class="term">上下文</span>中的一个清晰概念</h5>
+					<aside class="notes">
+						对于发布系统上下文
+					</aside>
 					<table class="fragment fade-in">
 						<th>
 							<td>NO</td><td>YES</td>
@@ -316,8 +435,7 @@
 										private var phone: String?=null
 										private var mail: String?= null
 										private var posts: Int = 0
-										private var lastLoginTime: Long=0L
-										
+										private var lastLoginTime: Long=0L	
 									}
 								</code></pre>
 							</td>
@@ -429,145 +547,12 @@
 					</table>
 				</section>
 				<section>
-					<h4>创建纯洁的领域对象</h4>
-					<p>"纯洁"是指:</p>
-					<ol class="fragment">
-						<li>对象对应于<span class="term">上下文</span>中的一个清晰概念</li>
-						<li>对象只有单一的<span class="ustrong">职责</span>(SRP)</li>
-						<li>对象不知道其职责以外的任何知识</li>
-					</ol>
+					<h3>conclusion 2 </h3>
+					<p>将所有业务逻辑封装到领域模型中</p>
+					<p>创建纯洁的领域对象</p>
 					<aside class="notes" data-markdown data-template>
 						TODO 举例子? 或者换掉后面的两个例子
 					</aside>
-				</section>
-				<!--
-				<section>
-					<h5 class="fragment ustrong">"值对象"</h5>
-					<ul class="fragment">
-						<li>不唯一</li>
-						<li>生命周期短</li>
-						<li>不可变</li>
-					</ul>
-					<aside class="notes">
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请试着说出这段代码的业务逻辑
-						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-							2. 不可变
-					</aside>
-				</section>
-				-->
-				<section>
-					<h5>试看一例</h5>
-					<aside class="notes">
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请试着说出这段代码的业务逻辑
-						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-							2. 不可变
-					</aside>
-					<div>
-
-<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
-data class Title(
-        val title: String
-) : SimpleValueObject&lt;Title> {
-    init {
-        if (title.isBlank()) {
-            throw BadRequestException()
-        }
-        if (title.length > 30) {
-            throw BadRequestException()
-        }
-    }
-}
-</code></pre>
-<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
-data class CompilationID(
-        val id: Long
-) : SimpleValueObject&lt;CompilationID> {
-    init {
-        if(id &lt;= 0) { 
-            throw BadRequestException()
-        }
-    }
-}
-</code></pre>
-
-					</div>
-				</section>
-			<!--
-				<section>
-					<h5 class="fragment ustrong">"实体对象"</h5>
-					<ul class="fragment">
-						<li>唯一性/身份</li>
-						<li>生命周期长</li>
-						<li>可变</li>
-					</ul>
-					<aside class="notes">
-						<pre>
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请观众说明该段代码的业务含义
-							1. 成员对象的可变性(val, var)
-							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
-						2. "实体"解释
-							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
-							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
-							3. Compilation 对象是可变的, 体现在其可变成员属性上
-
-						</pre>
-					</aside>
-				</section>
-			-->
-				<section>
-					<h5>试看一例</h5>
-					<aside class="notes">
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请观众说明该段代码的业务含义
-							1. 成员对象的可变性(val, var)
-							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
-						2. "实体"解释
-							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
-							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
-							3. Compilation 对象是可变的, 体现在其可变成员属性上
-					</aside>
-					<div class="fragment">
-						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
-						class Compilation private constructor(
-								val compilationID: CompilationID,
-								val author: Author,
-								private var title: Title,
-								private var description: Description?,
-								private var cover: String?,
-								private var status: CompilationStatus,
-								private var createTime: Long
-						) : SmartEntity&lt;Compilation>() {
-						
-							fun title() = title
-						
-							fun updateTitle(newTitle: Title) {
-								title = newTitle
-								refreshTouchTime()
-							}
-						
-							/* 
-							......... some other detail
-							*/
-						}
-						</code></pre>
-					</div>
 				</section>
 
 				<section>
@@ -575,32 +560,78 @@ data class CompilationID(
 					<p>原则</p>
 					<ul>
 						<li>将 IO 推到系统边界</li>
-						<li>操作领域对象的唯一入口</li>
+						<li>避免领域污染</li>
 						<li>应用 CQRS 模式</li>
 					</ul>
 					
 					<aside class="notes">
-						TODO 考虑不是用列表, 而是使用图来举例说明合集上下文的架构是如何实现的
+						TODO 考虑介绍六边形架构
 					</aside>
 				</section>
 				<section>
 					<h3>架构概述</h3>
 					<h4>示例</h4>
+					<aside class="notes">
+						<pre>
+							1. IO推到系统边界
+								1. 保持了领域对象的纯洁
+								2. 解耦了业务逻辑和实现,利于重构和变更
+							2. 避免领域污染
+								1. 保持领域对象的纯洁
+								2. 领域完整且自治
+							3. CQRS
+								1. 写模型易于抽象成领域模型, 读模型则不是
+								2. 分离后每个服务专注于单独的一个职责(读/写)
+								3. 读写的同步问题
+						</pre>
+					</aside>
 					<p><img src="./img/architecture.png"/></p>
 				</section>
 				<section>
-					<h3>conclusion 2</h3>
+					<h3>conclusion 3</h3>
 					<p>编码前务必理解<span class="ustrong">业务逻辑</span></p>
 					<p>围绕业务编码, 代码体现业务逻辑</p>
 					<p>架构/基础设施应该与<span class="term">领域模型</span>解耦</p>
 				</section>
 			</section>
 
+			<!--4 总结-->
 			<section>
+				<section>
+
 				<h3>To sum it up</h3>
 				<aside class="notes">
-					TODO
+					TODO 回顾观点
 				</aside>
+				</section>
+				<section>
+				<div class="fragment">
+					<h4>DDD 是什么?</h4>
+					<p>以业务为中心的软件设计和实施方法论</p>
+				</div>
+				</section>
+
+				<section>
+				<div class="fragment">
+					<h4>为什么要学习 DDD ?</h4>
+					<ul>
+						<li>产研实践损害了业务完整性</li>
+						<li>DDD 框架围绕业务开展活动</li>
+					</ul>
+				</div>
+				</section>
+
+				<section>
+				<div class="fragment">
+					<h4>如何实施 DDD?</h4>
+					<ol>
+						<li>梳理业务逻辑</li>
+						<li>建立并输出业务共识</li>
+						<li>设计领域模型</li>
+						<li>实现架构中的组件</li>
+					</ol>
+				</div>
+				</section>
 			</section>
 
 
