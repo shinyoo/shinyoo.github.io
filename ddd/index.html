@@ -180,21 +180,25 @@
 				<section id="context">
 					<div>
 						<h4>领域 & 限界上下文</h4>
-						<p class="fragment"><span class="term">领域</span>= 问题空间</p>
-						<p class="fragment"><span class="term">限界上下文</span>= 解空间 <span class="fragment">需要<span class="ustrong">由团队人为划定边界</span></span> </p>
+						<p class="fragment"><span class="term">领域</span>: 问题空间</p>
+						<p class="fragment"><span class="term">限界上下文</span>: 属于解空间 <span class="fragment">需要<span class="ustrong">由团队人为划定边界</span></span> </p>
 						
-						<p class="fragment">例如, 对于订单管理这一业务</p>
-					
-						<p class="fragment">"领域" = 电商平台如何对每笔订单的实时追踪?如何对每笔订单做到人工干预...?</p>
-						<p class="fragment">"限界上下文" = "<span class="term">订单追踪上下文</span>", 包含了
-							<ol class="fragment">
-								<li>订单追踪系统的工作流程</li>
-							</ol>
+						<p class="fragment">例如, 对于订单这一业务</p>
+						<p class="fragment">"领域" = 电商平台如何管理订单?</p>
+						<p class="fragment">"子域" = 电商平台如何对每笔订单实时追踪?</p>
+						<p class="fragment">(其中一个)"限界上下文" = "<span class="term">追踪上下文</span>", 包含了订单追踪系统解决方案, 比如:
+							<ul class="fragment">
+								<li>物流运输部门</li>
+								<li>物流软件系统</li>
+								...
+							</ul>
 						</p>
 					</div>
 					<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
 					<aside class="notes">
-						可以注意到上下文解决的是领域中的一部分问题
+						1. 领域可大可小, 也可以包含子域
+						2. 可以注意到一个上下文只解决一个领域的问题
+						3. !! 注意, 虽然 ddd 是用于设计软件的, 但"软件"系统却只是"上下文"的一部分
 					</aside>
 				</section>
 				<section id="dict">
@@ -231,9 +235,7 @@
 						<li><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</li>
 						<li>达成并输出<span class="ustrong">共识</span>十分重要</li>
 					</ul>
-					<aside class="notes">
-
-					</aside>
+		
 				</section>
 				<section>
 					<h3> 3. 为领域建模</h3>
