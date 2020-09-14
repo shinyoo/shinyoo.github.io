@@ -99,7 +99,7 @@
 				</section>
 				<section>
 					<aside class="notes">
-						TODO 每一条可以举个例子
+					 每一条可以举个例子
 						1. 业务定义不清晰: 张小龙想要做微信短视频, 短视频到底是什么? 我们需要人为定义出这个短视频系统的边界, 确定它能做什么不能做什么
 						2. 业务用语歧义: 开会沟通, 参会的有运营, 产品, 研发, 用户等, 大家说到"漫画", 到底是指"漫画作品"这一概念? 还是我们平台上的漫画? 还是指漫画章节?
 						3. 业务逻辑丢失: 程序员的实现不会和产品文档完全一致(或者是产品口头需求没有记录), 总之, 在迭代的长河中, 我们最终总会有那么几次只能依赖读代码来推理业务逻辑
@@ -183,19 +183,18 @@
 						<p class="fragment"><span class="term">领域</span>= 问题空间</p>
 						<p class="fragment"><span class="term">限界上下文</span>= 解空间 <span class="fragment">需要<span class="ustrong">由团队人为划定边界</span></span> </p>
 						
-						<p class="fragment">例如, 对于帖子合集功能</p>
+						<p class="fragment">例如, 对于订单管理这一业务</p>
 					
-						<p class="fragment">"领域" = 帖子合集的所有功能点</p>
-						<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含
+						<p class="fragment">"领域" = 电商平台如何对每笔订单的实时追踪?如何对每笔订单做到人工干预...?</p>
+						<p class="fragment">"限界上下文" = "<span class="term">订单追踪上下文</span>", 包含了
 							<ol class="fragment">
-								<li>对合集操作的实际工作流程(交互与代码实现)</li>
-								<li>对帖子与合集关系的操作的实际工作流程</li>
+								<li>订单追踪系统的工作流程</li>
 							</ol>
 						</p>
 					</div>
 					<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
 					<aside class="notes">
-						
+						可以注意到上下文解决的是领域中的一部分问题
 					</aside>
 				</section>
 				<section id="dict">
@@ -465,12 +464,12 @@ data class CompilationID(
 						<li>创建<span class="ustrong">纯洁</span>的领域对象</li>
 					</ul>
 					<aside class="notes" data-markdown data-template>
-						TODO 举例子? 或者换掉后面的两个例子
+						
 					</aside>
 				</section>
 
 				<section>
-					<h3>围绕领域构建服务</h3>
+					<h3>4. 围绕领域构建服务</h3>
 					<ol>
 						<li><span class="term">领域模型</span>是整个服务的核心部分</li>
 						<li><span class="term">"应用(服务)"</span>是操作领域模型的唯一入口</li>
@@ -529,7 +528,7 @@ data class CompilationID(
 
 				<h2>To sum it up</h2>
 				<aside class="notes">
-					TODO 回顾观点
+					回顾观点
 				</aside>
 				</section>
 				<section>
