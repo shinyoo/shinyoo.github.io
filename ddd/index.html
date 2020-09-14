@@ -138,7 +138,7 @@
 						<li>梳理业务逻辑</li>
 						<li>输出共识</li>
 						<li>为领域建模</li>
-						<li>完整架构</li>
+						<li>架构原则</li>
 					</ol>
 				</section>
 				<section>
@@ -227,9 +227,11 @@
 				</section>
 				<section>
 					<h3>conclusion 1</h3>
-					<p>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</p>
-					<p><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</p>
-					<p>达成并输出<span class="ustrong">共识</span>十分重要</p>
+					<ul>
+						<li>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</li>
+						<li><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</li>
+						<li>达成并输出<span class="ustrong">共识</span>十分重要</li>
+					</ul>
 					<aside class="notes">
 
 					</aside>
@@ -247,7 +249,7 @@
 					</div>
 				</section>
 				<section>
-					<h5 class="fragment ustrong">"值对象"</h5>
+					<h4 class="fragment ustrong">"值对象"</h4>
 					<ul class="fragment">
 						<li>不唯一</li>
 						<li>生命周期短</li>
@@ -265,7 +267,7 @@
 					</aside>
 				</section>
 				<section>
-					<h5>试看一例</h5>
+					<h4>试看一例</h4>
 					<aside class="notes">
 						0. 首先简要介绍一下 kotlin 语法
 							1. val = final
@@ -308,7 +310,7 @@ data class CompilationID(
 				</section>
 
 				<section>
-					<h5 class="fragment ustrong">"实体对象"</h5>
+					<h4 class="fragment ustrong">"实体对象"</h4>
 					<ul class="fragment">
 						<li>唯一性/身份</li>
 						<li>生命周期长</li>
@@ -332,7 +334,7 @@ data class CompilationID(
 					</aside>
 				</section>
 				<section>
-					<h5>试看一例</h5>
+					<h4>试看一例</h4>
 					<aside class="notes">
 						0. 首先简要介绍一下 kotlin 语法
 							1. val = final
@@ -374,85 +376,47 @@ data class CompilationID(
 				</section>
 
 				<section>
-					<h3>创建纯洁的领域对象</h3>
-					<h5>忘记 DB, 领域优先</h5>
+					<h4>创建纯洁的领域对象</h4>
+					<ul><li>忘记 DB, <span class="ustrong">领域优先</li></ul>
 					<aside class="notes">
 						例子中是一个典型的 POJO, 或者说 DTO (data transfer object), 而且拥有与 schema 一一对应的字段
 					</aside>
-					<div class="fragment fade-out">
-						<img src="./img/first_line.jpeg" />
-					</div>
-					<table class="fragment fade-in">
-						<th>
-							<td>NO</td><td>YES</td>
-						</th>
-						<tr>
-							<td>
-								<pre><code class="kotlin" data-noescape data-trim">
-									class BadDomain {
-										private var id:Int =0;
-										private var name:String="";
-										private var createTime:Long=0L;
-										private var updateTime:Long=0L;
-										private var status:Byte=0L
-										/*...
-												setters and getters
-										...*/
-									}
-								</code></pre>
-							</td>
+					<div class="r-stack">
+						<div class="fragment current-visible fade-out">
+							<img src="./img/first_line.jpeg" />
+						</div>
+						<table class="fragment fade-up">
+							<tr>
+								<th>NO</th><th>YES</th>
+							</tr>
+							<tr>
+								<td>
+									<img src='./img/db-orient.jpg'/>
+								</td>
 
-							<td>
-								<pre><code class="kotlin data-noescape data-trim">
-									class GoodDomain {
-										private var name:String
-										fun setName(newName:String){
-											if (newName.length > 30) throw BadRequestException("名称长度过长")
-										}
-									}
-								</code></pre>
-							</td>
-						</tr>
-					</table>
+								<td>
+									<img src="./img/domain-orient.jpg">
+								</td>
+							</tr>
+						</table>
+					</div>
 				</section>
 				<section>
 					<h4>创建纯洁的领域对象</h4>
-					<h5>对象对应于<span class="term">上下文</span>中的一个清晰概念</h5>
+					<ul><li>对象对应于<span class="term">上下文</span>中的一个清晰概念</li></ul>
 					<aside class="notes">
 						对于发布系统上下文
 					</aside>
 					<table class="fragment fade-in">
-						<th>
-							<td>NO</td><td>YES</td>
-						</th>
+						<tr>
+							<th>NO</th><th>YES</th>
+						</tr>
 						<tr>
 							<td>
-								<pre><code class="kotlin" data-noescape data-trim">
-									class User {
-										private var id: Int =0
-										private var name: String=""
-										private var gender: Gender=FEMALE
-										private var phone: String?=null
-										private var mail: String?= null
-										private var posts: Int = 0
-										private var lastLoginTime: Long=0L	
-									}
-								</code></pre>
+								<img src='./img/notclear.jpg'/>
 							</td>
-
 							<td>
-								<pre><code class="kotlin data-noescape data-trim">
-									class Author {
-										private var id:Int = 0
-										private var gender:Gender=FEMALE
-										private var posts:Int=0
-										init {
-											if(id <= 0) throw BadRequestException("用户 id 无效")
-										}
-									}
-									/*.......*/
-									interface addPost(author:Author, post:Post)
-								</code></pre>
+								<img src="./img/clear.jpg">
 							</td>
 						</tr>
 					</table>
@@ -460,107 +424,54 @@ data class CompilationID(
 
 				<section>
 					<h4>创建纯洁的领域对象</h4>
-					<h5>对象只有单一的<span class="ustrong">职责</span>(SRP)</h5>
+					<ul><li>对象只有单一的<span class="ustrong">职责</span>(SRP)</li></ul>
 					<table class="fragment fade-in">
-						<th>
-							<td>NO</td><td>YES</td>
-						</th>
+						<tr>
+							<th>NO</th><th>YES</th>
+						</tr>
 						<tr>
 							<td>
-								<pre><code class="kotlin" data-noescape data-trim">
-									class UserAccount {
-										private var id: Int =0
-										private var status:Status=OK
-										private var followings: Set&lt;UserAccount>
-										
-										fun addFollowing(other:UserAccount) {
-											followings.add(other)
-										}
-
-										fun ban(){
-											status = BANNED
-										}
-									}
-								</code></pre>
+								<img src="./img/non-srp.jpg">
 							</td>
-
 							<td>
-								<pre><code class="kotlin data-noescape data-trim">
-									class UserAccount {
-										private val id: Int =0
-										private var status:Status=OK
-										fun ban(){
-											status = BANNED
-										}
-									}
-									class SocialNetworkUser {
-										private val id: Int = 0
-										private var followings: Set&lt;SocialNetworkUser>
-										fun follow(other:SocialNetworkUser){ /*...*/ }
-										fun unfollow(toUnfollow:SocialNetworkUser) { /*...*/ }
-									}
-								</code></pre>
+								<img src="./img/srp.jpg">
 							</td>
 						</tr>
 					</table>
 				</section>
 				<section>
 					<h4>创建纯洁的领域对象</h4>
-					<h5>对象不知道其职责以外的任何知识</h5>
+					<ul><li>对象<span class="ustrong">不知道</span>其职责以外的任何知识</li></ul>
 					<table class="fragment fade-in">
-						<th>
-							<td>NO</td><td>YES</td>
-						</th>
+						<tr>
+							<th>NO</th><th>YES</th>
+						</tr>
 						<tr>
 							<td>
-								<pre><code class="kotlin" data-noescape data-trim">
-									class UserAccount {
-										private val id: Int =0
-										private var status: Status=OK
-										private var banReason: String?=null
-										fun ban(reason: OutSideReason){
-											status = BANNED
-											banReason = when (reason) {
-												BAD_BEHAVIOR -> DomainEnum.BAD_BEHAVIOR.str
-												ADMIN_BAN -> DomainEnum.ADMIN_BAN.str
-												else->null
-											}
-										}
-									}
-								</code></pre>
+								<img src="./img/corrupted.jpg" />
 							</td>
-
 							<td>
-								<pre><code class="kotlin data-noescape data-trim">
-									class UserAccount {
-										private val id: Int =0
-										private var status: Status=OK
-										private var banReason: String?=null
-										fun ban(reason: DomainEnum){
-											status = BANNED
-											banReason = reason.str
-										}
-									}
-								</code></pre>
+								<img src="./img/pure.jpg"
 							</td>
 						</tr>
 					</table>
 				</section>
 				<section>
 					<h3>conclusion 2 </h3>
-					<p>将所有业务逻辑封装到领域模型中</p>
-					<p>创建纯洁的领域对象</p>
+					<ul>
+						<li>用领域模型体现<span class="ustrong">业务逻辑</span></li>
+						<li>创建<span class="ustrong">纯洁</span>的领域对象</li>
+					</ul>
 					<aside class="notes" data-markdown data-template>
 						TODO 举例子? 或者换掉后面的两个例子
 					</aside>
 				</section>
 
 				<section>
-					<h3>架构概述</h3>
-					<p>原则</p>
+					<h3>架构原则</h3>
 					<ul>
-						<li>将 IO 推到系统边界</li>
 						<li>避免领域污染</li>
+						<li>将 IO 推到系统边界</li>
 						<li>应用 CQRS 模式</li>
 					</ul>
 					
@@ -569,8 +480,7 @@ data class CompilationID(
 					</aside>
 				</section>
 				<section>
-					<h3>架构概述</h3>
-					<h4>示例</h4>
+					<h4>一个可能的架构</h4>
 					<aside class="notes">
 						<pre>
 							1. IO推到系统边界
@@ -589,7 +499,7 @@ data class CompilationID(
 				</section>
 				<section>
 					<h3>conclusion 3</h3>
-					<p>架构/基础设施应该与<span class="term">领域模型</span>解耦</p>
+					<ul><li>架构/基础设施应该与<span class="term">领域模型</span>解耦</li></ul>
 				</section>
 			</section>
 

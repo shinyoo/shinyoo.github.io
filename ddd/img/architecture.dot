@@ -1,20 +1,22 @@
 digraph architecture {
+    splines=false
     subgraph cluster_domain{
         node[style=filled;fillcolor=white]
-        app[label="应用";style="rounded,filled";shape=box;fillcolor=lightblue]
+        edge[color=blue];
+        app[label="应用程序";style="rounded,filled";shape=box;fillcolor="#66ccff"]
         o[label="领域对象";shape=circle]
-        repo[label="资源库(Repo)";shape=cylinder]
-        d_ser[label="领域服务"]
+        repo[label="资源库(Repo)";shape=cylinder];
+        d_ser[label="领域服务"];
 
         
         app->repo
         app->o
         app->d_ser
-
+        labelloc=b;
         label="领域";
         fontsize=20;
         style=filled;
-        fillcolor=lightyellow;
+        fillcolor="#ffff80";
         out[style=invisible;rank=min]
         
     }
@@ -24,31 +26,42 @@ digraph architecture {
     repo->in
     edge[headport=none]
     subgraph cluster_infr{
-        in[style=invisible;]
+        in[style=invisible;rank=same;height=0;width=0]
         node[style=filled;fillcolor=white]
         db[label="数据库";shape=cylinder]
         mq[label="消息中间件"]
         ex_ser[label="外部服务"];
+        edge[style=invis];
+        _r[style=invis;]
+        
+        in->db,mq,ex_ser
+        
         fontsize=20;
         label="基础设施";
         style=filled;
-        fillcolor=darkorange;
+        fillcolor="#ff6600";
     }
 
     subgraph cluster_entry{
         node[style=filled;fillcolor=white]
-        f[label="表面(facade)";shape=box;width=3];
-        a[label="适配器";shape=octagon]
-        f->app;    
-        a->app;
-        fontsize=20
-        label="入口";
+        a2[label="Thrift适配器";shape=box;width=1];
+        
+        a0[label="HTTP适配器";shape=octagon];
+        a1[label="Dubbo适配器";shape=diamond;height=1];
+
+        a2->app;    
+        a0->app;
+        a1->app;
+        fontsize=20;
+        label="访问入口";
         style=filled;
-        fillcolor=lightblue;       
+        shape=oval;
+        fillcolor="#ccffcc";       
     }
 
-    
 
-    label="架构";
+
+    fontsize=20
+    label="一个可能的 DDD 架构";
 }
 
