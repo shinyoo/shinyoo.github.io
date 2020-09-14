@@ -1,24 +1,54 @@
 digraph architecture {
     splines=false
+
+    subgraph cluster_req {
+        r1[label="外部请求"]
+        r2[label="外部请求"]
+        r3[label="外部请求"]
+        // r1->r2->r3[style=invis]
+        border=false
+        color=none
+    }
+    subgraph cluster_entry{
+        // i[style=invis;height=0;rank=source]
+        // i->{a0,a1,a2}[style=invis]
+        node[style="filled";fillcolor=white]
+        a2[label="Thrift适配器";shape=box;width=1];
+        a0[label="HTTP适配器";shape=octagon;];
+        a1[label="Dubbo适配器";shape=diamond;height=1];
+        {a0,a1,a2}[rank=same];
+        fontsize=20;
+        label="访问适配层";
+        style=filled;
+        fillcolor="#ccffcc";   
+        compound=true;
+    }
+
+    {a0,a1,a2}->entry[ltail=cluster_entry,lhead=cluster_domain]
     subgraph cluster_domain{
         node[style=filled;fillcolor=white]
         edge[color=blue];
-        app[label="应用程序";style="rounded,filled";shape=box;fillcolor="#66ccff"]
+
+        entry[label="应用程序";style="filled,invis";shape=hexagon;fillcolor="#66ccff";rank=source]
         o[label="领域对象";shape=circle]
         repo[label="资源库(Repo)";shape=cylinder];
         d_ser[label="领域服务"];
 
+        edge[style="invis"]
+        entry->repo
+        entry->repo
+        entry->o
+        entry->o
+        entry->d_ser
+        entry->d_ser
+        labelloc=t;
         
-        app->repo
-        app->o
-        app->d_ser
-        labelloc=b;
-        label="领域";
+        label="应用程序";
         fontsize=20;
         style=filled;
         fillcolor="#ffff80";
         out[style=invisible;rank=min]
-        
+        compound=true;
     }
 
     edge[head=invis;headport=w]
@@ -39,29 +69,21 @@ digraph architecture {
         fontsize=20;
         label="基础设施";
         style=filled;
+        compound=true;
         fillcolor="#ff6600";
     }
 
-    subgraph cluster_entry{
-        node[style=filled;fillcolor=white]
-        a2[label="Thrift适配器";shape=box;width=1];
-        
-        a0[label="HTTP适配器";shape=octagon];
-        a1[label="Dubbo适配器";shape=diamond;height=1];
 
-        a2->app;    
-        a0->app;
-        a1->app;
-        fontsize=20;
-        label="访问入口";
-        style=filled;
-        shape=oval;
-        fillcolor="#ccffcc";       
-    }
-
-
-
-    fontsize=20
+    r1->a0
+    r2->a1
+    r3->a2
+    {r1,r2,r3}[rank=min]
+    a1->o[style=invis]
+    o->repo[style=invis]
+    o->d_ser[style=invis]
+    fontsize=20;
     label="一个可能的 DDD 架构";
-}
 
+
+    {<a>a:1</a>;b;}
+}
