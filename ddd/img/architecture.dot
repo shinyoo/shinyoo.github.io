@@ -43,13 +43,14 @@ digraph architecture {
         entry->d_ser
         labelloc=t;
         
-        label="应用程序";
+        label="应用服务";
         fontsize=20;
         style=filled;
         fillcolor="#ffff80";
         out[style=invisible;rank=min]
         compound=true;
     }
+
 
     edge[head=invis;headport=w]
     d_ser->in
@@ -84,6 +85,4 @@ digraph architecture {
     fontsize=20;
     label="一个可能的 DDD 架构";
 
-
-    {<a>a:1</a>;b;}
 }
