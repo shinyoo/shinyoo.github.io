@@ -574,7 +574,7 @@ data class CompilationID(
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
-
+			Reveal.configure({ pdfSeparateFragments: false });
 		</script>
 		<style type="text/css">
 			.reveal section pre code {
@@ -594,6 +594,12 @@ data class CompilationID(
 				font-style: normal !important;
 				color: #0099ff	!important;
 				border-bottom: 1px solid;
+			}
+			@media print {
+				.slide-background {
+					background-color: #222 !important;
+					-webkit-print-color-adjust: exact; 
+				}
 			}
 		</style>
 	</body>
