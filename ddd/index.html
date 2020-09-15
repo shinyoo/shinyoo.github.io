@@ -477,35 +477,22 @@ data class CompilationID(
 						<li><span class="term">"应用(服务)"</span>是操作领域模型的唯一入口</li>
 						<li><span class="ustrong">持久化</span>及IO交给<span class="term">基础设施</span>来实现</li>
 					</ol>
-					<aside class="notes">
-						
-							<p>由领域模型来推导整个上下文系统如何构建, 包括持久化的 schema</p>
-							<p>
-								保持领域的纯洁(避免领域污染), 使用防腐层(比如使用适配器/表面模式);
-								将 IO 推到系统边界
-							</p>
-					
-					</aside>
 				</section>
 				<section>
 					<h4>一个可能的架构</h4>
-					<aside class="notes">
-						<p>由领域模型来推导整个上下文系统如何构建, 包括持久化的 schema</p>
-							<p>
-								保持领域的纯洁(避免领域污染), 使用防腐层(比如使用适配器/表面模式);
-								1. 保持领域对象的纯洁
-								2. 领域完整且自治
+					<aside class="notes" data-template data-markdown>
+					TODO 是否要展开讲推导过程?
+						* 由领域模型来推导整个上下文系统如何构建, 包括持久化的 schema
+							1. 推导过程: 由 domain 推导 schema
+							
+						* 保持领域的纯洁(避免领域污染), 使用防腐层(比如使用适配器/表面模式);
+							1. 保持领域对象的纯洁
+							2. 领域完整且自治
 
-								将 IO 推到系统边界
-								1. 保持了领域对象的纯洁
-								2. 解耦了业务逻辑和实现,利于重构和变更
+						* 将 IO 推到系统边界
+							1. 保持了领域对象的纯洁
+							2. 解耦了业务逻辑和实现,利于重构和变更
 
-
-							</p>
-					
-						<pre>
-
-						</pre>
 					</aside>
 					<p><img style="height:600px" src="./img/architecture.svg"/></p>
 				</section>
@@ -515,8 +502,9 @@ data class CompilationID(
 						<li>架构/基础设施应该与<span class="term">领域模型</span>解耦</li>
 						<li>使用 CQRS 模式</li>
 					</ul>
-					<aside class="notes">
+					<aside class="notes" data-template data-markdown>
 						CQRS
+
 						1. 写模型易于抽象成领域模型, 读模型则不是
 						2. 分离后每个服务专注于单独的一个职责(读/写)
 						3. 读写的同步问题
