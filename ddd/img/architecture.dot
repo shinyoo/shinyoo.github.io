@@ -1,88 +1,72 @@
 digraph architecture {
     splines=false
-
+    compound=true
     subgraph cluster_req {
         r1[label="外部请求"]
         r2[label="外部请求"]
         r3[label="外部请求"]
-        // r1->r2->r3[style=invis]
         border=false
         color=none
     }
     subgraph cluster_entry{
-        // i[style=invis;height=0;rank=source]
-        // i->{a0,a1,a2}[style=invis]
         node[style="filled";fillcolor=white]
         a2[label="Thrift适配器";shape=box;width=1];
         a0[label="HTTP适配器";shape=octagon;];
-        a1[label="Dubbo适配器";shape=diamond;height=1];
+        a1[label="Dubbo\n适配器";shape=diamond;];
         {a0,a1,a2}[rank=same];
         fontsize=20;
         label="访问适配层";
         style=filled;
         fillcolor="#ccffcc";   
-        compound=true;
     }
 
-    {a0,a1,a2}->entry[ltail=cluster_entry,lhead=cluster_domain]
     subgraph cluster_domain{
         node[style=filled;fillcolor=white]
         edge[color=blue];
 
-        entry[label="应用程序";style="filled,invis";shape=hexagon;fillcolor="#66ccff";rank=source]
-        o[label="领域对象";shape=circle]
-        repo[label="资源库(Repo)";shape=cylinder];
+        o[label="领域模型";shape=circle;];
+        repo[label="资源库(Repo)";shape=cylinder;height=0.8];
         d_ser[label="领域服务"];
 
         edge[style="invis"]
-        entry->repo
-        entry->repo
-        entry->o
-        entry->o
-        entry->d_ser
-        entry->d_ser
+        
         labelloc=t;
         
         label="应用服务";
         fontsize=20;
-        style=filled;
+        style="filled";
         fillcolor="#ffff80";
-        out[style=invisible;rank=min]
-        compound=true;
     }
 
-
-    edge[head=invis;headport=w]
-    d_ser->in
-    repo->in
-    edge[headport=none]
     subgraph cluster_infr{
-        in[style=invisible;rank=same;height=0;width=0]
         node[style=filled;fillcolor=white]
-        db[label="数据库";shape=cylinder]
-        mq[label="消息中间件"]
+        db[label="数据库";shape=cylinder;height=1]
+        mq[label="消息中间件";shape=cds;]
         ex_ser[label="外部服务"];
         edge[style=invis];
-        _r[style=invis;]
-        
-        in->db,mq,ex_ser
-        
+
         fontsize=20;
         label="基础设施";
         style=filled;
-        compound=true;
+        // compound=true;
         fillcolor="#ff6600";
     }
 
+    edge[minlen=2]
+
+    a0->d_ser[lhead=cluster_domain]
+    a1->o[lhead=cluster_domain]
+    a2->repo[lhead=cluster_domain]
+
+    o->mq[lhead=cluster_infr;ltail=cluster_domain;minlen=2;]
 
     r1->a0
     r2->a1
     r3->a2
-    {r1,r2,r3}[rank=min]
-    a1->o[style=invis]
-    o->repo[style=invis]
-    o->d_ser[style=invis]
-    fontsize=20;
+    
+    fontsize=18;
+    fontcolor=gray
     label="一个可能的 DDD 架构";
-
+    size="15";
+    
 }
