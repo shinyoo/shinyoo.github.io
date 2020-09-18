@@ -17,24 +17,96 @@
 		<div class="reveal">
 			<div class="slides">
 			<!--0.intro-->
-			<section>
+			<section INTRO>
 				<section>
-					<h1>DDD 领域驱动设计入门</h1>
+					<h1>DDD /<br>
+					领域驱动设计入门</h1>
 					<h2 class="fragment">应对软件复杂性</p>
 				</section>
 				<section>
-					<h2>Contents</h2>
+					<h2>分享路线图</h2>
 					<ul>
-						<li>DDD 是什么 ?</li>
-						<li>为什么要学习 DDD ?</li>
-						<li>如何实施 DDD ?</li>
-						<li>More...</li>
+						<li>为什么做这个分享?</li>
+						<li>关于 DDD</li>
+						<li>案例研究</li>
+						<li>结论</li>
 					</ul>
 				</section>
 			</section>
 
-			<!--1.ddd是什么-->
-			<section>
+
+			<!--为什么要学 ddd-->
+			<section WHY-DDD>
+				<section>
+					<h2>为什么做这个分享?</h2>
+					<aside class="notes" data-markdown>
+						个人一直对"编码"或者更具体地说"编写优雅的代码"这件事有执念, 因此最近开发的新功能, 使用了 DDD 的方式去构建;
+						
+						在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
+					</aside>
+					<ul>
+						<li>产研实践的问题</li>
+						<li>领域驱动设计的特点</li>
+					</ul>
+				</section>
+				<section data-markdown data-notes="
+TODO 解说每个问题的原因, 并提出原因和解决方案
+每一条可以举个例子
+1. 业务定义不清晰: 张小龙想要做微信短视频, 短视频到底是什么? 我们需要人为定义出这个短视频系统的边界, 确定它能做什么不能做什么
+2. 业务用语歧义: 开会沟通, 参会的有运营, 产品, 研发, 用户等, 大家说到'漫画', 到底是指'漫画作品'这一概念? 还是我们平台上的漫画? 还是指漫画章节?
+3. 业务逻辑丢失: 程序员的实现不会和产品文档完全一致(或者是产品口头需求没有记录), 总之, 在迭代的长河中, 我们最终总会有那么几次只能依赖读代码来推理业务逻辑
+4. 业务扩展困难: 好吧, 这应该是程序员的锅, 软件设计上做的不够灵活多变"
+						>
+					<aside data-markdown class="notes">
+					
+					</aside>
+					<textarea data-template>
+					### 产研实践的问题
+					| 问题 | 可能原因 |
+					|-----|-------|
+					| 业务定义不完整 | 业务流程未梳理清楚 |
+					| 业务用语有歧义 | 没有统一交流的上下文和用语的认知 |
+					| 业务逻辑丢失 | 文档难以维护, 代码可读性不佳 |
+					| 业务扩展困难 | 软件设计不够灵活 |
+					</textarea>
+				</section>
+				<section>
+					<h3>领域驱动设计(DDD)的特点</h3>
+					 <p><span class="ustrong">业务</span>在 DDD 方法论中处在<span class="ustrong">核心</span>位置</p>
+
+					|d | d|
+					|-|-|
+					|
+				</section>
+				<section>
+					
+					<h3>产研实践的问题</h3>
+					<ul class="fragment">
+						<li class="fragment">业务定义不清晰</li>
+						<li class="fragment">业务用语有歧义</li>
+						<li class="fragment">业务逻辑丢失</li>
+						<li class="fragment">业务扩展困难</li>
+					</ul>
+					
+				</section>
+				<section>
+					<h3>DDD 的优点</h3>
+					<ul class="fragment">						
+						<li>以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</li>
+						<li>建立全员一致的<span class="ustrong">业务</span>理解</li>
+						<li>更好的团队投入与参与(产品, 运营, 开发者, etc)</li>
+						<li>更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</li>
+						<li>领域模型即<span class="ustrong">业务</span>逻辑</li>
+						<li>代码更加易于维护,扩展;(可能)更高的代码质量</li>
+					</ul>
+					<aside class="notes">
+						model 中的业务逻辑, service 中没有业务逻辑!
+					</aside>
+				</section>
+			</section>	
+
+			<!--ddd是什么-->
+			<section WHATS-DDD>
 				<!--1.1 引子-->
 				<section>
 					<h2>DDD 是什么?</h2>
@@ -92,46 +164,9 @@
 				</section>
 			</section>
 
-			<!--2.为什么要学 ddd-->
-			<section>
-				<section>
-					<h2>为什么要学习 DDD?</h2>
-				</section>
-				<section>
-					<aside class="notes">
-					 每一条可以举个例子
-						1. 业务定义不清晰: 张小龙想要做微信短视频, 短视频到底是什么? 我们需要人为定义出这个短视频系统的边界, 确定它能做什么不能做什么
-						2. 业务用语歧义: 开会沟通, 参会的有运营, 产品, 研发, 用户等, 大家说到"漫画", 到底是指"漫画作品"这一概念? 还是我们平台上的漫画? 还是指漫画章节?
-						3. 业务逻辑丢失: 程序员的实现不会和产品文档完全一致(或者是产品口头需求没有记录), 总之, 在迭代的长河中, 我们最终总会有那么几次只能依赖读代码来推理业务逻辑
-						4. 业务扩展困难: 好吧, 这应该是程序员的锅, 软件设计上做的不够灵活多变
-					</aside>
-					<h3>产研实践的缺陷</h3>
-					<ul class="fragment">
-						<li class="fragment">业务定义不清晰</li>
-						<li class="fragment">业务用语有歧义</li>
-						<li class="fragment">业务逻辑丢失</li>
-						<li class="fragment">业务扩展困难</li>
-					</ul>
-				</section>
-				<section>
-					<h3>DDD 的优点</h3>
-					<ul class="fragment">						
-						<li>以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</li>
-						<li>建立全员一致的<span class="ustrong">业务</span>理解</li>
-						<li>更好的团队投入与参与(产品, 运营, 开发者, etc)</li>
-						<li>更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</li>
-						<li>领域模型即<span class="ustrong">业务</span>逻辑</li>
-						<li>代码更加易于维护,扩展;(可能)更高的代码质量</li>
-					</ul>
-					<aside class="notes">
-						model 中的业务逻辑, service 中没有业务逻辑!
-					</aside>
-				</section>
-				
-			</section>
 
-			<!--3. 如何实施 DDD-->
-			<section>
+			<!--如何实施 DDD-->
+			<section HOWTO>
 				<section>
 					<h2>如何实施 DDD?</h2>
 					<ol class="fragment">
@@ -537,7 +572,7 @@ data class CompilationID(
 			</section>
 
 			<!--4 总结-->
-			<section>
+			<section CONCLUSION>
 				<section>
 
 				<h2>To sum it up</h2>
@@ -570,7 +605,7 @@ data class CompilationID(
 			</section>
 
 
-			<section>
+			<section MORE>
 				<section><h2>More</h2></section>
 				<section><h3>Q & A</h3></section>
 				<section>
