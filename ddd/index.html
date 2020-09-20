@@ -1,61 +1,90 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Meaningful DDD</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/blood.css" id="theme">
+	<title>Meaningful DDD</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/blood.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
 			<!--0.intro-->
 			<!-- <div INTRO> -->
-				<section WHO>
-					<h1>我是谁</h1>
-					TODO
-				</section>
-				<section COVER>
-					<h1>领域驱动设计入门</h1>
-					<h2 class="fragment">应对软件复杂性</p>
-				</section>
-				<section ROADMAP>
-					<h2>分享路线图</h2>
-					<ul>
-						<li>为什么做这个分享?</li>
-						<li>关于领域驱动设计</li>
-						<li>DDD 案例研究</li>
-						<li>结论与 Q&A</li>
-					</ul>
-				</section>
+			<section WHO>
+				<h1>我是谁</h1>
+				TODO
+			</section>
+			<section COVER>
+				<h1>领域驱动设计入门</h1>
+				<h2 class="fragment">应对软件复杂性</p>
+			</section>
+			<section ROADMAP>
+				<h2>分享路线图</h2>
+				<ul>
+					<li>为什么做这个分享?</li>
+					<li>关于领域驱动设计</li>
+					<li>DDD 案例研究</li>
+					<li>结论与 Q&A</li>
+				</ul>
+			</section>
 			<!-- </div> -->
 
 
 			<!--为什么分享 ddd-->
 			<!-- <section WHY-DDD> -->
-				<section WHY-TALK1 data-markdown data-notes="					
-个人一直对'编码'或者更具体地说'编写优雅的代码'这件事有执念, 因此最近开发的新功能, 使用了 DDD 的方式去构建;
+			<section WHY-TALK2 data-notes="					
+个人一直对'编码'或者更具体地说'编写优雅的代码'这件事有执念, 也经常被这些问题困扰:
+1. 如何写出更简洁, 易读的业务代码?
+	比如, 按照产品文档实现的需求, 2 年前的我, 写出的代码可能饶一个大圈子完成了需求功能;
+2. 如何将业务逻辑和技术细节分离?
+    技术细节的变动不应该导致我们业务逻辑变化(比如存储结构变化/外部服务协议变化)
+3. 如何让代码更容易变更
+	比如,对业务逻辑做出恰当的抽象..
+4. 如何让代码更易于测试?
+    易于单元测试, 尽可能提升代码交付质量
+
+因此最近开发的新功能, 使用了 DDD 的方式完成了初次完整的尝试;
 在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
-优雅的代码实现:
-	1. 更简洁明了的编码（straight-forward）
-	1. 可测试的代码（业务逻辑和技术细节低耦合）
-	1. 更容易变更的代码实现
-尝试使用 ddd 并完成了初次较为完整的尝试
+优雅的代码实现
 ">
-					## 为什么做这个分享?
-					### 个人热情所在
-					1. 交流关于编码最佳实践的思考
-					1. 探讨新鲜的 DDD 实践收获
-					
-				</section>
-				<section WHY-TALK2 data-markdown data-notes="
+				<aside data-markdown class="notes">
+					个人一直对'编码'或者更具体地说'编写优雅的代码'这件事有执念, 也经常被这些问题困扰:
+					1. 如何写出更简洁, 易读的业务代码?
+					比如, 按照产品文档实现的需求, 2 年前的我, 写出的代码可能饶一个大圈子完成了需求功能;
+					2. 如何将业务逻辑和技术细节分离?
+					技术细节的变动不应该导致我们业务逻辑变化(比如存储结构变化/外部服务协议变化)
+					3. 如何让代码更容易变更
+					比如,对业务逻辑做出恰当的抽象..
+					4. 如何让代码更易于测试?
+					易于单元测试, 尽可能提升代码交付质量
+
+					因此最近开发的新功能, 使用了 DDD 的方式完成了初次完整的尝试;
+					在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
+					优雅的代码实现
+				</aside>
+				<h2>为什么做这个分享?</h2>
+				<h3>应对编码中的痛点</h3>
+				<div class="r-stack">
+					<img src='./img/stragit.jpg' />
+					<ul>
+						<li class="fragment">如何写出更简洁, 直接明了的业务代码?</li>
+						<li class="fragment">如何对业务逻辑做出恰当的抽象?</li>
+						<li class="fragment">如何将业务逻辑和技术细节分离?</li>
+						<li class="fragment">如何让代码更容易变更?</li>
+						<li class="fragment">如何让代码更易于测试?</li>
+					</ul>
+			</section>
+			<section WHY-TALK1 data-markdown data-notes="
 ddd 思想和工具有助于我们解决这些痛点
 1. 为什么需要研发清晰地理解需求细节?
 	1. 准确地实现产品意图
@@ -71,57 +100,58 @@ ddd 思想和工具有助于我们解决这些痛点
    分散在多次迭代、多种规格和为之的增量式的产品文档中
 需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息
 				">
-					## 为什么做这个分享?
-					### 应对业务痛点
-					1. 研发不能清晰地理解需求细节
-					1. 产品不知道实现的关键细节
-					1. 长期迭代后, 业务文档分散
-				</section>
+				## 为什么做这个分享?
+				### 应对产研痛点
+				1. 研发不能清晰地理解需求细节
+				1. 产品不知道实现的关键细节
+				1. 长期迭代后, 业务文档分散
+			</section>
 
-				<section ABOUT-DDD1>
-					<h2>关于领域驱动设计</h2>
-					<h3>核心原则</h3>
-					<ol>
-						<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
-						<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
-						<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
-					</ol>
-					<aside data-markdown class="notes">
-						什么叫"以业务为核心开展活动"?
-						* 业务的地位最高(在 DDD 方法论中处在核心位置)
-						* 所有团队成员应该关注业务, 理解业务
-						* 全员需要建立一致的业务理解
+			<section ABOUT-DDD1>
+				<h2>关于领域驱动设计</h2>
+				<h3>核心原则</h3>
+				<ol>
+					<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+					<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+					<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+				</ol>
+				<aside data-markdown class="notes">
+					重要的事说三遍
+					什么叫"以业务为核心开展活动"?
+					* 业务的地位最高(在 DDD 方法论中处在核心位置)
+					* 所有团队成员应该优先关注业务, 理解业务
+					* 全员需要建立一致的业务理解
 
-						为什么有助于解决上述痛点?
-						* 提供了看待业务的更高层次的视角
-						* 工具/流程保障我们对业务/产品需求达成共识
-					</aside>
-				</section>
+					为什么有助于解决上述痛点?
+					* 提供了看待业务的更高层次的视角
+					* ddd 流程保障我们对业务/产品需求达成共识
+				</aside>
+			</section>
 
-				<section ABOUT-DDD2 data-markdown>
-					## 关于领域驱动设计
-					
-				</section>
+			<section ABOUT-DDD2 data-markdown>
+				## 关于领域驱动设计
+				### 背景知识
+				<p>由 Eric Evans 提出的一种架构软件的方法</p>
+			</section>
 
 
-				<section>
-					<ul>
-						<li>产研实践的问题</li>
-						<li>领域驱动设计的特点</li>
-					</ul>
-				</section>
-				<section data-markdown data-notes="
+			<section>
+				<ul>
+					<li>产研实践的问题</li>
+					<li>领域驱动设计的特点</li>
+				</ul>
+			</section>
+			<section data-markdown data-notes="
 TODO 解说每个问题的原因, 并提出原因和解决方案
 每一条可以举个例子
 1. 业务定义不清晰: 张小龙想要做微信短视频, 短视频到底是什么? 我们需要人为定义出这个短视频系统的边界, 确定它能做什么不能做什么
 2. 业务用语歧义: 开会沟通, 参会的有运营, 产品, 研发, 用户等, 大家说到'漫画', 到底是指'漫画作品'这一概念? 还是我们平台上的漫画? 还是指漫画章节?
 3. 业务逻辑丢失: 程序员的实现不会和产品文档完全一致(或者是产品口头需求没有记录), 总之, 在迭代的长河中, 我们最终总会有那么几次只能依赖读代码来推理业务逻辑
-4. 业务扩展困难: 好吧, 这应该是程序员的锅, 软件设计上做的不够灵活多变"
-						>
-					<aside data-markdown class="notes">
-					
-					</aside>
-					<textarea data-template>
+4. 业务扩展困难: 好吧, 这应该是程序员的锅, 软件设计上做的不够灵活多变">
+				<aside data-markdown class="notes">
+
+				</aside>
+				<textarea data-template>
 					### 产研实践的问题
 					| 问题 | 可能原因 |
 					|-----|-------|
@@ -129,250 +159,274 @@ TODO 解说每个问题的原因, 并提出原因和解决方案
 					| 业务逻辑丢失 | 文档难以维护, 代码可读性不佳 |
 					| 业务扩展困难 | 软件设计不够灵活 |
 					</textarea>
-				</section>
-				<section>
-					<h3>领域驱动设计(DDD)的特点</h3>
-					<p><span class="ustrong">业务</span>在 DDD 方法论中处在<span class="ustrong">核心</span>位置</p>
+			</section>
+			<section>
+				<h3>领域驱动设计(DDD)的特点</h3>
+				<p><span class="ustrong">业务</span>在 DDD 方法论中处在<span class="ustrong">核心</span>位置</p>
 
-					<ul class="fragment">						
-						<li>以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</li>
-						<li>建立全员一致的<span class="ustrong">业务</span>理解</li>
-						<li>更好的团队投入与参与(产品, 运营, 开发者, etc)</li>
-						<li>更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</li>
-						<li>领域模型即<span class="ustrong">业务</span>逻辑</li>
-						<li>代码更加易于维护,扩展;(可能)更高的代码质量</li>
-					</ul>
-					<aside class="notes">
-						model 中的业务逻辑, service 中没有业务逻辑!
-					</aside>
-				</section>
+				<ul class="fragment">
+					<li>以<span class="ustrong">业务</span>为核心, 围绕业务开展活动</li>
+					<li>建立全员一致的<span class="ustrong">业务</span>理解</li>
+					<li>更好的团队投入与参与(产品, 运营, 开发者, etc)</li>
+					<li>更好的发掘/梳理<span class="ustrong">业务价值</span>, 聚焦高价值的业务</li>
+					<li>领域模型即<span class="ustrong">业务</span>逻辑</li>
+					<li>代码更加易于维护,扩展;(可能)更高的代码质量</li>
+				</ul>
+				<aside class="notes">
+					model 中的业务逻辑, service 中没有业务逻辑!
+				</aside>
+			</section>
 			<!-- </section>	 -->
 
 			<!-- 关于 DDD-->
 			<!-- <section ABOUT-DDD> -->
-				<!--1.1 引子-->
-				<section>
-					<h2>DDD 是什么?</h2>
-					<h3 class="fragment">初识 DDD</h3>
-					<p class="fragment">"DDD" <span class="fragment"> = </span> <span class="fragment">Domain Driven Design</span></p>
-					<p class="fragment">"领域驱动设计"</p>
-					<p class="fragment">一套指导软件设计与实施的<span class="ustrong">方法论</span></p>
-				</section>
-				<!--1.2 概念说明-->
-				<section>
-					<h3>关键术语</h3>
-					<table style="font-size:0.7em">
-						<tr><th>术语</th><th>意义</th><th>说明</th></tr>
-						<tr>
-							<td><span class="term">领域</span></td>
-							<td>问题空间</td>
-							<td>某一类业务问题, 比如"如何发布内容"</td>
-						</tr>
-						<tr>
-							<td><span class="term">限界上下文</span></td>
-							<td>解空间</td>
-							<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容发布系统</td>
-						</tr>
-						<tr>
-							<td><span class="term">领域模型</span></td>
-							<td>对领域内的对象建模, 封装业务逻辑</td>
-							<td>内容发布系统中的"评论"对象, 具有删除动作</td>
-						</tr>
-						<tr>
-							<td><span class="term">实体对象</span></td>
-							<td>领域模型的一种, 具有全局唯一性</td>
-							<td>"发布系统"上下文中的"评论"对象是实体对象</td>
-						</tr>
-						<tr>
-							<td><span class="term">值对象</span></td>
-							<td>领域模型的一种, 生命周期短, 不唯一</td>
-							<td>"发布系统"上下文中的"帖子"对象的内容文本是值对象</td>
-						</tr>
-					</table>
-				</section>
-				<!--1.3 举例说明-->
-				<section>
-					<h3>举例说明</h3>
-					<div class="fragment">
-						<p>对于"社区内容"问题(<span class="term">领域</span>):</p>
-						<p>我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
-						<p>在该上下文中, 我们有帖子这一</span>(<span class="term">实体</span>)对象;</p> 
-						<p>该对象可能包含的属性有 "帖子标题", "帖子内容"</p>
-						<p>这些属性都是<span class="term">值对象</span></p>
-					</div>
-					<aside class="notes">
-						点到为止
-					</aside>
+			<!--1.1 引子-->
+			<section>
+				<h2>DDD 是什么?</h2>
+				<h3 class="fragment">初识 DDD</h3>
+				<p class="fragment">"DDD" <span class="fragment"> = </span> <span class="fragment">Domain Driven
+						Design</span></p>
+				<p class="fragment">"领域驱动设计"</p>
+				<p class="fragment">一套指导软件设计与实施的<span class="ustrong">方法论</span></p>
+			</section>
+			<!--1.2 概念说明-->
+			<section>
+				<h3>关键术语</h3>
+				<table style="font-size:0.7em">
+					<tr>
+						<th>术语</th>
+						<th>意义</th>
+						<th>说明</th>
+					</tr>
+					<tr>
+						<td><span class="term">领域</span></td>
+						<td>问题空间</td>
+						<td>某一类业务问题, 比如"如何发布内容"</td>
+					</tr>
+					<tr>
+						<td><span class="term">限界上下文</span></td>
+						<td>解空间</td>
+						<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容发布系统</td>
+					</tr>
+					<tr>
+						<td><span class="term">领域模型</span></td>
+						<td>对领域内的对象建模, 封装业务逻辑</td>
+						<td>内容发布系统中的"评论"对象, 具有删除动作</td>
+					</tr>
+					<tr>
+						<td><span class="term">实体对象</span></td>
+						<td>领域模型的一种, 具有全局唯一性</td>
+						<td>"发布系统"上下文中的"评论"对象是实体对象</td>
+					</tr>
+					<tr>
+						<td><span class="term">值对象</span></td>
+						<td>领域模型的一种, 生命周期短, 不唯一</td>
+						<td>"发布系统"上下文中的"帖子"对象的内容文本是值对象</td>
+					</tr>
+				</table>
+			</section>
+			<!--1.3 举例说明-->
+			<section>
+				<h3>举例说明</h3>
+				<div class="fragment">
+					<p>对于"社区内容"问题(<span class="term">领域</span>):</p>
+					<p>我们<span class="ustrong">定义</span>出"帖子上下文"(<span class="term">限界上下文</span>);</p>
+					<p>在该上下文中, 我们有帖子这一</span>(<span class="term">实体</span>)对象;</p>
+					<p>该对象可能包含的属性有 "帖子标题", "帖子内容"</p>
+					<p>这些属性都是<span class="term">值对象</span></p>
+				</div>
+				<aside class="notes">
+					点到为止
+				</aside>
 
-				</section>
-				<section>
-					TODO WHY DDD?
-				</section>
+			</section>
+			<section>
+				TODO WHY DDD?
+			</section>
 			<!-- </section> -->
 
 
 			<!--如何实施 DDD-->
 			<!-- <section HOWTO> -->
-				<section>
-					<h2>如何实施 DDD?</h2>
-					<ol class="fragment">
-						<li>梳理业务逻辑</li>
-						<li>输出共识</li>
-						<li>为领域建模</li>
-						<li>围绕领域构建服务</li>
+			<section>
+				<h2>如何实施 DDD?</h2>
+				<ol class="fragment">
+					<li>梳理业务逻辑</li>
+					<li>输出共识</li>
+					<li>为领域建模</li>
+					<li>围绕领域构建服务</li>
+				</ol>
+				<aside class="notes" data-markdown>
+					TODO
+
+					1. 流程图!
+					2. 介绍架构的时机??
+					3. 依赖关系图!
+				</aside>
+			</section>
+			<section>
+				<h3> 1. 梳理业务逻辑</h3>
+
+				<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
+				<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
+				<div class="fragment" style="font-size:0.5em;color:grey;">
+					<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
+					<ol>
+						<li>确定要讨论的业务</li>
+						<li>召集相关方聚在有白板的会议室中</li>
+						<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
+						<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
+						<li>重复3-4步</li>
 					</ol>
-					<aside class="notes" data-markdown>
-						TODO
+					<p>最后我们就得到了业务的全部流转逻辑</p>
+				</div>
 
-						1. 流程图!
-						2. 介绍架构的时机??
-						3. 依赖关系图!
-					</aside>
-				</section>
-				<section>
-					<h3> 1. 梳理业务逻辑</h3>
-					
-					<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
-					<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
-					<div class="fragment" style="font-size:0.5em;color:grey;">
-						<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
-						<ol>
-							<li>确定要讨论的业务</li>
-							<li>召集相关方聚在有白板的会议室中</li>
-							<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
-							<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
-							<li>重复3-4步</li>
-						</ol>
-						<p>最后我们就得到了业务的全部流转逻辑</p>
-					</div>
-					
-					<aside class="notes">				
-						<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
-						<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
-					</aside>
-				</section>
-				<section id="output">
-					<h3>2. 输出共识</h3>
-					<div class="fragment">
-						<p>
+				<aside class="notes">
+					<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
+					<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
+				</aside>
+			</section>
+			<section id="output">
+				<h3>2. 输出共识</h3>
+				<div class="fragment">
+					<p>
 						共识即<span class="term">领域通用语言</span>
-						</p>
-						<p>通用语言包含:</p>
-						<ul>
-							<li>领域 和 限界上下文</li>
-							<li>用语词典</li>
-							<li>业务流程图</li>
-						</ul>
-					</div>
-				</section>
-				<section id="context">
-					<div>
-						<h4>领域 & 限界上下文</h4>
-						<p class="fragment"><span class="term">领域</span>: 问题空间</p>
-						<p class="fragment"><span class="term">限界上下文</span>: 属于解空间 <span class="fragment">需要<span class="ustrong">由团队人为划定边界</span></span> </p>
-						
-						<p class="fragment">例如, 对于订单这一业务</p>
-						<p class="fragment">"领域" = 电商平台如何管理订单?</p>
-						<p class="fragment">"子域" = 电商平台如何对每笔订单实时追踪?</p>
-						<p class="fragment">(其中一个)"限界上下文" = "<span class="term">追踪上下文</span>", 包含了订单追踪系统解决方案, 比如:
-							<ul class="fragment">
-								<li>物流运输部门</li>
-								<li>物流软件系统</li>
-								...
-							</ul>
-						</p>
-					</div>
-					<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
-					<aside class="notes">
-						1. 领域可大可小, 也可以包含子域
-						2. 可以注意到一个上下文只解决一个领域的问题
-						3. !! 注意, 虽然 ddd 是用于设计软件的, 但"软件"系统却只是"上下文"的一部分
-					</aside>
-				</section>
-				<section id="dict">
-					<h4>用语词典</h4>
-					<p style="font-size:0.7em">"合集"领域的词典</p>
-					<div>
-						<table>
-							<tr><th>用语</th><th>说明</th></tr>
-							<tr><td>合集</td><td>用于组织用户发布的帖子的一种承载物</td></tr>
-							<tr><td>用户</td><td>一个用户即代表一个具备合集权限的社区用户</td></tr>
-							<tr><td>帖子</td><td>社区单个用户单次生产内容的主要形式, 可以包含文本,图片,视频多种内容</td></tr>
-							<tr><td>...</td><td>...</td></tr>
-						</table>
-					</div>
-					<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
-					<aside class="notes">
-						用语词典的全称是"领域 XXX 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的领域以及上下文中表达一个清晰无歧义的概念;
-					</aside>
-				</section>
-				<section id="flow">
-					<h4>流程图</h4>
-					<div class="notes">
-						<img src="./img/compilation.png"/>
-					</div>
-					<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
-					<aside class="notes">
-						在合集开发中, 用流程图和产品方进行了确认
-					</aside>
-				</section>
-				<section>
-					<h3>conclusion 1</h3>
+					</p>
+					<p>通用语言包含:</p>
 					<ul>
-						<li>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</li>
-						<li><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</li>
-						<li>达成并输出<span class="ustrong">共识</span>十分重要</li>
+						<li>领域 和 限界上下文</li>
+						<li>用语词典</li>
+						<li>业务流程图</li>
 					</ul>
-		
-				</section>
-				<section>
+				</div>
+			</section>
+			<section id="context">
+				<div>
+					<h4>领域 & 限界上下文</h4>
+					<p class="fragment"><span class="term">领域</span>: 问题空间</p>
+					<p class="fragment"><span class="term">限界上下文</span>: 属于解空间 <span class="fragment">需要<span
+								class="ustrong">由团队人为划定边界</span></span> </p>
 
-					<h3> 3. 为领域建模</h3>
-					<p class="ustrong">i.e. 将业务逻辑封装在领域模型中!</p>
-					<aside class="notes">
-						对比 service 和 Domain Object
-					</aside>
+					<p class="fragment">例如, 对于订单这一业务</p>
+					<p class="fragment">"领域" = 电商平台如何管理订单?</p>
+					<p class="fragment">"子域" = 电商平台如何对每笔订单实时追踪?</p>
+					<p class="fragment">(其中一个)"限界上下文" = "<span class="term">追踪上下文</span>", 包含了订单追踪系统解决方案, 比如:
+					<ul class="fragment">
+						<li>物流运输部门</li>
+						<li>物流软件系统</li>
+						...
+					</ul>
+					</p>
+				</div>
+				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
+				<aside class="notes">
+					1. 领域可大可小, 也可以包含子域
+					2. 可以注意到一个上下文只解决一个领域的问题
+					3. !! 注意, 虽然 ddd 是用于设计软件的, 但"软件"系统却只是"上下文"的一部分
+				</aside>
+			</section>
+			<section id="dict">
+				<h4>用语词典</h4>
+				<p style="font-size:0.7em">"合集"领域的词典</p>
+				<div>
 					<table>
-						<tr><th>NO</th><th>YES</th></tr>
 						<tr>
-							<td><img src="./img/pasta.jpg"></td>
-							<td><img src="./img/domained.jpg"></td>
+							<th>用语</th>
+							<th>说明</th>
+						</tr>
+						<tr>
+							<td>合集</td>
+							<td>用于组织用户发布的帖子的一种承载物</td>
+						</tr>
+						<tr>
+							<td>用户</td>
+							<td>一个用户即代表一个具备合集权限的社区用户</td>
+						</tr>
+						<tr>
+							<td>帖子</td>
+							<td>社区单个用户单次生产内容的主要形式, 可以包含文本,图片,视频多种内容</td>
+						</tr>
+						<tr>
+							<td>...</td>
+							<td>...</td>
 						</tr>
 					</table>
-				</section>
-				<section>
-					<h4 class="ustrong">"值对象"</h4>
-					<ul class="fragment">
-						<li>不唯一</li>
-						<li>生命周期短</li>
-						<li>不可变</li>
-					</ul>
-					<aside class="notes">
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请试着说出这段代码的业务逻辑
-						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-							2. 不可变
-					</aside>
-				</section>
-				<section>
-					<h4>试看一例</h4>
-					<aside class="notes">
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请试着说出这段代码的业务逻辑
-						2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-							1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-							2. 不可变
-					</aside>
-					<div>
+				</div>
+				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
+				<aside class="notes">
+					用语词典的全称是"领域 XXX 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的领域以及上下文中表达一个清晰无歧义的概念;
+				</aside>
+			</section>
+			<section id="flow">
+				<h4>流程图</h4>
+				<div class="notes">
+					<img src="./img/compilation.png" />
+				</div>
+				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
+				<aside class="notes">
+					在合集开发中, 用流程图和产品方进行了确认
+				</aside>
+			</section>
+			<section>
+				<h3>conclusion 1</h3>
+				<ul>
+					<li>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</li>
+					<li><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</li>
+					<li>达成并输出<span class="ustrong">共识</span>十分重要</li>
+				</ul>
 
-<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+			</section>
+			<section>
+
+				<h3> 3. 为领域建模</h3>
+				<p class="ustrong">i.e. 将业务逻辑封装在领域模型中!</p>
+				<aside class="notes">
+					对比 service 和 Domain Object
+				</aside>
+				<table>
+					<tr>
+						<th>NO</th>
+						<th>YES</th>
+					</tr>
+					<tr>
+						<td><img src="./img/pasta.jpg"></td>
+						<td><img src="./img/domained.jpg"></td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h4 class="ustrong">"值对象"</h4>
+				<ul class="fragment">
+					<li>不唯一</li>
+					<li>生命周期短</li>
+					<li>不可变</li>
+				</ul>
+				<aside class="notes">
+					0. 首先简要介绍一下 kotlin 语法
+					1. val = final
+					2. var = mutable prop
+					3. ? = @Nullable
+					1. 请试着说出这段代码的业务逻辑
+					2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+					1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+					2. 不可变
+				</aside>
+			</section>
+			<section>
+				<h4>试看一例</h4>
+				<aside class="notes">
+					0. 首先简要介绍一下 kotlin 语法
+					1. val = final
+					2. var = mutable prop
+					3. ? = @Nullable
+					1. 请试着说出这段代码的业务逻辑
+					2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+					1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+					2. 不可变
+				</aside>
+				<div>
+
+					<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
 data class Title(
         val title: String
 ) : SimpleValueObject&lt;Title> {
@@ -386,7 +440,7 @@ data class Title(
     }
 }
 </code></pre>
-<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+					<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
 data class CompilationID(
         val id: Long
 ) : SimpleValueObject&lt;CompilationID> {
@@ -398,18 +452,18 @@ data class CompilationID(
 }
 </code></pre>
 
-					</div>
-				</section>
+				</div>
+			</section>
 
-				<section>
-					<h4 class="ustrong">"实体对象"</h4>
-					<ul class="fragment">
-						<li>唯一性/身份</li>
-						<li>生命周期长</li>
-						<li>可变</li>
-					</ul>
-					<aside class="notes">
-						<pre>
+			<section>
+				<h4 class="ustrong">"实体对象"</h4>
+				<ul class="fragment">
+					<li>唯一性/身份</li>
+					<li>生命周期长</li>
+					<li>可变</li>
+				</ul>
+				<aside class="notes">
+					<pre>
 						0. 首先简要介绍一下 kotlin 语法
 							1. val = final
 							2. var = mutable prop
@@ -423,25 +477,25 @@ data class CompilationID(
 							3. Compilation 对象是可变的, 体现在其可变成员属性上
 
 						</pre>
-					</aside>
-				</section>
-				<section>
-					<h4>试看一例</h4>
-					<aside class="notes">
-						0. 首先简要介绍一下 kotlin 语法
-							1. val = final
-							2. var = mutable prop
-							3. ? = @Nullable
-						1. 请观众说明该段代码的业务含义
-							1. 成员对象的可变性(val, var)
-							2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
-						2. "实体"解释
-							1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
-							2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
-							3. Compilation 对象是可变的, 体现在其可变成员属性上
-					</aside>
-					<div class="fragment">
-						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+				</aside>
+			</section>
+			<section>
+				<h4>试看一例</h4>
+				<aside class="notes">
+					0. 首先简要介绍一下 kotlin 语法
+					1. val = final
+					2. var = mutable prop
+					3. ? = @Nullable
+					1. 请观众说明该段代码的业务含义
+					1. 成员对象的可变性(val, var)
+					2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
+					2. "实体"解释
+					1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
+					2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
+					3. Compilation 对象是可变的, 体现在其可变成员属性上
+				</aside>
+				<div class="fragment">
+					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 						class Compilation private constructor(
 								val compilationID: CompilationID,
 								val author: Author,
@@ -464,114 +518,126 @@ data class CompilationID(
 							*/
 						}
 						</code></pre>
+				</div>
+			</section>
+
+			<section>
+				<h4>创建纯洁的领域对象</h4>
+				<ul>
+					<li>忘记 DB, <span class="ustrong">领域优先</li>
+				</ul>
+				<aside class="notes">
+					例子中是一个典型的 POJO, 或者说 DTO (data transfer object), 而且拥有与 schema 一一对应的字段
+				</aside>
+				<div class="r-stack">
+					<div class="fragment current-visible fade-out">
+						<img src="./img/first_line.jpeg" />
 					</div>
-				</section>
-
-				<section>
-					<h4>创建纯洁的领域对象</h4>
-					<ul><li>忘记 DB, <span class="ustrong">领域优先</li></ul>
-					<aside class="notes">
-						例子中是一个典型的 POJO, 或者说 DTO (data transfer object), 而且拥有与 schema 一一对应的字段
-					</aside>
-					<div class="r-stack">
-						<div class="fragment current-visible fade-out">
-							<img src="./img/first_line.jpeg" />
-						</div>
-						<table class="fragment fade-up">
-							<tr>
-								<th>NO</th><th>YES</th>
-							</tr>
-							<tr>
-								<td>
-									<img src='./img/db-orient.jpg'/>
-								</td>
-
-								<td>
-									<img src="./img/domain-orient.jpg">
-								</td>
-							</tr>
-						</table>
-					</div>
-				</section>
-				<section>
-					<h4>创建纯洁的领域对象</h4>
-					<ul><li>对象对应于<span class="term">上下文</span>中的一个清晰概念</li></ul>
-					<aside class="notes">
-						对于发布系统上下文
-					</aside>
-					<table class="fragment fade-in">
+					<table class="fragment fade-up">
 						<tr>
-							<th>NO</th><th>YES</th>
+							<th>NO</th>
+							<th>YES</th>
 						</tr>
 						<tr>
 							<td>
-								<img src='./img/notclear.jpg'/>
+								<img src='./img/db-orient.jpg' />
 							</td>
+
 							<td>
-								<img src="./img/clear.jpg">
+								<img src="./img/domain-orient.jpg">
 							</td>
 						</tr>
 					</table>
-				</section>
+				</div>
+			</section>
+			<section>
+				<h4>创建纯洁的领域对象</h4>
+				<ul>
+					<li>对象对应于<span class="term">上下文</span>中的一个清晰概念</li>
+				</ul>
+				<aside class="notes">
+					对于发布系统上下文
+				</aside>
+				<table class="fragment fade-in">
+					<tr>
+						<th>NO</th>
+						<th>YES</th>
+					</tr>
+					<tr>
+						<td>
+							<img src='./img/notclear.jpg' />
+						</td>
+						<td>
+							<img src="./img/clear.jpg">
+						</td>
+					</tr>
+				</table>
+			</section>
 
-				<section>
-					<h4>创建纯洁的领域对象</h4>
-					<ul><li>对象只有单一的<span class="ustrong">职责</span>(SRP)</li></ul>
-					<table class="fragment fade-in">
-						<tr>
-							<th>NO</th><th>YES</th>
-						</tr>
-						<tr>
-							<td>
-								<img src="./img/non-srp.jpg">
-							</td>
-							<td>
-								<img src="./img/srp.jpg">
-							</td>
-						</tr>
-					</table>
-				</section>
-				<section>
-					<h4>创建纯洁的领域对象</h4>
-					<ul><li>对象<span class="ustrong">不知道</span>其职责以外的任何知识</li></ul>
-					<table class="fragment fade-in">
-						<tr>
-							<th>NO</th><th>YES</th>
-						</tr>
-						<tr>
-							<td>
-								<img src="./img/corrupted.jpg" />
-							</td>
-							<td>
-								<img src="./img/pure.jpg"/>
-							</td>
-						</tr>
-					</table>
-				</section>
-				<section>
-					<h3>conclusion 2 </h3>
-					<ul>
-						<li>用领域模型体现<span class="ustrong">业务逻辑</span></li>
-						<li>创建<span class="ustrong">纯洁</span>的领域对象</li>
-					</ul>
-					<aside class="notes" data-markdown data-template>
-						
-					</aside>
-				</section>
+			<section>
+				<h4>创建纯洁的领域对象</h4>
+				<ul>
+					<li>对象只有单一的<span class="ustrong">职责</span>(SRP)</li>
+				</ul>
+				<table class="fragment fade-in">
+					<tr>
+						<th>NO</th>
+						<th>YES</th>
+					</tr>
+					<tr>
+						<td>
+							<img src="./img/non-srp.jpg">
+						</td>
+						<td>
+							<img src="./img/srp.jpg">
+						</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h4>创建纯洁的领域对象</h4>
+				<ul>
+					<li>对象<span class="ustrong">不知道</span>其职责以外的任何知识</li>
+				</ul>
+				<table class="fragment fade-in">
+					<tr>
+						<th>NO</th>
+						<th>YES</th>
+					</tr>
+					<tr>
+						<td>
+							<img src="./img/corrupted.jpg" />
+						</td>
+						<td>
+							<img src="./img/pure.jpg" />
+						</td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<h3>conclusion 2 </h3>
+				<ul>
+					<li>用领域模型体现<span class="ustrong">业务逻辑</span></li>
+					<li>创建<span class="ustrong">纯洁</span>的领域对象</li>
+				</ul>
+				<aside class="notes" data-markdown data-template>
 
-				<section>
-					<h3>4. 围绕领域构建服务</h3>
-					<ol>
-						<li><span class="term">领域模型</span>是整个服务的核心部分</li>
-						<li><span class="term">"应用(服务)"</span>是操作领域模型的唯一入口</li>
-						<li><span class="ustrong">持久化</span>及IO交给<span class="term">基础设施</span>来实现</li>
-					</ol>
-				</section>
-				<section>
-					<h3>架构一览</h3>
-					<aside class="notes" data-template data-markdown>
+				</aside>
+			</section>
+
+			<section>
+				<h3>4. 围绕领域构建服务</h3>
+				<ol>
+					<li><span class="term">领域模型</span>是整个服务的核心部分</li>
+					<li><span class="term">"应用(服务)"</span>是操作领域模型的唯一入口</li>
+					<li><span class="ustrong">持久化</span>及IO交给<span class="term">基础设施</span>来实现</li>
+				</ol>
+			</section>
+			<section>
+				<h3>架构一览</h3>
+				<aside class="notes" data-template data-markdown>
 					不展开讲, 点到为止
-					
+
 					### 组件的介绍
 					0. 适配器的作用是保持"应用"为唯一的操作接口
 					1. "应用"是整个服务对领域对象操作的唯一入口
@@ -590,122 +656,135 @@ data class CompilationID(
 					2. 根据模型设计应用服务的接口(契约, 函数签名)
 					3. 根据模型推导持久化的 schema
 					4. 推导其它的组件实现
-					
+
 					### 注意
 					1. 保持领域的纯洁(避免领域污染), 使用防腐层(比如使用适配器/表面模式);
-						1. 保持领域对象的纯洁
-						2. 领域完整且自治
+					1. 保持领域对象的纯洁
+					2. 领域完整且自治
 					2. (尽力)将 IO 推到系统边界
-						1. 保持了领域对象的纯洁
-						2. 解耦了业务逻辑和实现,利于重构和变更
+					1. 保持了领域对象的纯洁
+					2. 解耦了业务逻辑和实现,利于重构和变更
 
-					</aside>
-					<p><img style="height:600px" src="./img/architecture.svg"/></p>
-				</section>
-				<section>
-					<h3>conclusion 3</h3>
-					<ul>
-						<li>架构/基础设施应该与<span class="term">领域模型</span>解耦</li>
-						<li>使用 CQRS 模式</li>
-					</ul>
-					<aside class="notes" data-template data-markdown>
-						CQRS = 命令查询责任分离
-						1. 写模型易于抽象成领域模型, 读模型则不是
-						2. 分离后每个服务专注于单独的一个职责(读/写)
-						3. 读写的同步问题
-					</aside>
-				</section>
+				</aside>
+				<p><img style="height:600px" src="./img/architecture.svg" /></p>
+			</section>
+			<section>
+				<h3>conclusion 3</h3>
+				<ul>
+					<li>架构/基础设施应该与<span class="term">领域模型</span>解耦</li>
+					<li>使用 CQRS 模式</li>
+				</ul>
+				<aside class="notes" data-template data-markdown>
+					CQRS = 命令查询责任分离
+					1. 写模型易于抽象成领域模型, 读模型则不是
+					2. 分离后每个服务专注于单独的一个职责(读/写)
+					3. 读写的同步问题
+				</aside>
+			</section>
 			<!-- </section> -->
 
 			<!--4 总结-->
 			<!-- <section CONCLUSION> -->
-				<section>
+			<section>
 
 				<h2>To sum it up</h2>
 				<aside class="notes">
 					回顾观点
 				</aside>
-				</section>
-				<section>
-					<h4>DDD 是什么?</h4>
-					<p>以业务为中心的软件设计和实施方法论</p>
-				</section>
+			</section>
+			<section>
+				<h4>DDD 是什么?</h4>
+				<p>以业务为中心的软件设计和实施方法论</p>
+			</section>
 
-				<section>
-					<h4>为什么要学习 DDD ?</h4>
-					<ul>
-						<li>产研实践损害了业务完整性</li>
-						<li>DDD 框架围绕业务开展活动</li>
-					</ul>
-				</section>
+			<section>
+				<h4>为什么要学习 DDD ?</h4>
+				<ul>
+					<li>产研实践损害了业务完整性</li>
+					<li>DDD 框架围绕业务开展活动</li>
+				</ul>
+			</section>
 
-				<section>
-					<h4>如何实施 DDD?</h4>
-					<ol>
-						<li>梳理业务逻辑</li>
-						<li>建立并输出业务共识</li>
-						<li>设计领域模型</li>
-						<li>推导并实现服务组件</li>
-					</ol>
-				</section>
+			<section>
+				<h4>如何实施 DDD?</h4>
+				<ol>
+					<li>梳理业务逻辑</li>
+					<li>建立并输出业务共识</li>
+					<li>设计领域模型</li>
+					<li>推导并实现服务组件</li>
+				</ol>
+			</section>
 			<!-- </section> -->
 
 
 			<!-- <section MORE> -->
-				<section><h2>More</h2></section>
-				<section><h3>Q & A</h3></section>
-				<section>
-					<h3>References</h3>
-					<h4>if you're still interested</h4>
-					<p>欢迎阅读 <a href="https://wiki.quickcan.com/pages/viewpage.action?pageId=175243524#DDD(领域驱动设计)实践-review_log">DDD 实战记录</a></p>
-					<p>以及参考<a href="https://git.quickcan.com/social/social-feed-service/-/tree/master/src/main/kotlin/com/kk/social/experimental/ddd/compilation" target="_blank">社区合集实现</a>
-					</p>
-				</section>
+			<section>
+				<h2>More</h2>
+			</section>
+			<section>
+				<h3>Q & A</h3>
+			</section>
+			<section>
+				<h3>References</h3>
+				<h4>if you're still interested</h4>
+				<p>欢迎阅读 <a
+						href="https://wiki.quickcan.com/pages/viewpage.action?pageId=175243524#DDD(领域驱动设计)实践-review_log">DDD
+						实战记录</a></p>
+				<p>以及参考<a
+						href="https://git.quickcan.com/social/social-feed-service/-/tree/master/src/main/kotlin/com/kk/social/experimental/ddd/compilation"
+						target="_blank">社区合集实现</a>
+				</p>
+			</section>
 			<!-- </section> -->
-			</div>
 		</div>
+	</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-			Reveal.configure({ pdfSeparateFragments: false });
-		</script>
-		<style type="text/css">
-			.reveal section pre code {
-				font-size: 0.7em !important;
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+		Reveal.configure({ pdfSeparateFragments: false });
+	</script>
+	<style type="text/css">
+		.reveal section pre code {
+			font-size: 0.7em !important;
+		}
+
+		.reveal section .ustrong {
+			color: #CC3300;
+			font-style: bold !important;
+			font-weight: 500px !important;
+		}
+
+		.reveal section.dialogue p {
+			font-size: 0.6em !important;
+			text-align: left;
+			padding-left: 2em;
+		}
+
+		.reveal section .term {
+			font-style: normal !important;
+			color: #0099ff !important;
+			border-bottom: 1px solid;
+		}
+
+		@media print {
+			.slide-background {
+				background-color: #222 !important;
+				-webkit-print-color-adjust: exact;
 			}
-			.reveal section .ustrong {
-				color: #CC3300;
-				font-style:	bold !important;
-				font-weight: 500px !important;
-			}
-			.reveal section.dialogue p {
-				font-size: 0.6em !important;
-				text-align: left;
-				padding-left: 2em ;
-			}
-			.reveal section .term {
-				font-style: normal !important;
-				color: #0099ff	!important;
-				border-bottom: 1px solid;
-			}
-			@media print {
-				.slide-background {
-					background-color: #222 !important;
-					-webkit-print-color-adjust: exact; 
-				}
-			}
-		</style>
-	</body>
+		}
+	</style>
+</body>
+
 </html>
