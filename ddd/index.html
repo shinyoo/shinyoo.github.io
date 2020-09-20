@@ -17,32 +17,94 @@
 		<div class="reveal">
 			<div class="slides">
 			<!--0.intro-->
-			<section INTRO>
-				<section>
+			<!-- <div INTRO> -->
+				<section WHO>
+					<h1>我是谁</h1>
+					TODO
+				</section>
+				<section COVER>
 					<h1>领域驱动设计入门</h1>
 					<h2 class="fragment">应对软件复杂性</p>
 				</section>
-				<section>
+				<section ROADMAP>
 					<h2>分享路线图</h2>
 					<ul>
 						<li>为什么做这个分享?</li>
 						<li>关于领域驱动设计</li>
-						<li>案例研究</li>
-						<li>结论</li>
+						<li>DDD 案例研究</li>
+						<li>结论与 Q&A</li>
 					</ul>
 				</section>
-			</section>
+			<!-- </div> -->
 
 
-			<!--为什么要学 ddd-->
-			<section WHY-DDD>
-				<section>
-					<h2>为什么做这个分享?</h2>
-					<aside class="notes" data-markdown>
-						个人一直对"编码"或者更具体地说"编写优雅的代码"这件事有执念, 因此最近开发的新功能, 使用了 DDD 的方式去构建;
-						
-						在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
+			<!--为什么分享 ddd-->
+			<!-- <section WHY-DDD> -->
+				<section WHY-TALK1 data-markdown data-notes="					
+个人一直对'编码'或者更具体地说'编写优雅的代码'这件事有执念, 因此最近开发的新功能, 使用了 DDD 的方式去构建;
+在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
+优雅的代码实现:
+	1. 更简洁明了的编码（straight-forward）
+	1. 可测试的代码（业务逻辑和技术细节低耦合）
+	1. 更容易变更的代码实现
+尝试使用 ddd 并完成了初次较为完整的尝试
+">
+					## 为什么做这个分享?
+					### 个人热情所在
+					1. 交流关于编码最佳实践的思考
+					1. 探讨新鲜的 DDD 实践收获
+					
+				</section>
+				<section WHY-TALK2 data-markdown data-notes="
+ddd 思想和工具有助于我们解决这些痛点
+1. 为什么需要研发清晰地理解需求细节?
+	1. 准确地实现产品意图
+	2. 准时交付: bad case 开始研发后会发现很多细节坑, 不断地引出新的问题, 可能导致项目进度滞后
+	2. 技术服务于业务价值， 脱离业务的技术没有价值
+	3. 业务在我司是非常重要的: 垂直领域, 当前体量+发展阶段, 需要我们懂业务
+	4. 理解业务也是程序员的关键能力之一
+1. 为什么产品需要知道实现的关键细节?
+	1. 懂得解决方案, 可以更完整地理解业务
+	2. 能够更加合理地评估研发成本
+	3. 利于和研发顺利地沟通
+1. 长期迭代后, 业务需求分散, 不完整		
+   分散在多次迭代、多种规格和为之的增量式的产品文档中
+需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息
+				">
+					## 为什么做这个分享?
+					### 应对业务痛点
+					1. 研发不能清晰地理解需求细节
+					1. 产品不知道实现的关键细节
+					1. 长期迭代后, 业务文档分散
+				</section>
+
+				<section ABOUT-DDD1>
+					<h2>关于领域驱动设计</h2>
+					<h3>核心原则</h3>
+					<ol>
+						<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+						<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+						<li class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+					</ol>
+					<aside data-markdown class="notes">
+						什么叫"以业务为核心开展活动"?
+						* 业务的地位最高(在 DDD 方法论中处在核心位置)
+						* 所有团队成员应该关注业务, 理解业务
+						* 全员需要建立一致的业务理解
+
+						为什么有助于解决上述痛点?
+						* 提供了看待业务的更高层次的视角
+						* 工具/流程保障我们对业务/产品需求达成共识
 					</aside>
+				</section>
+
+				<section ABOUT-DDD2 data-markdown>
+					## 关于领域驱动设计
+					
+				</section>
+
+
+				<section>
 					<ul>
 						<li>产研实践的问题</li>
 						<li>领域驱动设计的特点</li>
@@ -63,8 +125,7 @@ TODO 解说每个问题的原因, 并提出原因和解决方案
 					### 产研实践的问题
 					| 问题 | 可能原因 |
 					|-----|-------|
-					| 业务定义不完整 | 业务流程未梳理清楚 |
-					| 业务用语有歧义 | 没有统一交流的上下文和用语的认知 |
+					| 业务定义缺陷 | 业务流程未梳理清楚, 用语有歧义 |
 					| 业务逻辑丢失 | 文档难以维护, 代码可读性不佳 |
 					| 业务扩展困难 | 软件设计不够灵活 |
 					</textarea>
@@ -85,10 +146,10 @@ TODO 解说每个问题的原因, 并提出原因和解决方案
 						model 中的业务逻辑, service 中没有业务逻辑!
 					</aside>
 				</section>
-			</section>	
+			<!-- </section>	 -->
 
-			<!--ddd是什么-->
-			<section WHATS-DDD>
+			<!-- 关于 DDD-->
+			<!-- <section ABOUT-DDD> -->
 				<!--1.1 引子-->
 				<section>
 					<h2>DDD 是什么?</h2>
@@ -144,11 +205,14 @@ TODO 解说每个问题的原因, 并提出原因和解决方案
 					</aside>
 
 				</section>
-			</section>
+				<section>
+					TODO WHY DDD?
+				</section>
+			<!-- </section> -->
 
 
 			<!--如何实施 DDD-->
-			<section HOWTO>
+			<!-- <section HOWTO> -->
 				<section>
 					<h2>如何实施 DDD?</h2>
 					<ol class="fragment">
@@ -479,7 +543,7 @@ data class CompilationID(
 								<img src="./img/corrupted.jpg" />
 							</td>
 							<td>
-								<img src="./img/pure.jpg"
+								<img src="./img/pure.jpg"/>
 							</td>
 						</tr>
 					</table>
@@ -551,10 +615,10 @@ data class CompilationID(
 						3. 读写的同步问题
 					</aside>
 				</section>
-			</section>
+			<!-- </section> -->
 
 			<!--4 总结-->
-			<section CONCLUSION>
+			<!-- <section CONCLUSION> -->
 				<section>
 
 				<h2>To sum it up</h2>
@@ -584,10 +648,10 @@ data class CompilationID(
 						<li>推导并实现服务组件</li>
 					</ol>
 				</section>
-			</section>
+			<!-- </section> -->
 
 
-			<section MORE>
+			<!-- <section MORE> -->
 				<section><h2>More</h2></section>
 				<section><h3>Q & A</h3></section>
 				<section>
@@ -597,7 +661,7 @@ data class CompilationID(
 					<p>以及参考<a href="https://git.quickcan.com/social/social-feed-service/-/tree/master/src/main/kotlin/com/kk/social/experimental/ddd/compilation" target="_blank">社区合集实现</a>
 					</p>
 				</section>
-			</section>
+			<!-- </section> -->
 			</div>
 		</div>
 
