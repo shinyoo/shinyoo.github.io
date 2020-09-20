@@ -75,13 +75,13 @@
 				<h2>为什么做这个分享?</h2>
 				<h3>应对编码中的痛点</h3>
 				<div class="r-stack">
-					<img src='./img/stragit.jpg' />
-					<ul>
-						<li class="fragment">如何写出更简洁, 直接明了的业务代码?</li>
-						<li class="fragment">如何对业务逻辑做出恰当的抽象?</li>
-						<li class="fragment">如何将业务逻辑和技术细节分离?</li>
-						<li class="fragment">如何让代码更容易变更?</li>
-						<li class="fragment">如何让代码更易于测试?</li>
+					<div class="fragment fade-out" style="z-index: -999" data-fragment-index="0"><img  src='./img/straight.jpg' /></div>
+					<ul class="fragment fade-in-down">
+						<li data-fragment-index="1">如何写出更简洁, 直接明了的业务代码?</li>
+						<li  data-fragment-index="3">如何对业务逻辑做出恰当的抽象?</li>
+						<li  data-fragment-index="5">如何将业务逻辑和技术细节分离?</li>
+						<li  data-fragment-index="7">如何让代码更容易变更?</li>
+						<li data-fragment-index="9">如何让代码更易于测试?</li>
 					</ul>
 			</section>
 			<section WHY-TALK1 data-markdown data-notes="
@@ -99,12 +99,17 @@ ddd 思想和工具有助于我们解决这些痛点
 1. 长期迭代后, 业务需求分散, 不完整		
    分散在多次迭代、多种规格和为之的增量式的产品文档中
 需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息
+
+TODO
+ 1. meme img
+ 2. meme img
+ 3. meme img
 				">
 				## 为什么做这个分享?
 				### 应对产研痛点
 				1. 研发不能清晰地理解需求细节
 				1. 产品不知道实现的关键细节
-				1. 长期迭代后, 业务文档分散
+				1. 长期迭代后, 需求知识分散
 			</section>
 
 			<section ABOUT-DDD1>
@@ -125,13 +130,26 @@ ddd 思想和工具有助于我们解决这些痛点
 					为什么有助于解决上述痛点?
 					* 提供了看待业务的更高层次的视角
 					* ddd 流程保障我们对业务/产品需求达成共识
+					TODO 增加
 				</aside>
 			</section>
 
-			<section ABOUT-DDD2 data-markdown>
-				## 关于领域驱动设计
-				### 背景知识
-				<p>由 Eric Evans 提出的一种架构软件的方法</p>
+			<section ABOUT-DDD2>
+				<h2>关于领域驱动设计</h2>
+				<h3>对比-流程</h3>
+				<aside class="notes">
+					TODO 流程图对比
+				</aside>
+			</section>
+
+			<section ABOUT-DDDz>
+				<h2>关于领域驱动设计</h2>
+				<h3>背景知识</h3>
+				<p>最早由 Eric Evans 2003年的"Domain Driven Design"一书中提出的一种软件开发方法</p>
+				<p>Martin Fowler On DDD:
+					<q>the heart of this was the idea that to develop software for a complex domain, we need to build
+						Ubiquitous Language that embeds domain terminology into the software systems that we build</q>
+				</p>
 			</section>
 
 
@@ -558,7 +576,7 @@ data class CompilationID(
 				<aside class="notes">
 					对于发布系统上下文
 				</aside>
-				<table class="fragment fade-in">
+				<table class="fragment fade-in-down">
 					<tr>
 						<th>NO</th>
 						<th>YES</th>
@@ -784,6 +802,7 @@ data class CompilationID(
 				-webkit-print-color-adjust: exact;
 			}
 		}
+
 		.reveal section img {
 			max-height: 600px;
 		}

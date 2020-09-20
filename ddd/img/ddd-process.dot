@@ -1,0 +1,24 @@
+digraph processVs {
+    subgraph cluster_old {
+
+        p_des[label="产品设计"]
+        p_pub[label="需求宣讲"]
+        p_est[label="需求评估"]
+        d_des[label="技术设计"]
+        d_imp[label="实现"]
+
+        p_des->p_pub->p_est->d_des->d_imp
+
+        
+        label="现有流程";
+    }
+
+
+
+    subgraph cluster_ddd {
+        p_pro[label="产品需求"]
+        
+
+        lable="DDD"
+    }
+}
