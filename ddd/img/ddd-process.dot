@@ -1,14 +1,23 @@
 digraph processVs {
+    node[shape=box]
     subgraph cluster_old {
-
-        p_des[label="产品设计"]
+        p_des[label="产品需求"]
         p_pub[label="需求宣讲"]
-        p_est[label="需求评估"]
+        d_est[label="需求评估"]
         d_des[label="技术设计"]
         d_imp[label="实现"]
 
-        p_des->p_pub->p_est->d_des->d_imp
-
+        p_des->p_pub->d_est->d_des->d_imp
+        node[shape=circle, style=filled, fillcolor=yellow]
+        pm[label="产品"]
+        dev[label="研发"]
+        pm->p_des
+        p_pub->dev
+        d_est->dev
+        d_des->dev
+        d_imp->dev
+        edge[style=invis]
+        pm->dev
         
         label="现有流程";
     }
@@ -17,8 +26,16 @@ digraph processVs {
 
     subgraph cluster_ddd {
         p_pro[label="产品需求"]
-        
+        p_dis[label="讨论"]
 
-        lable="DDD"
+        node[shape="circle"]
+        m_pm[label="产品"]
+        m_dev[label="研发"]
+        m_user[label="用户"]
+        
+        m_pm->p_dis
+        m_dev->p_dis
+
+        label="DDD流程"
     }
 }
