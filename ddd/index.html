@@ -44,8 +44,8 @@
 			<!-- <section WHY-DDD> -->
 			<section WHY-TALK data-markdown>
 				## 为什么做这个分享
-				1. 应对编码中的痛点
-				1. 应对产研实践的痛点
+				* 应对编码中的痛点
+				* 应对产研实践的痛点
 			</section>
 			<section WHY-TALK2 data-notes="					
 个人一直对'编码'或者更具体地说'编写优雅的代码'这件事有执念, 也经常被这些问题困扰:
@@ -81,7 +81,7 @@
 					优雅的代码实现
 				</aside>
 				<h2>为什么做这个分享?</h2>
-				<h3>1. 应对编码中的痛点</h3>
+				<h3>应对编码中的痛点</h3>
 				<ul>
 					<li data-fragment-index="1">代码可读性差</li>
 					<li data-fragment-index="3">面条代码/不合理的方法封装</li>
@@ -111,10 +111,10 @@ TODO
  3. meme img
 				">
 				## 为什么做这个分享?
-				### 2. 应对产研实践的痛点
-				1. 研发不能清晰地理解需求细节
-				1. 产品不知道技术实现的关键细节
-				1. 长期迭代后, 业务知识分散
+				### 应对产研实践的痛点
+				* 研发不能清晰地理解需求细节
+				* 产品不知道技术实现的关键细节
+				* 长期迭代后, 业务知识分散
 			</section>
 
 			<!-- 关于 DDD -->
@@ -198,7 +198,7 @@ TODO
 				</table>
 			</section>
 			<section>
-				<h2>关于领域驱动设计</h2>
+				<!-- <h2>关于领域驱动设计</h2> -->
 				<h3>3. 关键术语</h3>
 				<img class="r-strech" src="./img/domain-bc.jpg" />
 				<p>图示</p>
@@ -211,25 +211,25 @@ TODO
 			<section HOWTO data-markdown >
 				## DDD 案例研究
 				1. 业务背景介绍
-				1. 进行时: 梳理业务逻辑
-				1. 进行时: 创建领域模型
-				1. 进行时: 围绕模型构建服务
+				1. 工序之一: 梳理业务逻辑
+				1. 工序之二: 创建领域模型
+				1. 工序之三: 围绕模型构建服务
 			</section>
 			<section HOWTO-bg data-markdown>
 				## DDD 案例研究
-				### 1. 背景介绍
+				### 1. 业务背景介绍
 				"社区合集需求"
 
 				> 由于快看的生产者发布作品可能是连续性的，或者是需要归类整理的，所以需要使用合集形式对内容进行整理
 			</section>
 			<section HOWTO-pre>
 				<h2>DDD 案例研究</h2>
-				<h3>2. 梳理业务逻辑</h3>
+				<h3>工序之一: 梳理业务逻辑</h3>
 				<h4>梳理<span class="ustrong">业务逻辑</span>, 输出业务<span class="ustrong">共识</span></h4>
 			</section>
 			<section HOWTO-pre>
 				<h2>DDD 案例研究</h2>
-				<h3>2. 梳理业务逻辑</h3>
+				<h3>工序之一: 梳理业务逻辑</h3>
 				<img style="height:400px" src='./img/ddd-agree.svg' />
 				<aside class="notes">
 					<div style="font-size:0.5em;color:grey;">
@@ -247,16 +247,14 @@ TODO
 			</section>
 			<section HOWTO-biz>
 				<h2>DDD 案例研究</h2>
-				<h3>2. 梳理业务逻辑</h3>
+				<h3>工序之一: 梳理业务逻辑</h3>
 				<h4>输出之一: 领域和上下文</h4>
 				<div>
-					<p class="fragment">例如, 我们想要让用户能更方便地组织自己的内容</p>
-					<p class="fragment">"领域" = 如何让用户组织自己的已发表内容?</p>
-					<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含了合集生产与消费方案, 比如:
+					<p class="fragment"><span class="term">领域</span> = 如何让用户组织自己已发表的内容?</p>
+					<p class="fragment"><span class="term">限界上下文</span> = <span class="ustrong">合集上下文</span>, 使用"合集"功能解决用户组织内容的问题; 该上下文包含合集生产与消费方案:
 					<ul class="fragment">
-						<li>APP 用户界面</li>
-						<li>用户输入</li>
-						<li>后端软件系统</li>
+						<li>用户界面</li>
+						<li>后端系统</li>
 					</ul>
 					</p>
 				</div>
@@ -269,10 +267,9 @@ TODO
 
 			<section HOWTO-biz id="dict">
 				<h2>DDD 案例研究</h2>
-				<h3>2. 梳理业务逻辑</h3>
+				<h3>工序之一: 梳理业务逻辑</h3>
 				<h4>输出之二: "合集"上下文的用语词典</h4>
-				<p style="font-size:0.7em"></p>
-				<div>
+				<div style="font-size:1em">
 					<table>
 						<tr>
 							<th>用语</th>
@@ -288,7 +285,7 @@ TODO
 						</tr>
 						<tr>
 							<td>帖子</td>
-							<td>社区单个用户单次生产内容的主要形式, 可以包含文本,图片,视频多种内容</td>
+							<td>社区单个用户单次生产内容的主要形式;<br/>可以包含文本,图片,视频多种内容</td>
 						</tr>
 						<tr>
 							<td>...</td>
@@ -296,7 +293,6 @@ TODO
 						</tr>
 					</table>
 				</div>
-				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
 				<aside class="notes">
 					用语词典的全称是" XXX上下文 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的上下文中表达一个清晰无歧义的业务概念;
 				</aside>
@@ -304,11 +300,9 @@ TODO
 		
 			<section HOWTO-biz id="flow">
 				<h2>DDD 案例研究</h2>
-				<h3>2. 梳理业务逻辑</h3>
+				<h3>工序之一: 梳理业务逻辑</h3>
 				<h4>输出之三: "合集"上下文的流程图</h4>
-				<div class="notes">
-					<img src="./img/compilation.png" />
-				</div>
+				<img style="margin-top:0; height: 430px" src="./img/compilation.svg" />
 				<aside class="notes" data-markdown>
 					1. 在合集开发中, 用流程图和产品方进行了确认
 					2. 注意流程中包含了必要的技术细节
@@ -328,16 +322,64 @@ TODO
 				</ul>
 			</section>
 
+			<section HOWTO-arch>
+				<h2>DDD 案例研究</h2>
+				<h3>架构一览</h3>
+				<img style="height:500px" src='./img/arch-summary.jpg' />
+			</section>
+			<section HOWTO-model>
+				<h2>DDD 案例研究</h2>
+				<h3>代码目录一瞥</h3>
+				TODO
+				<div style="height: 450px;">
+					<img style="display:inline" src='./img/source_structure.png' />
+					<img style="display:inline;" src='./img/source_structure2.png' />
+				</div>
+			</section>
+			<section HOWTO-arch-term data-markdown data-notes="
+1. 说明组件的依赖关系
+1. 领域对象/服务/事件不知道其他任何组件的存在
+1. 应用服务调度基础设施
+1. 说明领域的封闭特性			
+			">
+				## DDD 案例研究
+				### 架构一览
+				|组件|说明|
+				|---|---|
+				|应用程序|接口, 操作领域对象的唯一入口|
+				|基础设施|持久化、IO 操作在这一层|
+				|领域对象|业务知识，业务逻辑的抽象|
+				|领域服务|不能够抽象成对象的业务逻辑|
+				|领域事件|领域内有意义的事件|
+				<aside class="notes" data-markdown>
+	
+				</aside>
+			</section>
+
+			<section HOWTO-model>
+				<h2>DDD 案例研究</h2>
+				<h3>3. 创建领域模型</h3>
+				
+			</section>		
+			
 			<section HOWTO-model data-markdown>
 				## DDD 案例研究
 				### 3. 创建领域模型
-				#### 
+				#### 如何从流程图到模型?
 			</section>
 
-			<section HOWTO-app data-markdown></section>
+			<section HOWTO-model data-markdown>
+				## DDD 案例研究
+				### 3. 创建领域模型
+				#### 如何从流程图到模型?
+				过程式的, naive 的实现
+				```kotlin
+
+				```
+			</section>
 
 
-			<section>
+			<section HOWTO-model>
 
 				<h3> 3. 为领域建模</h3>
 				<p class="ustrong">i.e. 将业务逻辑封装在领域模型中!</p>
@@ -748,6 +790,7 @@ data class CompilationID(
 
 		.reveal section img {
 			max-height: 600px;
+			margin-top: 0;
 		}
 	</style>
 </body>
