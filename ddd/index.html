@@ -81,8 +81,8 @@
 					优雅的代码实现
 				</aside>
 				<h2>为什么做这个分享?</h2>
-				<h3>应对编码中的痛点</h3>
-				<ul class="fragment fade-in-down">
+				<h3>1. 应对编码中的痛点</h3>
+				<ul>
 					<li data-fragment-index="1">代码可读性差</li>
 					<li data-fragment-index="3">面条代码/不合理的方法封装</li>
 					<li data-fragment-index="7">代码变更困难, 修改容易出错</li>
@@ -111,10 +111,10 @@ TODO
  3. meme img
 				">
 				## 为什么做这个分享?
-				### 应对产研实践的痛点
+				### 2. 应对产研实践的痛点
 				1. 研发不能清晰地理解需求细节
 				1. 产品不知道技术实现的关键细节
-				1. 长期迭代后, 需求知识分散
+				1. 长期迭代后, 业务知识分散
 			</section>
 
 			<!-- 关于 DDD -->
@@ -126,7 +126,7 @@ TODO
 			</section>
 			<section ABOUT-DDD0>
 				<h2>关于领域驱动设计</h2>
-				<h3>背景介绍</h3>
+				<h3>1. 背景介绍</h3>
 				<aside class="notes" data-markdown>
 					1. 他不是一种设计模式
 					2. 他是一种高层次/宏观的软件设计和实施方法
@@ -142,7 +142,7 @@ TODO
 
 			<section ABOUT-DDD1>
 				<h2>关于领域驱动设计</h2>
-				<h3>核心原则</h3>
+				<h3>2. 核心原则</h3>
 				<h4>以业务为<span class="ustrong">核心</span>开展活动</h4>
 				<ul>
 					<li>团队成员应该优先关注业务</li>
@@ -169,7 +169,7 @@ TODO
 			<!--1.2 概念说明-->
 			<section ABOUT-DDD-TERM>
 				<h2>关于领域驱动设计</h2>
-				<h3>关键术语</h3>
+				<h3>3. 关键术语</h3>
 				<aside class="notes">
 					TODO 使用一张图代替该表格的第三列说明
 				</aside>
@@ -199,7 +199,7 @@ TODO
 			</section>
 			<section>
 				<h2>关于领域驱动设计</h2>
-				<h3>关键术语</h3>
+				<h3>3. 关键术语</h3>
 				<img class="r-strech" src="./img/domain-bc.jpg" />
 				<p>图示</p>
 			</section>
@@ -210,29 +210,27 @@ TODO
 			<!-- <section HOWTO> -->
 			<section HOWTO data-markdown >
 				## DDD 案例研究
-				1. 背景介绍
-				2. 研发之前
-				3. 研发中
-				4. 研发之后
+				1. 业务背景介绍
+				1. 进行时: 梳理业务逻辑
+				1. 进行时: 创建领域模型
+				1. 进行时: 围绕模型构建服务
 			</section>
 			<section HOWTO-bg data-markdown>
 				## DDD 案例研究
-				### 背景介绍
-				社区合集需求
+				### 1. 背景介绍
+				"社区合集需求"
 
 				> 由于快看的生产者发布作品可能是连续性的，或者是需要归类整理的，所以需要使用合集形式对内容进行整理
 			</section>
 			<section HOWTO-pre>
 				<h2>DDD 案例研究</h2>
-				<h3>研发之前</h3>
+				<h3>2. 梳理业务逻辑</h3>
 				<h4>梳理<span class="ustrong">业务逻辑</span>, 输出业务<span class="ustrong">共识</span></h4>
 			</section>
 			<section HOWTO-pre>
 				<h2>DDD 案例研究</h2>
-				<h3>研发之前</h3>
-				<h4>梳理业务逻辑,输出共识</h4>
-				<img class="r-strech" src='./img/biz-logic.png' />
-				TODO IMG
+				<h3>2. 梳理业务逻辑</h3>
+				<img style="height:400px" src='./img/ddd-agree.svg' />
 				<aside class="notes">
 					<div style="font-size:0.5em;color:grey;">
 						<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
@@ -247,88 +245,13 @@ TODO
 					</div>
 				</aside>
 			</section>
-
-
-			<section HOWTO-in data-markdown>
-				## DDD 案例研究
-				### 创建领域模型
-			</section>
-
-			<section HOWTO-post data-markdown></section>
-
-			
-
-
-
-			<section HOWTO>
+			<section HOWTO-biz>
 				<h2>DDD 案例研究</h2>
-				
-				<img src="./img/ddd-process.png" /> TODO
-
-				<ol class="fragment">
-					<li>梳理业务逻辑</li>
-					<li>输出共识</li>
-					<li>为领域建模</li>
-					<li>围绕领域构建服务</li>
-				</ol>
-				<aside class="notes" data-markdown>
-					TODO
-
-					1. 流程图!
-					2. 介绍架构的时机??
-					3. 依赖关系图!
-				</aside>
-			</section>
-			<section>
-				<h3> 1. 梳理业务逻辑</h3>
-
-				<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
-				<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
-				<div class="fragment" style="font-size:0.5em;color:grey;">
-					<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
-					<ol>
-						<li>确定要讨论的业务</li>
-						<li>召集相关方聚在有白板的会议室中</li>
-						<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
-						<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
-						<li>重复3-4步</li>
-					</ol>
-					<p>最后我们就得到了业务的全部流转逻辑</p>
-				</div>
-
-				<aside class="notes">
-					<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
-					<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
-				</aside>
-			</section>
-			<section HOWTO>
-				<h2>关于领域驱动设计</h2>
-				<h3>关键术语</h3>
-				<h4 class="term">"共识"</h4>
-				<div class="fragment">
-					<p>共识即领域<span class="term">通用语言</span></p>
-					<p>通用语言包含:</p>
-					<ul>
-						<li>领域 和 限界上下文</li>
-						<li>用语词典</li>
-						<li>业务流程图</li>
-					</ul>
-				</div>
-				<aside class="notes" data-markdown>
-					1. 引出"共识"概念
-					2. 共识= domain, BC, dictionary, flow-chart
-				</aside>
-			</section>
-
-			<section id="context">
+				<h3>2. 梳理业务逻辑</h3>
+				<h4>输出之一: 领域和上下文</h4>
 				<div>
-					<h4>领域 & 限界上下文</h4>
-					<p class="fragment"><span class="term">领域</span>: 问题空间</p>
-					<p class="fragment"><span class="term">限界上下文</span>: 属于解空间 <span class="fragment">需要<span
-								class="ustrong">由团队人为划定边界</span></span> </p>
-
-					<p class="fragment">例如, 我们想要给用户更多 UGC 分发的组织形式</p>
-					<p class="fragment">"领域" = 如何让用户组织/分发自己的已发表内容?</p>
+					<p class="fragment">例如, 我们想要让用户能更方便地组织自己的内容</p>
+					<p class="fragment">"领域" = 如何让用户组织自己的已发表内容?</p>
 					<p class="fragment">"限界上下文" = "<span class="term">合集上下文</span>", 包含了合集生产与消费方案, 比如:
 					<ul class="fragment">
 						<li>APP 用户界面</li>
@@ -337,16 +260,18 @@ TODO
 					</ul>
 					</p>
 				</div>
-				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
 				<aside class="notes">
 					1. 领域可大可小, 也可以包含子域
-					2. 可以注意到一个上下文只解决一个领域的问题
+					2. 注意到一个上下文只解决一个领域的问题
 					3. !! 注意, 虽然 ddd 是用于设计软件的, 但"软件"系统却只是"上下文"的一部分
 				</aside>
 			</section>
-			<section id="dict">
-				<h4>用语词典</h4>
-				<p style="font-size:0.7em">"合集"领域的词典</p>
+
+			<section HOWTO-biz id="dict">
+				<h2>DDD 案例研究</h2>
+				<h3>2. 梳理业务逻辑</h3>
+				<h4>输出之二: "合集"上下文的用语词典</h4>
+				<p style="font-size:0.7em"></p>
 				<div>
 					<table>
 						<tr>
@@ -373,28 +298,45 @@ TODO
 				</div>
 				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
 				<aside class="notes">
-					用语词典的全称是"领域 XXX 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的领域以及上下文中表达一个清晰无歧义的概念;
+					用语词典的全称是" XXX上下文 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的上下文中表达一个清晰无歧义的业务概念;
 				</aside>
 			</section>
-			<section id="flow">
-				<h4>流程图</h4>
+		
+			<section HOWTO-biz id="flow">
+				<h2>DDD 案例研究</h2>
+				<h3>2. 梳理业务逻辑</h3>
+				<h4>输出之三: "合集"上下文的流程图</h4>
 				<div class="notes">
 					<img src="./img/compilation.png" />
 				</div>
-				<!--<a class="fragment" style="color:grey" href="#/output">back</a>-->
-				<aside class="notes">
-					在合集开发中, 用流程图和产品方进行了确认
+				<aside class="notes" data-markdown>
+					1. 在合集开发中, 用流程图和产品方进行了确认
+					2. 注意流程中包含了必要的技术细节
+					cue: 是否有问题?
 				</aside>
 			</section>
-			<section>
-				<h3>conclusion 1</h3>
+			
+
+			<!-- TODO 是否需要放出该页 PPT? -->
+			<section HOWTO-biz>
+				<h2>DDD 案例研究</h2>
+				<h3>小结之一</h3>
 				<ul>
-					<li>DDD 以<span class="ustrong">业务</span>为中心, 业务即Domain(<span class="term">领域</span>)</li>
-					<li><span class="ustrong">"理解领域"</span>是实施 DDD 的第一步</li>
+					<li><span class="ustrong">"理解领域(业务)"</span>是实施 DDD 的第一步</li>
+					<li>"业务"包含实际的解决方案, <u>包含必要的技术细节</u></li>
 					<li>达成并输出<span class="ustrong">共识</span>十分重要</li>
 				</ul>
-
 			</section>
+
+			<section HOWTO-model data-markdown>
+				## DDD 案例研究
+				### 3. 创建领域模型
+				#### 
+			</section>
+
+			<section HOWTO-app data-markdown></section>
+
+
 			<section>
 
 				<h3> 3. 为领域建模</h3>
