@@ -1,24 +1,33 @@
 digraph processVs {
     node[shape=box]
     subgraph cluster_old {
-        p_des[label="产品需求"]
         p_pub[label="需求宣讲"]
         d_est[label="需求评估"]
-        d_des[label="技术设计"]
-        d_imp[label="实现"]
-
-        p_des->p_pub->d_est->d_des->d_imp
+        // node[style=invis]
+        // d_des[label="方案设计"]
+        // d_imp[label="实现"]
+        end0[label="进入研发";shape=oval]
+        p_pub->d_est
+        // d_est->d_des->d_imp
         node[shape=circle, style=filled, fillcolor=yellow]
         pm[label="产品"]
         dev[label="研发"]
-        pm->p_des
-        p_pub->dev
-        d_est->dev
-        d_des->dev
-        d_imp->dev
+        pm->p_pub[headport=n;arrowhead=none]
+        // p_pub->dev
+        // d_est->dev
+        // d_des->dev
+        // d_imp->dev
+        dev->{d_est}[headport=w;arrowhead=none]
+        d_est->end0
+
         edge[style=invis]
-        pm->dev
-        
+        // dev->pm
+        // pm->dev
+
+        {dev, d_est}[rank=same]
+        {pm, p_pub}[rank=same]
+
+
         label="现有流程";
     }
 
@@ -35,11 +44,13 @@ digraph processVs {
         m_rel[label="其他\n相关方"]
         done[label="是否已经\n达成共识?";shape=diamond;fillcolor=lightblue]
         end[label="输出共识";shape=box;style="rounded,filled";fillcolor=grey]
-        {m_pm, m_dev,m_user,m_rel}->p_dis[headtip=inv]
+        ddd[label="进入研发"; shape=oval;style=none]
+        {m_pm, m_dev,m_user,m_rel}->p_dis[arrowhead=none]
         
         p_dis->done[headport=n]
         done->p_dis[label="否"; headport=e; tailport=e]
         done->end[label="是"]
+        end->ddd
         edge[style=invis]
         // p_dis->m_rel
         // p_dis->m_dev
