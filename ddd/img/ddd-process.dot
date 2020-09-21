@@ -34,14 +34,15 @@ digraph processVs {
         m_user[label="用户"]
         m_rel[label="其他\n相关方"]
         done[label="是否已经\n达成共识?";shape=diamond;fillcolor=lightblue]
-      
+        end[label="输出共识";shape=box;style="rounded,filled";fillcolor=grey]
         {m_pm, m_dev,m_user,m_rel}->p_dis[headtip=inv]
         
-        p_dis->done
-
+        p_dis->done[headport=n]
+        done->p_dis[label="否"; headport=e; tailport=e]
+        done->end[label="是"]
         edge[style=invis]
-        p_dis->m_rel
-        p_dis->m_dev
+        // p_dis->m_rel
+        // p_dis->m_dev
 
 
 
