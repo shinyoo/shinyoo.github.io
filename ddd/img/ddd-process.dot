@@ -25,17 +25,27 @@ digraph processVs {
 
 
     subgraph cluster_ddd {
-        p_pro[label="产品需求"]
-        p_dis[label="讨论"]
+    
+        p_dis[label="讨论产品需求"]
 
-        node[shape="circle"]
+        node[shape="circle";style=filled;fillcolor=yellow]
         m_pm[label="产品"]
         m_dev[label="研发"]
         m_user[label="用户"]
+        m_rel[label="其他\n相关方"]
+        done[label="是否已经\n达成共识?";shape=diamond;fillcolor=lightblue]
+      
+        {m_pm, m_dev,m_user,m_rel}->p_dis[headtip=inv]
         
-        m_pm->p_dis
-        m_dev->p_dis
+        p_dis->done
+
+        edge[style=invis]
+        p_dis->m_rel
+        p_dis->m_dev
+
+
 
         label="DDD流程"
+
     }
 }

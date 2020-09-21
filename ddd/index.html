@@ -73,7 +73,7 @@
 						2. 不断地增加方法入参去区分非主干逻辑(TODO 举例子)
 					4. 代码难以变更
 						1. 不同业务的代码混合在一起, 牵一发动全身(TODO 举例子)
-					5.代码难以测试
+					5. 代码难以测试
 						1. 难以单元测试, 过多的外部依赖需要 mock
 
 					因此最近开发的新功能, 使用了 DDD 的方式完成了初次完整的尝试;
@@ -143,21 +143,25 @@ TODO
 			<section ABOUT-DDD1>
 				<h2>关于领域驱动设计</h2>
 				<h3>核心原则</h3>
-				<p class="fragment">以业务为<span class="ustrong">核心</span>开展活动</p>
+				<h4>以业务为<span class="ustrong">核心</span>开展活动</h4>
 				<ul>
 					<li>团队成员应该优先关注业务</li>
 					<li>全员需要建立一致的业务理解</li>
 				</ul>
 				<aside data-markdown class="notes">
 					重要的事说三遍
-					什么叫"以业务为核心开展活动"?
-					* 业务的地位最高(在 DDD 方法论中处在核心位置)
+					什么叫"以业务为核心开展活动"? 业务的地位是最高的
+					* 前提: 全员需要建立一致的业务理解
+						业务 = 产品需求 + 关键实现细节(软件工作流程)
 					* 所有团队成员应该优先关注业务, 理解业务
-					* 全员需要建立一致的业务理解
+						1. 研发: 保证业务实现的完整
+						2. 产品: 理解实现的关键细节
 
 					为什么有助于解决上述痛点?
-					* 提供了看待业务的更高层次的视角
-					* ddd 流程保障我们对业务/产品需求达成共识
+					* 用更直接的形式保证团队参与到"业务知识"的梳理中, 而非产品单向的宣讲, 提升团队成员的参与感与责任感
+					* 通过共同参与、达成共识，
+						1. 帮助定义清晰的业务边界（can and cannots)
+					
 				</aside>
 			</section>
 
@@ -166,41 +170,148 @@ TODO
 			<section ABOUT-DDD-TERM>
 				<h2>关于领域驱动设计</h2>
 				<h3>关键术语</h3>
-				<table style="font-size:0.7em">
+				<aside class="notes">
+					TODO 使用一张图代替该表格的第三列说明
+				</aside>
+
+				<table style="font-size:1em">
 					<tr>
 						<th>术语</th>
 						<th>意义</th>
-						<th>说明</th>
+						<!-- <th>说明</th> -->
 					</tr>
 					<tr>
 						<td><span class="term">领域</span></td>
-						<td>问题空间</td>
-						<td>某一类业务问题, 比如"如何让用户组织自己的已发布内容"</td>
+						<td>代表了需要解决的业务问题</td>
+						<!-- <td>某一类业务问题, 比如"如何让用户组织自己的已发布内容"</td> -->
 					</tr>
 					<tr>
 						<td><span class="term">限界上下文</span></td>
-						<td>解空间</td>
-						<td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容组织系统</td>
+						<td>对应于领域, 代表了解决业务问题的方案</td>
+						<!-- <td>对应于某一个<span class="term">领域</span>的解决方案, 比如内容组织系统</td> -->
 					</tr>
 					<tr>
 						<td><span class="term">领域模型</span></td>
-						<td>对领域内的对象建模, 封装业务逻辑; 其中包含了实体对象和值对象两个重要分类</td>
-						<td>内容发布系统中的"评论"对象, 具有删除动作</td>
-					</tr>
-					<tr>
-						<td><span class="term">实体对象</span></td>
-						<td>领域模型的一种, 具有全局唯一性</td>
-						<td>"发布系统"上下文中的"评论"对象是实体对象</td>
-					</tr>
-					<tr>
-						<td><span class="term">值对象</span></td>
-						<td>领域模型的一种, 生命周期短, 不唯一</td>
-						<td>"发布系统"上下文中的"帖子"对象的内容文本是值对象</td>
+						<td>将业务逻辑抽象成模型; <br />包含<span class="term">实体对象</span>和<span class="term">值对象</span>两个重要分类</td>
+						<!-- <td>内容发布系统中的"评论"对象, 具有删除动作</td> -->
 					</tr>
 				</table>
 			</section>
+			<section>
+				<!-- <h2>关于领域驱动设计</h2> -->
+				<h3>关键术语</h3>
+				<h4>图示</h4>
+				<img src="./img/domain-bc.jpg" />
+				
+			</section>
 
-			<section ABOUT-DDD-TERM>
+
+
+			<!--DDD 案例研究-->
+			<!-- <section HOWTO> -->
+			<section HOWTO data-markdown >
+					## DDD 案例研究
+					1. 背景介绍
+					2. 产品视角
+					3. 研发视角
+			</section>	
+			<section HOWTO data-markdown >
+				## DDD 案例研究
+				1. 背景介绍
+				2. 研发之前
+				3. 研发中
+				4. 研发之后
+			</section>
+			<section HOWTO-bg data-markdown>
+				## DDD 案例研究
+				### 背景介绍
+				社区合集需求
+
+				> 由于快看的生产者发布作品可能是连续性的，或者是需要归类整理的，所以需要使用合集形式对内容进行整理
+			</section>
+			<section HOWTO-pre>
+				<h2>DDD 案例研究</h2>
+				<h3>研发之前</h3>
+				<h4>梳理<span class="ustrong">业务逻辑</span>, 输出业务<span class="ustrong">共识</span></h4>
+			</section>
+			<section HOWTO-pre>
+				穷尽
+				<img src='./img/process-pre.png' />
+			</section>
+			<!-- <section>
+				<h3> 1. 梳理业务逻辑</h3>
+
+				<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
+				<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
+				<div class="fragment" style="font-size:0.5em;color:grey;">
+					<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
+					<ol>
+						<li>确定要讨论的业务</li>
+						<li>召集相关方聚在有白板的会议室中</li>
+						<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
+						<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
+						<li>重复3-4步</li>
+					</ol>
+					<p>最后我们就得到了业务的全部流转逻辑</p>
+				</div>
+
+				<aside class="notes">
+					<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
+					<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
+				</aside>
+			</section> -->
+
+
+			<section HOWTO-in data-markdown></section>
+
+			<section HOWTO-post data-markdown></section>
+
+			
+
+
+
+			<section HOWTO>
+				<h2>DDD 案例研究</h2>
+				
+				<img src="./img/ddd-process.png" /> TODO
+
+				<ol class="fragment">
+					<li>梳理业务逻辑</li>
+					<li>输出共识</li>
+					<li>为领域建模</li>
+					<li>围绕领域构建服务</li>
+				</ol>
+				<aside class="notes" data-markdown>
+					TODO
+
+					1. 流程图!
+					2. 介绍架构的时机??
+					3. 依赖关系图!
+				</aside>
+			</section>
+			<section>
+				<h3> 1. 梳理业务逻辑</h3>
+
+				<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
+				<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
+				<div class="fragment" style="font-size:0.5em;color:grey;">
+					<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
+					<ol>
+						<li>确定要讨论的业务</li>
+						<li>召集相关方聚在有白板的会议室中</li>
+						<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
+						<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
+						<li>重复3-4步</li>
+					</ol>
+					<p>最后我们就得到了业务的全部流转逻辑</p>
+				</div>
+
+				<aside class="notes">
+					<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
+					<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
+				</aside>
+			</section>
+			<section HOWTO>
 				<h2>关于领域驱动设计</h2>
 				<h3>关键术语</h3>
 				<h4 class="term">"共识"</h4>
@@ -285,79 +396,6 @@ TODO
 					在合集开发中, 用流程图和产品方进行了确认
 				</aside>
 			</section>
-
-			<section>
-				<ul>
-					<li>产研实践的问题</li>
-					<li>领域驱动设计的特点</li>
-				</ul>
-			</section>
-			<section data-markdown data-notes="
-TODO 解说每个问题的原因, 并提出原因和解决方案
-每一条可以举个例子
-1. 业务定义不清晰: 张小龙想要做微信短视频, 短视频到底是什么? 我们需要人为定义出这个短视频系统的边界, 确定它能做什么不能做什么
-2. 业务用语歧义: 开会沟通, 参会的有运营, 产品, 研发, 用户等, 大家说到'漫画', 到底是指'漫画作品'这一概念? 还是我们平台上的漫画? 还是指漫画章节?
-3. 业务逻辑丢失: 程序员的实现不会和产品文档完全一致(或者是产品口头需求没有记录), 总之, 在迭代的长河中, 我们最终总会有那么几次只能依赖读代码来推理业务逻辑
-4. 业务扩展困难: 好吧, 这应该是程序员的锅, 软件设计上做的不够灵活多变">
-				<aside data-markdown class="notes">
-
-				</aside>
-				<textarea data-template>
-					### 产研实践的问题
-					| 问题 | 可能原因 |
-					|-----|-------|
-					| 业务定义缺陷 | 业务流程未梳理清楚, 用语有歧义 |
-					| 业务逻辑丢失 | 文档难以维护, 代码可读性不佳 |
-					| 业务扩展困难 | 软件设计不够灵活 |
-					</textarea>
-			</section>
-
-
-
-
-			<!--如何实施 DDD-->
-			<!-- <section HOWTO> -->
-			<section>
-				<h2>如何实施 DDD?</h2>
-				<img src="./img/ddd-process.png" /> TODO
-
-				<ol class="fragment">
-					<li>梳理业务逻辑</li>
-					<li>输出共识</li>
-					<li>为领域建模</li>
-					<li>围绕领域构建服务</li>
-				</ol>
-				<aside class="notes" data-markdown>
-					TODO
-
-					1. 流程图!
-					2. 介绍架构的时机??
-					3. 依赖关系图!
-				</aside>
-			</section>
-			<section>
-				<h3> 1. 梳理业务逻辑</h3>
-
-				<p class="fragment">这是 ddd 开始阶段要做的第一件事</p>
-				<p class="fragment">我们可以使用名为<span class="ustrong">"EVENT STORMING"</span>的技术来帮助我们梳理业务</p>
-				<div class="fragment" style="font-size:0.5em;color:grey;">
-					<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
-					<ol>
-						<li>确定要讨论的业务</li>
-						<li>召集相关方聚在有白板的会议室中</li>
-						<li>通过brainstorm 提出业务的<span class="ustrong">事件</span>, 贴上白板</li>
-						<li>如果事件 A 触发了事件 B, <span class="ustrong">连接</span>它们</li>
-						<li>重复3-4步</li>
-					</ol>
-					<p>最后我们就得到了业务的全部流转逻辑</p>
-				</div>
-
-				<aside class="notes">
-					<p>1. event storming 是对业务逻辑的梳理, 对于"创建合集"操作来说, 就是该操作完整的业务流程以及各种逻辑分支</p>
-					<p>2. event storming 需要我们集合<b>领域专家</b>采纳听取他们的意见, 厘清业务逻辑中的要点</p>
-				</aside>
-			</section>
-
 			<section>
 				<h3>conclusion 1</h3>
 				<ul>
@@ -697,7 +735,7 @@ data class CompilationID(
 			</section>
 
 			<section>
-				<h4>如何实施 DDD?</h4>
+				<h4>DDD 案例研究</h4>
 				<ol>
 					<li>梳理业务逻辑</li>
 					<li>建立并输出业务共识</li>
