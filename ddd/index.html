@@ -204,8 +204,6 @@ TODO
 				<p>图示</p>
 			</section>
 
-
-
 			<!--DDD 案例研究-->
 			<!-- <section HOWTO> -->
 			<section HOWTO data-markdown>
@@ -216,6 +214,10 @@ TODO
 				1. 工序之三: 围绕模型构建服务
 			</section>
 			<section HOWTO-bg data-markdown>
+				TODO?
+				产品视角
+				开发视角
+
 				## DDD 案例研究
 				### 1. 案例背景介绍
 				"社区合集需求"
@@ -265,7 +267,11 @@ TODO
 					3. !! 注意, 虽然 ddd 是用于设计软件的, 但"软件"系统却只是"上下文"的一部分
 				</aside>
 			</section>
-
+			<section HOWTO-biz>
+				<!-- <h3>工序之一: 梳理业务逻辑</h3> -->
+				<h4>输出之一: 领域和上下文</h4>
+				<img class="r-strech" src="./img/domain-bc.jpg" />
+			</section>
 			<section HOWTO-biz id="dict">
 				<h2>DDD 案例研究</h2>
 				<h3>工序之一: 梳理业务逻辑</h3>
@@ -328,22 +334,13 @@ TODO
 				<h3>架构一览</h3>
 				<img style="height:500px" src='./img/arch-summary.jpg' />
 			</section>
-			<section HOWTO-model>
-				<h2>DDD 案例研究</h2>
-				<h3>代码目录一瞥</h3>
-				<div class="two-in-row">
-					<span ><img src='./img/source_structure.png' /></span>
-					
-					<span><img src='./img/source_structure_2.png' /></span>
-				</div>
-			</section>
 			<section HOWTO-arch-term data-markdown data-notes="
 1. 说明组件的依赖关系
 1. 领域对象/服务/事件不知道其他任何组件的存在
 1. 应用服务调度基础设施
 1. 说明领域的封闭特性			
-			">
-				## DDD 案例研究
+						">
+				<!--## DDD 案例研究-->
 				### 架构一览
 				|组件|说明|
 				|---|---|
@@ -352,39 +349,58 @@ TODO
 				|领域对象|业务知识，业务逻辑的抽象|
 				|领域服务|不能够抽象成对象的业务逻辑|
 				|领域事件|领域内有意义的事件|
-				<aside class="notes" data-markdown>
-
-				</aside>
+			</section>
+			<section HOWTO-arch-dir>
+				<h2>DDD 案例研究</h2>
+				<h3>代码目录一瞥</h3>
+				<div class="two-in-row">
+					<img src='./img/source_structure.png' />
+					
+					<img src='./img/source_structure_2.png' />
+				</div>
 			</section>
 
 			<section HOWTO-model>
-				<h2>DDD 案例研究</h2>
-				<h3>3. 创建领域模型</h3>
-				TODO this is sum,
-				populate more instances
-				按照研发的思路引入值对象/实体对象的概念
-				<ol>
-					<li>忘记 db, 从业务逻辑开始</li>
-					<li>边界清晰的对象</li>
-					<li>富有行为的对象</li>
-					<li>单一职责的对象</li>
-				</ol>
+	
+			</section>
+
+			<section HOWTO-model data-markdown data-notes="
+忘记 DB, 避免持久化对领域对象的负面影响						
+			">
+				## DDD 案例研究
+				### 工序之二: 创建领域模型
+				#### 将业务逻辑映射到代码上!
+				1. detour: 共识->过程式->领域对象
+				1. straight-forward: 共识->领域对象
 			</section>
 
 			<section HOWTO-model data-markdown>
 				## DDD 案例研究
-				### 3. 创建领域模型
-				#### 如何从流程图到模型?
-				过程式的, naive 的实现
+				### 工序之二: 创建领域模型
+				#### 将业务逻辑映射到代码上!
+				##### detour: 过程式->领域对象
 				```kotlin
-
+				TODO
+				```
+			</section>
+			<section HOWTO-model data-markdown>
+				## DDD 案例研究
+				### 工序之二: 创建领域模型
+				#### 将业务逻辑映射到代码上!
+				##### straight-forward: 领域知识->领域对象
+				原则
+				1. 创建边界清晰的对象
+				1. 创建富有行为的对象
+				1. 创建单一职责的对象
+				```kotlin
+				TODO
 				```
 			</section>
 
 
 			<section HOWTO-model>
-
-				<h3> 3. 为领域建模</h3>
+				<h2>DDD 案例研究</h2>
+				<h3>工序之二: 创建领域模型</h3>
 				<p class="ustrong">i.e. 将业务逻辑封装在领域模型中!</p>
 				<aside class="notes">
 					对比 service 和 Domain Object
@@ -401,6 +417,8 @@ TODO
 				</table>
 			</section>
 			<section>
+				<h2>DDD 案例研究</h2>
+				<h3>工序之二: 创建领域模型</h3>
 				<h4 class="ustrong">"值对象"</h4>
 				<ul class="fragment">
 					<li>不唯一</li>
@@ -639,6 +657,15 @@ data class CompilationID(
 					<li><span class="ustrong">持久化</span>及IO交给<span class="term">基础设施</span>来实现</li>
 				</ol>
 			</section>
+
+			<section HOWTO-model data-markdown>
+				## DDD 案例研究
+				### 3. 创建领域模型
+				#### 忘记 DB, 聚焦业务
+				1. 不要先设计数据表
+				1. 持久化模式由领域模型推导而来
+			</section>
+
 			<section>
 				<h3>架构一览</h3>
 				<aside class="notes" data-template data-markdown>
@@ -813,10 +840,6 @@ data class CompilationID(
 
 
 	</style>
-							<!-- <div class="two-in-row" style="height: 450px; text-align: center; font-size:0; width:30vw; margin: 0 auto"> -->
-							<!-- <img style="display:inline-block;width:15vw; height:30vw; margin:0" src='./img/source_structure.png' /> -->
-							<!-- <img style="display:inline-block;width:15vw;height:30vw;  margin:0" src='./img/source_structure_2.png' /> -->
-							<!-- </div> -->
 </body>
 
 </html>
