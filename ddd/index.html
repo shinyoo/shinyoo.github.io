@@ -66,15 +66,15 @@
 					个人一直对'编码'或者更具体地说'编写优雅的代码'这件事有执念, 也经常被这些问题困扰:
 
 					1. 可读性差
-						1. 代码中大量的条件分支, 理解困难
-						2. 变量命名不清楚
+					1. 代码中大量的条件分支, 理解困难
+					2. 变量命名不清楚
 					2. 面条代码/不合理的方法封装?
-						1. 仅因为代码长度分割方法
-						2. 不断地增加方法入参去区分非主干逻辑(TODO 举例子)
+					1. 仅因为代码长度分割方法
+					2. 不断地增加方法入参去区分非主干逻辑(TODO 举例子)
 					4. 代码难以变更
-						1. 不同业务的代码混合在一起, 牵一发动全身(TODO 举例子)
+					1. 不同业务的代码混合在一起, 牵一发动全身(TODO 举例子)
 					5. 代码难以测试
-						1. 难以单元测试, 过多的外部依赖需要 mock
+					1. 难以单元测试, 过多的外部依赖需要 mock
 
 					因此最近开发的新功能, 使用了 DDD 的方式完成了初次完整的尝试;
 					在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
@@ -152,16 +152,16 @@ TODO
 					重要的事说三遍
 					什么叫"以业务为核心开展活动"? 业务的地位是最高的
 					* 前提: 全员需要建立一致的业务理解
-						业务 = 产品需求 + 关键实现细节(软件工作流程)
+					业务 = 产品需求 + 关键实现细节(软件工作流程)
 					* 所有团队成员应该优先关注业务, 理解业务
-						1. 研发: 保证业务实现的完整
-						2. 产品: 理解实现的关键细节
+					1. 研发: 保证业务实现的完整
+					2. 产品: 理解实现的关键细节
 
 					为什么有助于解决上述痛点?
 					* 用更直接的形式保证团队参与到"业务知识"的梳理中, 而非产品单向的宣讲, 提升团队成员的参与感与责任感
 					* 通过共同参与、达成共识，
-						1. 帮助定义清晰的业务边界（can and cannots)
-					
+					1. 帮助定义清晰的业务边界（can and cannots)
+
 				</aside>
 			</section>
 
@@ -208,7 +208,7 @@ TODO
 
 			<!--DDD 案例研究-->
 			<!-- <section HOWTO> -->
-			<section HOWTO data-markdown >
+			<section HOWTO data-markdown>
 				## DDD 案例研究
 				1. 案例背景介绍
 				1. 工序之一: 梳理业务逻辑
@@ -251,7 +251,8 @@ TODO
 				<h4>输出之一: 领域和上下文</h4>
 				<div>
 					<p class="fragment"><span class="term">领域</span> = 如何让用户组织自己已发表的内容?</p>
-					<p class="fragment"><span class="term">限界上下文</span> = <span class="ustrong">合集上下文</span>, 使用"合集"功能解决用户组织内容的问题; 该上下文包含合集生产与消费方案:
+					<p class="fragment"><span class="term">限界上下文</span> = <span class="ustrong">合集上下文</span>,
+						使用"合集"功能解决用户组织内容的问题; 该上下文包含合集生产与消费方案:
 					<ul class="fragment">
 						<li>用户界面</li>
 						<li>后端系统</li>
@@ -285,7 +286,7 @@ TODO
 						</tr>
 						<tr>
 							<td>帖子</td>
-							<td>社区单个用户单次生产内容的主要形式;<br/>可以包含文本,图片,视频多种内容</td>
+							<td>社区单个用户单次生产内容的主要形式;<br />可以包含文本,图片,视频多种内容</td>
 						</tr>
 						<tr>
 							<td>...</td>
@@ -297,7 +298,7 @@ TODO
 					用语词典的全称是" XXX上下文 的用语词典", 也就是说, 一个用语词典中的任何词汇只在其对应的上下文中表达一个清晰无歧义的业务概念;
 				</aside>
 			</section>
-		
+
 			<section HOWTO-biz id="flow">
 				<h2>DDD 案例研究</h2>
 				<h3>工序之一: 梳理业务逻辑</h3>
@@ -309,7 +310,7 @@ TODO
 					cue: 是否有问题?
 				</aside>
 			</section>
-			
+
 
 			<!-- TODO 是否需要放出该页 PPT? -->
 			<section HOWTO-biz>
@@ -330,10 +331,10 @@ TODO
 			<section HOWTO-model>
 				<h2>DDD 案例研究</h2>
 				<h3>代码目录一瞥</h3>
-				TODO
-				<div style="height: 450px;">
-					<img style="display:inline" src='./img/source_structure.png' />
-					<img style="display:inline;" src='./img/source_structure2.png' />
+				<div class="two-in-row">
+					<span ><img src='./img/source_structure.png' /></span>
+					
+					<span><img src='./img/source_structure_2.png' /></span>
 				</div>
 			</section>
 			<section HOWTO-arch-term data-markdown data-notes="
@@ -352,7 +353,7 @@ TODO
 				|领域服务|不能够抽象成对象的业务逻辑|
 				|领域事件|领域内有意义的事件|
 				<aside class="notes" data-markdown>
-	
+
 				</aside>
 			</section>
 
@@ -368,7 +369,7 @@ TODO
 					<li>富有行为的对象</li>
 					<li>单一职责的对象</li>
 				</ol>
-			</section>		
+			</section>
 
 			<section HOWTO-model data-markdown>
 				## DDD 案例研究
@@ -794,7 +795,28 @@ data class CompilationID(
 			max-height: 600px;
 			margin-top: 0;
 		}
+
+		.reveal section .two-in-row {
+			height: 500px;
+			text-align: center;
+			font-size: 0;
+			# width: 30vw;
+			# margin: 0 auto;
+		}
+
+		.reveal section .two-in-row img {
+			display: inline-block;
+			# width: 50%;
+			height: 90%;
+			border: 1px white solid
+		}
+
+
 	</style>
+							<!-- <div class="two-in-row" style="height: 450px; text-align: center; font-size:0; width:30vw; margin: 0 auto"> -->
+							<!-- <img style="display:inline-block;width:15vw; height:30vw; margin:0" src='./img/source_structure.png' /> -->
+							<!-- <img style="display:inline-block;width:15vw;height:30vw;  margin:0" src='./img/source_structure_2.png' /> -->
+							<!-- </div> -->
 </body>
 
 </html>
