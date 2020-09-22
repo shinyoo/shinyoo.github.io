@@ -208,18 +208,14 @@ TODO
 			<!-- <section HOWTO> -->
 			<section HOWTO data-markdown>
 				## DDD 案例研究
-				1. 案例背景介绍
-				1. 工序之一: 梳理业务逻辑
-				1. 工序之二: 创建领域模型
-				1. 工序之三: 围绕模型构建服务
+				* 案例背景介绍
+				* 工序之一: 梳理业务逻辑
+				* 工序之二: 创建领域模型
+				* 工序之三: 围绕模型构建服务
 			</section>
 			<section HOWTO-bg data-markdown>
-				TODO?
-				产品视角
-				开发视角
-
 				## DDD 案例研究
-				### 1. 案例背景介绍
+				### 案例背景介绍
 				"社区合集需求"
 
 				> 由于快看的生产者发布作品可能是连续性的，或者是需要归类整理的，所以需要使用合集形式对内容进行整理
@@ -249,7 +245,7 @@ TODO
 			</section>
 			<section HOWTO-biz>
 				<h2>DDD 案例研究</h2>
-				<h3>工序之一: 梳理业务逻辑</h3>
+				<h3>工序之一: 输出业务共识</h3>
 				<h4>输出之一: 领域和上下文</h4>
 				<div>
 					<p class="fragment"><span class="term">领域</span> = 如何让用户组织自己已发表的内容?</p>
@@ -307,8 +303,8 @@ TODO
 
 			<section HOWTO-biz id="flow">
 				<h2>DDD 案例研究</h2>
-				<h3>工序之一: 梳理业务逻辑</h3>
-				<h4>输出之三: "合集"上下文的流程图</h4>
+				<h3>工序之一: 输出业务共识</h3>
+				<h4>输出之三: "合集"的操作流程图</h4>
 				<img style="margin-top:0; height: 430px" src="./img/compilation.svg" />
 				<aside class="notes" data-markdown>
 					1. 在合集开发中, 用流程图和产品方进行了确认
@@ -316,7 +312,17 @@ TODO
 					cue: 是否有问题?
 				</aside>
 			</section>
-
+			<section HOWTO-biz id="flow2">
+				<!-- <h2>DDD 案例研究</h2>
+				<h3>工序之一: 输出业务共识</h3> -->
+				<h4>输出之三: "合集"-"帖子"关系的操作流程图</h4>
+				<img style="margin-top:0; height: 430px" src="./img/compilation_post.svg" />
+				<aside class="notes" data-markdown>
+					1. 在合集开发中, 用流程图和产品方进行了确认
+					2. 注意流程中包含了必要的技术细节
+					cue: 是否有问题?
+				</aside>
+			</section>
 
 			<!-- TODO 是否需要放出该页 PPT? -->
 			<section HOWTO-biz>
@@ -346,7 +352,7 @@ TODO
 				|---|---|
 				|应用程序|接口, 操作领域对象的唯一入口|
 				|基础设施|持久化、IO 操作在这一层|
-				|领域对象|业务知识，业务逻辑的抽象|
+				|领域对象|业务知识的抽象|
 				|领域服务|不能够抽象成对象的业务逻辑|
 				|领域事件|领域内有意义的事件|
 			</section>
@@ -355,14 +361,11 @@ TODO
 				<h3>代码目录一瞥</h3>
 				<div class="two-in-row">
 					<img src='./img/source_structure.png' />
-					
+
 					<img src='./img/source_structure_2.png' />
 				</div>
 			</section>
 
-			<section HOWTO-model>
-	
-			</section>
 
 			<section HOWTO-model data-markdown data-notes="
 忘记 DB, 避免持久化对领域对象的负面影响						
@@ -370,74 +373,120 @@ TODO
 				## DDD 案例研究
 				### 工序之二: 创建领域模型
 				#### 将业务逻辑映射到代码上!
-				1. detour: 共识->过程式->领域对象
+				1. detour: 业务共识->过程式
 				1. straight-forward: 共识->领域对象
 			</section>
 
-			<section HOWTO-model data-markdown>
-				## DDD 案例研究
-				### 工序之二: 创建领域模型
-				#### 将业务逻辑映射到代码上!
-				##### detour: 过程式->领域对象
-				```kotlin
-				TODO
-				```
-			</section>
-			<section HOWTO-model data-markdown>
-				## DDD 案例研究
-				### 工序之二: 创建领域模型
-				#### 将业务逻辑映射到代码上!
-				##### straight-forward: 领域知识->领域对象
-				原则
-				1. 创建边界清晰的对象
-				1. 创建富有行为的对象
-				1. 创建单一职责的对象
-				```kotlin
-				TODO
-				```
-			</section>
+			<section HOWTO-model data-notes="
+## DDD 案例研究
+### 工序之二: 创建领域模型		
+			">
+				<h4>把业务逻辑映射到代码!</h4>
+				<h5>detour: 业务共识->过程式</h5>
+				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+fun create(cmd: CreateCommand) {
+    val permissions = getUserPermissionsFromExternalService(cmd.uid)
+    if (!permissions.canPublishCompilation) throw Exception("无权限")
+    validate(cmd)
+    val censorResult = checkContentByCensorship(cmd)
+    if (!censorResult.pass) throw Exception("未通过初审")
+    val status = if (censorResult.setPublic) Status.PUBLIC else Status.PRIVATE
+    
+    dao.insertCompilation(cmd.uid, cmd.title, cmd.description, cmd.cover, status)
 
+}
 
-			<section HOWTO-model>
-				<h2>DDD 案例研究</h2>
-				<h3>工序之二: 创建领域模型</h3>
-				<p class="ustrong">i.e. 将业务逻辑封装在领域模型中!</p>
-				<aside class="notes">
-					对比 service 和 Domain Object
+fun validate(cmd: CreateCommand) {
+    if (cmd.title.length >30) throw Exception("标题过长")
+    if (cmd.description.length >80) throw Exception("描述过长")
+}
+</code></pre>
+
+				<aside class="notes" data-markdown>
+					cue: 分析这段代码, 如何模块化?
+					> 1. 使用"组合"
+					> 1, 按职责分割逻辑
 				</aside>
-				<table>
-					<tr>
-						<th>NO</th>
-						<th>YES</th>
-					</tr>
-					<tr>
-						<td><img src="./img/pasta.jpg"></td>
-						<td><img src="./img/domained.jpg"></td>
-					</tr>
-				</table>
 			</section>
+			<section HOWTO-model data-markdown data-notes="
+## DDD 案例研究
+### 工序之二: 创建领域模型
+			">
+				#### 把业务逻辑映射到代码!
+				##### straight-forward: 业务共识->领域对象
+				* 原则1: 创建富有行为的对象
+				* 原则2: 创建单一职责的对象
+				* 原则3: 创建"纯洁"的对象
+			</section>
+
+
+			<section HOWTO-model-p1>
+				<h6>原则一: 创建富有行为的对象</h6>
+				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class Description(val desc: String) : SimpleValueObject&lt;Description> {
+	init {
+		Validator.require(desc.isNotBlank()) { "描述不能为空" }
+		Validator.require(
+			CharCounterUtil.calculateLengthWithChinese(desc) <= 150
+		) { "描述字符不得超过 150 字" } 
+	} 
+}
+</code></pre>
+				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class Title(
+        val title: String
+) : SimpleValueObject&lt;Title&gt; {
+    init {
+        Validator.require(title.isNotBlank()) { "标题不能为空" }
+        Validator.require(title.length &lt;= 30) { "标题字符数不得超过 30 字" }
+    }
+}
+</code></pre>
+				<aside class="notes" data-markdown="">
+					1. 将业务概念"标题"和"描述"分别封装到独立的对象中, 并将业务逻辑封装到其行为中
+					1. 这里的业务逻辑就是"参数合法性"
+				</aside>
+			</section>
+
+			<section HOWTO-model-p2>
+				<h6>原则二: 创建单一职责的对象</h6>
+				<div class="r-stack">
+					<img class="fragment current-visible fade-out" src='./img/compilation_post.svg' />
+					<pre class="fragment fade-down"><code class="kotlin" data-trim data-noescape data-line-numbers>
+			TODO 在这里讲 compilation 和 post_collection的分割?
+</code></pre>
+				</div>
+			</section>
+
+			<section HOWTO-model-p3>
+				<h6>原则三: 创建"纯洁"的对象</h6>
+				<div class="r-stack">
+					<img class="fragment current-visible fade-out" src='./img/compilation_post.svg' />
+					<pre class="fragment fade-down"><code class="kotlin" data-trim data-noescape data-line-numbers>
+						TODO 在这里讲对象不应该知道任何外部知识
+						
+</code></pre>
+				</div>
+				<aside class="notes" data-markdown="">
+					1. 具体例子: 使用 PostCollection 抽象
+					2. 宏观来讲: module "com.kk.social.experimental.ddd.compilation.application/domain"等包不应该知道任何包以外的知识!
+					体现了限界上下文中的"限界"含义
+				</aside>
+			</section>
+
+
 			<section>
 				<h2>DDD 案例研究</h2>
 				<h3>工序之二: 创建领域模型</h3>
-				<h4 class="ustrong">"值对象"</h4>
+				<h4>概念补充: <span class="term">"值对象"</span></h4>
 				<ul class="fragment">
 					<li>不唯一</li>
 					<li>生命周期短</li>
 					<li>不可变</li>
 				</ul>
-				<aside class="notes">
-					0. 首先简要介绍一下 kotlin 语法
-					1. val = final
-					2. var = mutable prop
-					3. ? = @Nullable
-					1. 请试着说出这段代码的业务逻辑
-					2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-					1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-					2. 不可变
-				</aside>
 			</section>
 			<section>
-				<h4>试看一例</h4>
+				<h4>概念补充: <span class="term">"值对象"</span></h4>
 				<aside class="notes">
 					0. 首先简要介绍一下 kotlin 语法
 					1. val = final
@@ -480,7 +529,9 @@ data class CompilationID(
 			</section>
 
 			<section>
-				<h4 class="ustrong">"实体对象"</h4>
+				<h2>DDD 案例研究</h2>
+				<h3>工序之二: 创建领域模型</h3>
+				<h4>概念补充: <span class="term">"实体对象"</span></h4>
 				<ul class="fragment">
 					<li>唯一性/身份</li>
 					<li>生命周期长</li>
@@ -504,7 +555,7 @@ data class CompilationID(
 				</aside>
 			</section>
 			<section>
-				<h4>试看一例</h4>
+				<h4>概念补充: <span class="term">"实体对象"</span>-例子</h4>
 				<aside class="notes">
 					0. 首先简要介绍一下 kotlin 语法
 					1. val = final
@@ -545,112 +596,42 @@ data class CompilationID(
 				</div>
 			</section>
 
-			<section>
-				<h4>创建纯洁的领域对象</h4>
-				<ul>
-					<li>忘记 DB, <span class="ustrong">领域优先</li>
-				</ul>
-				<aside class="notes">
-					例子中是一个典型的 POJO, 或者说 DTO (data transfer object), 而且拥有与 schema 一一对应的字段
-				</aside>
-				<div class="r-stack">
-					<div class="fragment current-visible fade-out">
-						<img src="./img/first_line.jpeg" />
-					</div>
-					<table class="fragment fade-up">
-						<tr>
-							<th>NO</th>
-							<th>YES</th>
-						</tr>
-						<tr>
-							<td>
-								<img src='./img/db-orient.jpg' />
-							</td>
-
-							<td>
-								<img src="./img/domain-orient.jpg">
-							</td>
-						</tr>
-					</table>
-				</div>
-			</section>
-			<section>
-				<h4>创建纯洁的领域对象</h4>
-				<ul>
-					<li>对象对应于<span class="term">上下文</span>中的一个清晰概念</li>
-				</ul>
-				<aside class="notes">
-					对于发布系统上下文
-				</aside>
-				<table class="fragment fade-in-down">
-					<tr>
-						<th>NO</th>
-						<th>YES</th>
-					</tr>
-					<tr>
-						<td>
-							<img src='./img/notclear.jpg' />
-						</td>
-						<td>
-							<img src="./img/clear.jpg">
-						</td>
-					</tr>
-				</table>
-			</section>
 
 			<section>
-				<h4>创建纯洁的领域对象</h4>
-				<ul>
-					<li>对象只有单一的<span class="ustrong">职责</span>(SRP)</li>
-				</ul>
-				<table class="fragment fade-in">
-					<tr>
-						<th>NO</th>
-						<th>YES</th>
-					</tr>
-					<tr>
-						<td>
-							<img src="./img/non-srp.jpg">
-						</td>
-						<td>
-							<img src="./img/srp.jpg">
-						</td>
-					</tr>
-				</table>
-			</section>
-			<section>
-				<h4>创建纯洁的领域对象</h4>
-				<ul>
-					<li>对象<span class="ustrong">不知道</span>其职责以外的任何知识</li>
-				</ul>
-				<table class="fragment fade-in">
-					<tr>
-						<th>NO</th>
-						<th>YES</th>
-					</tr>
-					<tr>
-						<td>
-							<img src="./img/corrupted.jpg" />
-						</td>
-						<td>
-							<img src="./img/pure.jpg" />
-						</td>
-					</tr>
-				</table>
-			</section>
-			<section>
-				<h3>conclusion 2 </h3>
+				<h2>DDD 案例研究</h2>
+				<h3>小结之二</h3>
 				<ul>
 					<li>用领域模型体现<span class="ustrong">业务逻辑</span></li>
-					<li>创建<span class="ustrong">纯洁</span>的领域对象</li>
+					<li>创建<span class="ustrong">恰当</span>的领域对象</li>
 				</ul>
-				<aside class="notes" data-markdown data-template>
+			</section>
 
+
+			<section>
+				<h2>DDD 案例研究</h2>
+				<h3>工序之三: 围绕领域构建服务</h3>
+
+			</section>
+
+			<section>
+				<h2>DDD 案例研究</h2>
+				<h3>工序之三: 围绕领域构建服务</h3>
+				<div class="r-stack" style="padding:0">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-summary.jpg' />
+					<ol class="fragment fade-down-in" style="margin-top: 3vw">
+						<li>上游</li>
+						<li>下游</li>
+					</ol>
+				</div>
+				<aside class="notes">
+					TODO 考虑使用更详细的架构图
 				</aside>
 			</section>
 
 			<section>
-				<h3>4. 围绕领域构建服务</h3>
+				<h2>DDD 案例研究</h2>
+				<h3>工序之三: 围绕领域构建服务</h3>
+				<h4>上游</h4>
 				<ol>
 					<li><span class="term">领域模型</span>是整个服务的核心部分</li>
 					<li><span class="term">"应用(服务)"</span>是操作领域模型的唯一入口</li>
@@ -658,13 +639,6 @@ data class CompilationID(
 				</ol>
 			</section>
 
-			<section HOWTO-model data-markdown>
-				## DDD 案例研究
-				### 3. 创建领域模型
-				#### 忘记 DB, 聚焦业务
-				1. 不要先设计数据表
-				1. 持久化模式由领域模型推导而来
-			</section>
 
 			<section>
 				<h3>架构一览</h3>
@@ -789,8 +763,18 @@ data class CompilationID(
 		Reveal.configure({ pdfSeparateFragments: false });
 	</script>
 	<style type="text/css">
+		.reveal section pre {
+			min-height: 50%;
+			max-height: 100%;
+			height: inherit;
+		}
+
 		.reveal section pre code {
 			font-size: 0.7em !important;
+			padding: 0;
+			margin: auto 0;
+			height: 90%;
+
 		}
 
 		.reveal section .ustrong {
@@ -837,8 +821,6 @@ data class CompilationID(
 			height: 90%;
 			border: 1px white solid
 		}
-
-
 	</style>
 </body>
 
