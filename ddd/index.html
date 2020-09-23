@@ -88,9 +88,9 @@
 					2. 变量命名不清楚
 					2. 面条代码/不合理的方法封装?
 					1. 仅因为代码长度分割方法
-					2. 不断地增加方法入参去区分非主干逻辑(TODO 举例子)
+					2. 不断地增加方法入参去区分非主干逻辑(举例子)
 					4. 代码难以变更
-					1. 不同业务的代码混合在一起, 牵一发动全身(TODO 举例子)
+					1. 不同业务的代码混合在一起, 牵一发动全身(举例子)
 					5. 代码难以测试
 					1. 难以单元测试, 过多的外部依赖需要 mock
 
@@ -122,11 +122,6 @@ ddd 思想和工具有助于我们解决这些痛点
 1. 长期迭代后, 业务需求分散, 不完整		
    分散在多次迭代、多种规格和为之的增量式的产品文档中
 需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息
-
-TODO
- 1. meme img
- 2. meme img
- 3. meme img
 				">
 				## 为什么做这个分享?
 				### 应对产研实践的痛点
@@ -216,7 +211,7 @@ TODO
 				<!-- <h2>关于领域驱动设计</h2> -->
 				<h3>3. 关键术语</h3>
 				TODO 替换为更详细的文字
-				<img class="r-strech" src="./img/domain-bc.jpg" />
+				<img class="r-strech" src="./img/domain-plain.jpg" />
 				<p>图示</p>
 			</section>
 
@@ -340,7 +335,6 @@ TODO
 				</aside>
 			</section>
 
-			<!-- TODO 是否需要放出该页 PPT? -->
 			<section HOWTO-biz>
 				<h2>DDD 案例研究</h2>
 				<h3>小结之一</h3>
@@ -534,7 +528,7 @@ class PostCollection private constructor(
 }
 						
 					</code></pre>
-					<img class="fragment fade-down-in" src='./img/TODO' alt="TODO 一个包的依赖关系图" /> 
+					<img class="fragment fade-down-in" src='./img/dep.jpg' alt="TODO 一个包的依赖关系图" /> 
 				</div>
 				<aside class="notes" data-markdown="">
 					1. 具体例子: 使用 PostCollection 抽象
@@ -715,7 +709,6 @@ data class CompilationID(
 				<!-- <h4>关系一览</h4> -->
 				<!-- <h5>上下文</h5> -->
 				<h4>上下文</h4>
-				TODO 考虑合并到数据链路?
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-ctx.jpg'
 						alt="TODO 上下文包含什么?" />
@@ -744,6 +737,13 @@ data class CompilationID(
 			</section>
 			
 
+			<section>
+				<h3>工序之三: 围绕领域构建服务</h3>
+				<h4>构建流程</h4>
+				<div class="r-stack">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg' alt="TODO 构建" />
+				</div>
+			</section>
 
 			<section>
 				<h2>DDD 案例研究</h2>
