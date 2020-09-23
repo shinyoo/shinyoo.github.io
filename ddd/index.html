@@ -691,6 +691,40 @@ data class Title(
 				</aside>
 			</section>
 			<section>
+				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+class CompilationServiceImpl(
+	private val compilationRepo: CompilationRepository,
+	private val thirdPartyCensorService: ThirdPartyCensorService,
+	private val accessControlService: AccessControlService,
+	private val applicationEvents: ApplicationEvents,
+	private val transactionTemplate: TransactionTemplate,
+	private val authorWorkService: AuthorWorkService
+): CompilationService {
+    override fun create(author: Author, title: Title, description: Description?, cover: String?): CompilationID {
+        //权限检查
+        accessControlService.ensureAddBy(author)
+        val compilation: Compilation = Compilation.build(
+                compilationID = compilationRepo.nextID(),
+                author = author,
+                title = title,
+                description = description,
+                cover = cover,
+                status = CompilationStatus.PRIVATE
+        )
+        authorWorkService.ensureDeduplicateTitle(compilation)
+        val censorResult: CensorshipCallback = thirdPartyCensorService.beforePublishCheck(compilation)
+        Validator.require(censorResult !is CensorshipCallback.CensorshipRejected) { "标题或描述含敏感词,请修改!" }
+        if (censorResult is CensorshipCallback.CensorshipApproved) compilation.updateStatus(CompilationStatus.PUBLIC)
+        compilationRepo.store(compilation)
+        applicationEvents.compilationAdded(compilation)
+        return compilation.compilationID
+    }
+}
+
+
+				</code></pre>
+			</section>
+			<section>
 				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>关系一览</h4>
 				<ul>
@@ -701,10 +735,9 @@ data class Title(
 				</ul>
 			</section>
 			<section HOWTO-full>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
-				<!-- <h4>关系一览</h4> -->
-				<h4>数据链路</h4>
-				<!-- <h5>数据链路</h5> -->
+				<h3>关系一览</h3>
+				<!-- <h4>数据链路</h4> -->
+				<h5>数据链路</h5>
 				<div>
 					<p style="margin: 0;float: left;margin-top: 3vw;margin-left: 20%;">
 						<img style="height:33vw" src=" ./img/arch-data-flow.jpg" alt="数据链路关系图"></p>
@@ -722,7 +755,7 @@ data class Title(
 			</section>
 
 			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h3>关系一览</h3>
 				<h4>上下文</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment fade-out" data-fragment-index="0" src='./img/arch-ctx.jpg'
@@ -738,7 +771,7 @@ data class Title(
 			</section>
 
 			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h3>关系一览</h3>
 				<h4>模块关系</h4>
 				<div class="three-in-row">
 					<!-- <div class="three-in-row" data-fragment-index="0"> -->
@@ -752,7 +785,7 @@ data class Title(
 			</section>
 
 			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h3>关系一览</h3>
 				<h4>集成</h4>
 				<div>
 					<img style="height:550px" src='./img/arch-int.jpg' alt="TODO 集成" />
