@@ -8,7 +8,7 @@
  viewBox="0.00 0.00 267.50 527.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 523)">
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-523 263.5,-523 263.5,4 -4,4"/>
-<text text-anchor="middle" x="129.75" y="-10" font-family="Times,serif" font-size="20.00">构建流程</text>
+<text text-anchor="middle" x="129.75" y="-10" font-family="Times,serif" font-size="20.00">推导工作流程</text>
 <!-- flow -->
 <g id="node1" class="node">
 <title>flow</title>

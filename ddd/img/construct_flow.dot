@@ -18,5 +18,5 @@ digraph {
     e->ser
     ser->repo:s[label="持久化"]
     fontsize=20
-    label="构建流程"
+    label="推导工作流程"
 }

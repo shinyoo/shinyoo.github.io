@@ -361,8 +361,8 @@ ddd 思想和工具有助于我们解决这些痛点
 				|应用程序|接口, 操作领域对象的唯一入口|
 				|基础设施|持久化、IO 操作在这一层|
 				|领域对象|业务知识的抽象|
-				|领域服务|不能够抽象成对象的业务逻辑|
-				|领域事件|领域内有意义的事件|
+				|领域服务|不能抽象为对象的业务逻辑|
+				|领域事件|有意义的业务事件|
 			</section>
 			<section HOWTO-arch-dir>
 				<h2>DDD 案例研究</h2>
@@ -454,6 +454,8 @@ data class Title(
 				<aside class="notes" data-markdown="">
 					1. 将业务概念"标题"和"描述"分别封装到独立的对象中, 并将业务逻辑封装到其行为中
 					1. 这里的业务逻辑就是"参数合法性"
+					1. 富有行为 -> 自治的对象 -> 逻辑的分割 -> 变更的隔离
+					1. anti-pattern: 贫血模型
 				</aside>
 			</section>
 
@@ -533,9 +535,10 @@ class PostCollection private constructor(
 					<img class="fragment fade-down-in" src='./img/dep.jpg' alt="TODO 一个包的依赖关系图" />
 				</div>
 				<aside class="notes" data-markdown="">
-					1. 具体例子: 使用 PostCollection 抽象
+					1. 具体例子: 使用 PostCollection 抽象, 领域对象只知道上下文内的一些
 					2. 宏观来讲: module "com.kk.social.experimental.ddd.compilation.application/domain"等包不应该知道任何包以外的知识!
 					体现了限界上下文中的"限界"含义
+					3. 领域对象不应该关心持久化/io, 仅包含业务逻辑!
 				</aside>
 			</section>
 
@@ -543,7 +546,7 @@ class PostCollection private constructor(
 			<section>
 				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之二: 创建领域模型</h3>
-				<h4>概念补充: <span class="term">"值对象"</span></h4>
+				<h4>重要概念: <span class="term">"值对象"</span></h4>
 				<ul class="fragment">
 					<li>不唯一</li>
 					<li>生命周期短</li>
@@ -551,16 +554,18 @@ class PostCollection private constructor(
 				</ul>
 			</section>
 			<section>
-				<h4>概念补充: <span class="term">"值对象"</span>例子</h4>
-				<aside class="notes">
-					0. 首先简要介绍一下 kotlin 语法
-					1. val = final
-					2. var = mutable prop
-					3. ? = @Nullable
+				<h4>重要概念: <span class="term">"值对象"</span>例子</h4>
+				<aside class="notes" data-markdown>
+					## 建模时根据这些特点决定, 哪些概念建立成值对象
+
+					1. 首先简要介绍一下 kotlin 语法
+					> 1. val = final
+					> 1. var = mutable prop
+					> 1. ? = @Nullable
 					1. 请试着说出这段代码的业务逻辑
-					2. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
-					1. 生命周期短 - 需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
-					2. 不可变
+					1. "值对象"的概念介绍: 在业务中不具备唯一性的对象, 比如通常意义上的姓名, 用户所在城市, 一段用户输入的文案等; 特点包括
+					> 1. 生命周期短 - 不会被独立持久化, 属于实体对象;需要结合实体对象来说明, 暂时认为, 只有值对象是无法存在或者具有意义的
+					> 1. 不可变 - 创建后不能变更
 				</aside>
 				<div>
 
@@ -591,8 +596,8 @@ data class Title(
 			<section>
 				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之二: 创建领域模型</h3>
-				<h4>概念补充: <span class="term">"实体对象"</span></h4>
-				<ul class="fragment">
+				<h4>重要概念: <span class="term">"实体对象"</span></h4>
+				<ul>
 					<li>唯一性/身份</li>
 					<li>生命周期长</li>
 					<li>可变</li>
@@ -615,21 +620,17 @@ data class Title(
 				</aside>
 			</section>
 			<section>
-				<h4>概念补充: <span class="term">"实体对象"</span>例子</h4>
-				<aside class="notes">
-					0. 首先简要介绍一下 kotlin 语法
-					1. val = final
-					2. var = mutable prop
-					3. ? = @Nullable
+				<h4>重要概念: <span class="term">"实体对象"</span>例子</h4>
+				<aside class="notes" data-markdown>
 					1. 请观众说明该段代码的业务含义
 					1. 成员对象的可变性(val, var)
 					2. 可变属性的变更=替换操作 , 当我们修改某个属性时, 直接将该属性对象替换为一个新的值对象即可
 					2. "实体"解释
-					1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
-					2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
-					3. Compilation 对象是可变的, 体现在其可变成员属性上
+					> 1. 唯一性: Compilation 由 compilationId成员属性全局唯一地标识了它的身份
+					> 2. 生命周期长, 一个 Compilation 对象会存活在持久化层, 具有最长的生命周期
+					> 3. Compilation 对象是可变的, 体现在其可变成员属性上
 				</aside>
-				<div class="fragment">
+				<div>
 					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 						class Compilation private constructor(
 								val compilationID: CompilationID,
@@ -661,7 +662,7 @@ data class Title(
 				<h2>DDD 案例研究</h2>
 				<h3>小结之二</h3>
 				<ul>
-					<li>用领域模型体现<span class="ustrong">业务逻辑</span></li>
+					<li>把<span class="ustrong">业务逻辑</span>封装到领域模型中</li>
 					<li>创建<span class="ustrong">恰当</span>的领域对象</li>
 				</ul>
 			</section>
@@ -788,7 +789,7 @@ class CompilationServiceImpl(
 				<h3>关系一览</h3>
 				<h4>集成</h4>
 				<div>
-					<img style="height:550px" src='./img/arch-int.jpg' alt="TODO 集成" />
+					<img style="height:550px" src='./img/arch-int.jpg' alt="集成" />
 				</div>
 			</section>
 
