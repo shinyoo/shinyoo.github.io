@@ -53,7 +53,7 @@
 					<li>为什么做这个分享?</li>
 					<li>关于领域驱动设计</li>
 					<li>DDD 案例研究</li>
-					<li>结论与 Q&A</li>
+					<li>结论 · Q&A</li>
 				</ul>
 			</section>
 			<!-- </div> -->
@@ -521,10 +521,9 @@ class Compilation  {
 
 			<section HOWTO-model-p3>
 				<h6>原则三: 创建"纯洁"的对象</h6>
-				<!-- <div class="r-stack"> -->
-				<div>
+				<div class="r-stack">
 
-					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+					<pre class="fragment current-visible fade-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
 class PostCollection private constructor(
 	val compilationID: CompilationID,
 	private var holdType: HoldType,
@@ -535,6 +534,7 @@ class PostCollection private constructor(
 }
 						
 					</code></pre>
+					<img class="fragment fade-down-in" src='./img/TODO' alt="TODO 一个包的依赖关系图" /> 
 				</div>
 				<aside class="notes" data-markdown="">
 					1. 具体例子: 使用 PostCollection 抽象
@@ -676,80 +676,80 @@ data class CompilationID(
 			</section>
 
 
-			<section>
+			<section HOWTO-full>
 				<h2>DDD 案例研究</h2>
 				<h3>工序之三: 围绕领域构建服务</h3>
+				<!-- <h4>关系一览</h4> -->
+				<ul>
+					<li>数据链路</li>
+					<li>上下文</li>
+					<li>模块关系</li>
+					<li>集成</li>
+					<li>构建流程</li>
+				</ul>
 
 			</section>
 
-			<section>
-				<h2>DDD 案例研究</h2>
+			<section HOWTO-full>
 				<h3>工序之三: 围绕领域构建服务</h3>
-				<div class="r-stack" style="padding:0">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-summary.jpg' />
+				<!-- <h4>关系一览</h4> -->
+				<h4>数据链路</h4>
+				<!-- <h5>数据链路</h5> -->
+				<div class="r-stack">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-data-flow.jpg' alt="TODO 数据链路"/>
+					<ul class="fragment fade-down-in" style="margin-top: 3vw">
+						<li>应用服务</li>
+						<li>领域对象</li>
+						<li>领域服务</li>
+						<li>适配器</li>
+						<li>资源库</li>
+					</ul>
+				</div>
+				<aside class="notes" data-markdown>
+					### 上下文的核心组件不依赖实现, 依赖抽象
+				</aside>
+			</section>
+
+			<section>
+				<h3>工序之三: 围绕领域构建服务</h3>
+				<!-- <h4>关系一览</h4> -->
+				<!-- <h5>上下文</h5> -->
+				<h4>上下文</h4>
+				TODO 考虑合并到数据链路?
+				<div class="r-stack">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-ctx.jpg'
+						alt="TODO 上下文包含什么?" />
 					<ol class="fragment fade-down-in" style="margin-top: 3vw">
-						<li>上游</li>
-						<li>下游</li>
+						<li>应用程序</li>
+						<li>领域模型</li>
+						<li>基础设施</li>
 					</ol>
 				</div>
-				<aside class="notes">
-					TODO 考虑使用更详细的架构图
-				</aside>
 			</section>
+
+			<section>
+				<h3>工序之三: 围绕领域构建服务</h3>
+				<h4>模块关系</h4>
+				<div class="r-stack">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-mod.jpg' alt="TODO 模块关系图" />
+				</div>
+			</section>
+
+			<section>
+				<h3>工序之三: 围绕领域构建服务</h3>
+				<h4>集成</h4>
+				<div class="r-stack">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-int.jpg' alt="TODO 集成" />
+				</div>
+			</section>
+			
+
 
 			<section>
 				<h2>DDD 案例研究</h2>
-				<h3>工序之三: 围绕领域构建服务</h3>
-				<h4>上游</h4>
-				<ol>TODO</ol>
-			</section>
-
-			<section>
-				<h2>DDD 案例研究</h2>
-				<h3>工序之三: 围绕领域构建服务</h3>
-				<h4>下游</h4>
-				<ol>TODO</ol>
-			</section>
-
-			<section>
-				<h3>架构一览</h3>
-				<aside class="notes" data-template data-markdown>
-					不展开讲, 点到为止
-
-					### 组件的介绍
-					0. 适配器的作用是保持"应用"为唯一的操作接口
-					1. "应用"是整个服务对领域对象操作的唯一入口
-					2. "应用"调度"领域服务"和基础设施
-					3. 基础设施包含了所有的 IO 操作以及和外部系统(相对于限界上下文)的交互
-
-					TODO 依赖关系图
-
-					### 该架构的好处
-					1. 核心部分(领域模型)和实现解耦, 易于测试, 实现容易变化; 相比面条代码正确性更高
-					2. 收束领域对象的操作行为到一个地方
-					3. (对于开发人员)更清楚地看待业务
-
-					### 架构的形成
-					1. 得到了有用的领域模型
-					2. 根据模型设计应用服务的接口(契约, 函数签名)
-					3. 根据模型推导持久化的 schema
-					4. 推导其它的组件实现
-
-					### 注意
-					1. 保持领域的纯洁(避免领域污染), 使用防腐层(比如使用适配器/表面模式);
-					1. 保持领域对象的纯洁
-					2. 领域完整且自治
-					2. (尽力)将 IO 推到系统边界
-					1. 保持了领域对象的纯洁
-					2. 解耦了业务逻辑和实现,利于重构和变更
-
-				</aside>
-				<p><img style="height:600px" src="./img/architecture.svg" /></p>
-			</section>
-			<section>
-				<h3>conclusion 3</h3>
+				<h3>小结之三</h3>
 				<ul>
-					<li>架构/基础设施应该与<span class="term">领域模型</span>解耦</li>
+					<li>基础设施实现与<span class="term">领域模型</span>解耦</li>
 					<li>使用 CQRS 模式</li>
 				</ul>
 				<aside class="notes" data-template data-markdown>
@@ -764,41 +764,40 @@ data class CompilationID(
 			<!--4 总结-->
 			<!-- <section CONCLUSION> -->
 			<section>
-
-				<h2>To sum it up</h2>
+				<h2>结论</h2>
 				<aside class="notes">
 					回顾观点
 				</aside>
 			</section>
+
 			<section>
-				<h4>DDD 是什么?</h4>
-				<p>以业务为中心的软件设计和实施方法论</p>
+				<h2>结论</h2>
+				<h3>DDD 是什么?</h3>
+				<p>关注业务的软件设计和实施方法</p>
 			</section>
 
 			<section>
-				<h4>为什么要学习 DDD ?</h4>
+				<h2>结论</h2>
+				<h3>为什么要学习 DDD ?</h3>
 				<ul>
-					<li>产研实践损害了业务完整性</li>
-					<li>DDD 框架围绕业务开展活动</li>
+					<li>应对编码的痛点</li>
+					<li>应对产研的痛点</li>
 				</ul>
 			</section>
 
 			<section>
-				<h4>DDD 案例研究</h4>
+				<h2>结论</h2>
+				<h3>如何实施 DDD?</h3>
 				<ol>
 					<li>梳理业务逻辑</li>
-					<li>建立并输出业务共识</li>
-					<li>设计领域模型</li>
-					<li>推导并实现服务组件</li>
+					<li>创建领域模型</li>
+					<li>围绕模型构建服务</li>
 				</ol>
 			</section>
 			<!-- </section> -->
 
 
 			<!-- <section MORE> -->
-			<section>
-				<h2>More</h2>
-			</section>
 			<section>
 				<h3>Q & A</h3>
 			</section>
