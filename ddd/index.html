@@ -669,20 +669,20 @@ data class Title(
 
 			<section HOWTO-full>
 				<h2>DDD 案例研究</h2>
-				<h3>工序之三: 围绕领域构建服务</h3>
-				<!-- <h4>关系一览</h4> -->
+				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h4>关系一览</h4>
 				<ul>
 					<li>数据链路</li>
+					<li>构建流程</li>
 					<li>上下文</li>
 					<li>模块关系</li>
 					<li>集成</li>
-					<li>构建流程</li>
 				</ul>
 
 			</section>
 
 			<section HOWTO-full>
-				<h3>工序之三: 围绕领域构建服务</h3>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<!-- <h4>关系一览</h4> -->
 				<h4>数据链路</h4>
 				<!-- <h5>数据链路</h5> -->
@@ -703,7 +703,7 @@ data class Title(
 			</section>
 
 			<section>
-				<h3>工序之三: 围绕领域构建服务</h3>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>上下文</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-ctx.jpg'
@@ -717,7 +717,7 @@ data class Title(
 			</section>
 
 			<section>
-				<h3>工序之三: 围绕领域构建服务</h3>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>模块关系</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-mod.jpg'
@@ -726,7 +726,7 @@ data class Title(
 			</section>
 
 			<section>
-				<h3>工序之三: 围绕领域构建服务</h3>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>集成</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-int.jpg'
@@ -736,12 +736,22 @@ data class Title(
 
 
 			<section>
-				<h3>工序之三: 围绕领域构建服务</h3>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>构建流程</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg'
 						alt="TODO 构建" />
 				</div>
+				<aside class="notes" data-markdown>
+					1. 应用接口定义与实现
+					1. 资源库实现, 将领域模型的变化映射到存储层; hibernate -> jooq, 做了大量工作
+					1. (领域服务)接口的实现, 满足契约即可保证业务完整性, 正确性
+						1.契约的基本构成
+							1. 先决条件: 执行前必须成立的条件
+							1. 后验条件: 执行后必须成立的条件
+
+					1. 
+				</aside>
 			</section>
 
 			<section>
