@@ -670,17 +670,36 @@ data class Title(
 			<section HOWTO-full>
 				<h2>DDD 案例研究</h2>
 				<h3>工序之三: 围绕领域模型构建服务</h3>
-				<h4>关系一览</h4>
 				<ul>
-					<li>数据链路</li>
 					<li>构建流程</li>
-					<li>上下文</li>
-					<li>模块关系</li>
-					<li>集成</li>
+					<li>关系一览</li>
 				</ul>
 
 			</section>
-
+			<section>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h4>构建流程</h4>
+				<img style="height: 500px" src='./img/construct_flow.svg' alt="构建流程" />
+				<aside class="notes" data-markdown>
+					1. 通过用例/工作流定义应用接口
+					1. 通过应用创建/修改实体对象
+					1. 应用调度资源库实现持久化和唯一查找
+					1. 资源库实现, 将领域模型的变化映射到存储层; hibernate -> jooq, 做了大量工作
+					1. (领域服务)接口的实现, 满足契约即可保证业务完整性, 正确性
+					> 1. 先决条件: 执行前必须成立的条件
+					> 1. 后验条件: 执行后必须成立的条件
+				</aside>
+			</section>
+			<section>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h4>关系一览</h4>
+				<ul>
+					<li>数据链路</li>
+					<li>上下文边界</li>
+					<li>模块关系</li>
+					<li>集成</li>
+				</ul>
+			</section>
 			<section HOWTO-full>
 				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<!-- <h4>关系一览</h4> -->
@@ -701,24 +720,7 @@ data class Title(
 					### 上下文的核心组件不依赖实现, 依赖抽象
 				</aside>
 			</section>
-			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
-				<h4>构建流程</h4>
-				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg'
-						alt="TODO 构建" />
-				</div>
-				<aside class="notes" data-markdown>
-					1. 应用接口定义与实现
-					1. 资源库实现, 将领域模型的变化映射到存储层; hibernate -> jooq, 做了大量工作
-					1. (领域服务)接口的实现, 满足契约即可保证业务完整性, 正确性
-					1.契约的基本构成
-					1. 先决条件: 执行前必须成立的条件
-					1. 后验条件: 执行后必须成立的条件
 
-					1.
-				</aside>
-			</section>
 			<section>
 				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>上下文</h4>
@@ -740,11 +742,11 @@ data class Title(
 				<h4>模块关系</h4>
 				<div class="three-in-row">
 					<!-- <div class="three-in-row" data-fragment-index="0"> -->
-						<img src="./img/source_structure.png" alt="目录结构 1" />
-						<img src="./img/source_structure_2.png" alt="目录结构 2" />
+					<img src="./img/source_structure.png" alt="目录结构 1" />
+					<img src="./img/source_structure_2.png" alt="目录结构 2" />
 					<!-- </div> -->
 					<!-- <div> -->
-						<img src='./img/arch-dep.svg' alt="模块关系图" />
+					<img src='./img/arch-dep.svg' alt="模块关系图" />
 					<!-- </div> -->
 				</div>
 			</section>
@@ -753,8 +755,7 @@ data class Title(
 				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>集成</h4>
 				<div>
-					<img style="height:550px" src='./img/arch-int.jpg'
-						alt="TODO 集成" />
+					<img style="height:550px" src='./img/arch-int.jpg' alt="TODO 集成" />
 				</div>
 			</section>
 

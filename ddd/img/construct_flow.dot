@@ -1,0 +1,22 @@
+digraph {
+    node[style=filled;fillcolor="orange";]
+    node[shape=record]
+    flow[label="{业务共识-工作流|{创建|删除}}";fillcolor=lightblue]
+    app[label="{应用程序|{<f1>创建接口|<f2>删除接口}}";shape=record]
+    repo[label="{资源库|{<s>store|<f>find}}"]
+    ser[label="{领域服务 |{<valid>审核}}"]
+    node[fillcolor=lightgreen]
+    e[label="实体"]
+    v[label="值对象"]
+    
+
+
+    flow->app[label="推导"]
+    app:f1->e[label="通过Factory/Builder实例化"]
+    app:f1->v
+    v->e[label="校验行为"]
+    e->ser
+    ser->repo:s[label="持久化"]
+    fontsize=20
+    label="构建流程"
+}

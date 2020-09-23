@@ -1,0 +1,66 @@
+digraph full_service {
+    
+    // compound=true
+    node[shape=record;style=filled; fillcolor=lightgreen]
+
+    // subgraph cluster_biz {
+        node[fillcolor=lightyellow]
+        c[label="{<root>业务概念|{<c1>概念1|<c2>概念2|<c3>...}}"]
+
+        f[label="{<root>业务工作流|{<a1>工作流1|<a2>工作流 2|<a3>...}}}"]
+
+        // label="业务共识"
+    // }
+
+
+        node[fillcolor=lightblue]
+
+    e1[label="{<root>实体 1|{<a1>行为 1|<a2>行为 2|<a3>...}}"; ]
+    e2[label="{<root>实体 2|{<a1>行为 1|<a2>行为 2|<a3>..}}"]
+    e3[label="{<root>值对象 1|{<a1>行为 1|<a2>行为 2}}"]    
+
+    node[fillcolor=lightgreen]
+    app[label="{应用程序接口|{<a1>方法1|<a2>方法2|<a3>...}}"; fillcolor=lightgreen]
+    repo[label="{<root>资源库|{<s>store|<f>find}}"]
+    // biz[label="{<root>业务共识|{{<e>业务概念|{<e1>概念1|<e2>概念2|<e3>...}}|{工作流|{<a1>工作流1|<a2>工作流 2|<a3>...}}}}";fillcolor=lightblue]
+
+    node[fillcolor=grey]
+    imp_app[label="{<root>应用程序实现|{<a1>方法 1|<a2>方法 2|<a3>...}}"]
+    imp_repo[label="{<root>资源库实现|{<s>store|<f>find}}"]
+    edge[label="创建";color=red;minlen=3]
+    f:a1->app:a1
+    f:a2->app:a2
+    // [constraint=false]
+    f:a3->app:a3
+    // [constraint=false]
+    
+    edge[label="抽象"; color=green;minlen=none]
+
+    f:a1->e1:a1
+    f:a2->e2:a1
+    f:a3->e2:a2
+    
+    c:c1->e1:root
+    // [constraint=false]
+    c:c2->e2:root
+    // [constraint=false]
+    c:c3->e3:root
+    // [constraint=false]
+    edge[label=""]
+    imp_app->app[label="实现"]
+    
+    imp_app:a1->repo:f
+    imp_app:a1->e1[constraint=false;label="实例化"]
+    imp_app:a1->repo:s
+
+    imp_repo->repo:root
+
+    edge[style=invis;]
+    app->imp_app
+    // app->{c,f}
+// {e1,e2,e3}->{c,f}[]
+// {c,f}->{e1,e2,e3}
+    // {e1,e2,e3}->{e1,e2,e3}
+    fontsize=20
+    label="围绕领域模型构建服务"
+}
