@@ -236,7 +236,7 @@ ddd 思想和工具有助于我们解决这些痛点
 				<h4>梳理<span class="ustrong">业务逻辑</span>, 输出业务<span class="ustrong">共识</span></h4>
 			</section>
 			<section HOWTO-pre>
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之一: 梳理业务逻辑</h3>
 				<img style="height:400px" src='./img/ddd-agree.svg' />
 				<aside class="notes">
@@ -254,7 +254,7 @@ ddd 思想和工具有助于我们解决这些痛点
 				</aside>
 			</section>
 			<section HOWTO-biz>
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之一: 输出业务共识</h3>
 				<h4>输出之一: 领域和上下文</h4>
 				<div>
@@ -274,12 +274,11 @@ ddd 思想和工具有助于我们解决这些痛点
 				</aside>
 			</section>
 			<section HOWTO-biz>
-				<!-- <h3>工序之一: 梳理业务逻辑</h3> -->
 				<h4>输出之一: 领域和上下文</h4>
-				<img class="r-strech" src="./img/domain-bc.jpg" />
+				<img class="r-strech" src="./img/domain-plain.jpg" />
 			</section>
 			<section HOWTO-biz id="dict">
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之一: 梳理业务逻辑</h3>
 				<h4>输出之二: "合集"上下文的用语词典</h4>
 				<div style="font-size:1em">
@@ -312,7 +311,7 @@ ddd 思想和工具有助于我们解决这些痛点
 			</section>
 
 			<section HOWTO-biz id="flow">
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之一: 输出业务共识</h3>
 				<h4>输出之三: "合集"的操作流程图</h4>
 				<img style="margin-top:0; height: 430px" src="./img/compilation.svg" />
@@ -381,9 +380,9 @@ ddd 思想和工具有助于我们解决这些痛点
 			">
 				## DDD 案例研究
 				### 工序之二: 创建领域模型
-				#### 将业务逻辑映射到代码上!
-				1. detour: 业务共识->过程式
-				1. straight-forward: 共识->领域对象
+				#### 把业务逻辑映射到代码上!
+				* detour: 业务共识->过程式
+				* straight-forward: 共识->领域对象
 			</section>
 
 			<section HOWTO-model data-notes="
@@ -430,6 +429,7 @@ fun validate(cmd: CreateCommand) {
 
 
 			<section HOWTO-model-p1>
+				<h5>straight-forward: 业务共识->领域对象</h5>
 				<h6>原则一: 创建富有行为的对象</h6>
 				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 data class Description(val desc: String) : SimpleValueObject&lt;Description> {
@@ -458,13 +458,15 @@ data class Title(
 			</section>
 
 			<section HOWTO-model-p2>
+				<h5>straight-forward: 业务共识->领域对象</h5>
 				<h6>原则二: 创建单一职责的对象</h6>
 				<aside class="notes" data-markdown>
 					说明
 				</aside>
 				<div class="r-stack" style="margin:0">
 					<!-- <img class="fragment current-visible fade-out" data-fragment-index="0" src='./img/compilation_post.svg' /> -->
-					<blockquote style="margin-top: 10%;" class="fragment current-visible fade-out" data-fragment-index="0">合集可以修改标题、 描述等属性...用户可以向自己的合集中任意添加删除帖子...
+					<blockquote style="margin-top: 10%;" class="fragment current-visible fade-out"
+						data-fragment-index="0">合集可以修改标题、 描述等属性...用户可以向自己的合集中任意添加删除帖子...
 					</blockquote>
 					<pre class="fragment fade-in-then-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
 class Compilation {
@@ -513,6 +515,7 @@ class Compilation  {
 			</section>
 
 			<section HOWTO-model-p3>
+				<h5>straight-forward: 业务共识->领域对象</h5>
 				<h6>原则三: 创建"纯洁"的对象</h6>
 				<div class="r-stack">
 
@@ -527,7 +530,7 @@ class PostCollection private constructor(
 }
 						
 					</code></pre>
-					<img class="fragment fade-down-in" src='./img/dep.jpg' alt="TODO 一个包的依赖关系图" /> 
+					<img class="fragment fade-down-in" src='./img/dep.jpg' alt="TODO 一个包的依赖关系图" />
 				</div>
 				<aside class="notes" data-markdown="">
 					1. 具体例子: 使用 PostCollection 抽象
@@ -538,7 +541,7 @@ class PostCollection private constructor(
 
 
 			<section>
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之二: 创建领域模型</h3>
 				<h4>概念补充: <span class="term">"值对象"</span></h4>
 				<ul class="fragment">
@@ -548,7 +551,7 @@ class PostCollection private constructor(
 				</ul>
 			</section>
 			<section>
-				<h4>概念补充: <span class="term">"值对象"</span></h4>
+				<h4>概念补充: <span class="term">"值对象"</span>例子</h4>
 				<aside class="notes">
 					0. 首先简要介绍一下 kotlin 语法
 					1. val = final
@@ -561,37 +564,32 @@ class PostCollection private constructor(
 				</aside>
 				<div>
 
-					<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
+					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+data class Description(val desc: String) : SimpleValueObject&lt;Description> { 
+  	init {
+		Validator.require(desc.isNotBlank()) { "描述不能为空" }
+		Validator.require(
+			CharCounterUtil.calculateLengthWithChinese(desc) <= 150
+		) { "描述字符不得超过 150 字" } 
+	} 
+}
+				</code></pre>
+					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 data class Title(
-        val title: String
-) : SimpleValueObject&lt;Title> {
-    init {
-        if (title.isBlank()) {
-            throw BadRequestException()
-        }
-        if (title.length > 30) {
-            throw BadRequestException()
-        }
-    }
+		val title: String
+) : SimpleValueObject&lt;Title&gt; {
+	init {
+		Validator.require(title.isNotBlank()) { "标题不能为空" }
+		Validator.require(title.length &lt;= 30) { "标题字符数不得超过 30 字" }
+	}
 }
-</code></pre>
-					<pre class="fragment"><code class="kotlin" data-trim data-noescape data-line-numbers>
-data class CompilationID(
-        val id: Long
-) : SimpleValueObject&lt;CompilationID> {
-    init {
-        if(id &lt;= 0) { 
-            throw BadRequestException()
-        }
-    }
-}
-</code></pre>
+				</code></pre>
 
 				</div>
 			</section>
 
 			<section>
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>工序之二: 创建领域模型</h3>
 				<h4>概念补充: <span class="term">"实体对象"</span></h4>
 				<ul class="fragment">
@@ -617,7 +615,7 @@ data class CompilationID(
 				</aside>
 			</section>
 			<section>
-				<h4>概念补充: <span class="term">"实体对象"</span>-例子</h4>
+				<h4>概念补充: <span class="term">"实体对象"</span>例子</h4>
 				<aside class="notes">
 					0. 首先简要介绍一下 kotlin 语法
 					1. val = final
@@ -688,9 +686,10 @@ data class CompilationID(
 				<!-- <h4>关系一览</h4> -->
 				<h4>数据链路</h4>
 				<!-- <h5>数据链路</h5> -->
-				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-data-flow.jpg' alt="TODO 数据链路"/>
-					<ul class="fragment fade-down-in" style="margin-top: 3vw">
+				<div>
+					<p style="margin: 0;float: left;margin-top: 3vw;margin-left: 20%;">
+						<img style="height:33vw" src=" ./img/arch-data-flow.jpg" alt="数据链路关系图"></p>
+					<ul style="margin-top: 3vw; margin-left: 8%;">
 						<li>应用服务</li>
 						<li>领域对象</li>
 						<li>领域服务</li>
@@ -705,8 +704,6 @@ data class CompilationID(
 
 			<section>
 				<h3>工序之三: 围绕领域构建服务</h3>
-				<!-- <h4>关系一览</h4> -->
-				<!-- <h5>上下文</h5> -->
 				<h4>上下文</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-ctx.jpg'
@@ -723,7 +720,8 @@ data class CompilationID(
 				<h3>工序之三: 围绕领域构建服务</h3>
 				<h4>模块关系</h4>
 				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-mod.jpg' alt="TODO 模块关系图" />
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-mod.jpg'
+						alt="TODO 模块关系图" />
 				</div>
 			</section>
 
@@ -731,16 +729,18 @@ data class CompilationID(
 				<h3>工序之三: 围绕领域构建服务</h3>
 				<h4>集成</h4>
 				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-int.jpg' alt="TODO 集成" />
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-int.jpg'
+						alt="TODO 集成" />
 				</div>
 			</section>
-			
+
 
 			<section>
 				<h3>工序之三: 围绕领域构建服务</h3>
 				<h4>构建流程</h4>
 				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg' alt="TODO 构建" />
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg'
+						alt="TODO 构建" />
 				</div>
 			</section>
 
@@ -810,6 +810,7 @@ data class CompilationID(
 			</section>
 			<section>
 				<h2>感谢大家的参与!</h2>
+				<img src="" alt="TODO qrcode" />
 			</section>
 			<!-- </section> -->
 		</div>
@@ -844,8 +845,8 @@ data class CompilationID(
 			margin: auto 0;
 			height: 90%;
 			width: 95%;
-			max-height: 100%; !important
-
+			max-height: 100%;
+			 !important
 		}
 
 		.reveal section .ustrong {
@@ -880,8 +881,8 @@ data class CompilationID(
 
 		.reveal section .two-in-row {
 			height: 500px;
-			text-align: center;
-			font-size: 0;
+			# text-align: center;
+			# font-size: 0;
 			# width: 30vw;
 			# margin: 0 auto;
 		}
