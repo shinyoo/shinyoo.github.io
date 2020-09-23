@@ -23,7 +23,8 @@
 			<section WHO>
 				<h2>我是谁</h2>
 				<div style="text-align: left; padding-left: 10vw; margin-top: 5%">
-					<div style="float:left; margin-top: 0; padding-right: 5%"><img style="width:17vw" src='./img/portrait.jpg'/></div>
+					<div style="float:left; margin-top: 0; padding-right: 5%"><img style="width:17vw"
+							src='./img/portrait.jpg' /></div>
 					<div>
 						<h4>昝兴宇 </h4>
 						<div style="padding-left: 5%">
@@ -214,6 +215,7 @@ TODO
 			<section>
 				<!-- <h2>关于领域驱动设计</h2> -->
 				<h3>3. 关键术语</h3>
+				TODO 替换为更详细的文字
 				<img class="r-strech" src="./img/domain-bc.jpg" />
 				<p>图示</p>
 			</section>
@@ -464,22 +466,75 @@ data class Title(
 
 			<section HOWTO-model-p2>
 				<h6>原则二: 创建单一职责的对象</h6>
-				<div class="r-stack">
-					<img class="fragment current-visible fade-out" src='./img/compilation_post.svg' />
-					<pre class="fragment fade-down"><code class="kotlin" data-trim data-noescape data-line-numbers>
-			TODO 在这里讲 compilation 和 post_collection的分割?
-</code></pre>
+				<aside class="notes" data-markdown>
+					说明
+				</aside>
+				<div class="r-stack" style="margin:0">
+					<!-- <img class="fragment current-visible fade-out" data-fragment-index="0" src='./img/compilation_post.svg' /> -->
+					<blockquote style="margin-top: 10%;" class="fragment current-visible fade-out" data-fragment-index="0">合集可以修改标题、 描述等属性...用户可以向自己的合集中任意添加删除帖子...
+					</blockquote>
+					<pre class="fragment fade-in-then-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
+class Compilation {
+	fun updateTitle(newTitle:Title) {
+		/* ... */
+	}
+
+	fun updateDescription(newDesc: Description) {
+		/* ... */
+	}
+
+	fun addPost(post: Post) {
+		/* ... */
+	}
+
+	fun removePost(post: Post) {
+		/* ... */
+	}
+}
+					</code></pre>
+					<div class="fragment fade-down" style="margin: 0;">
+						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+class PostCollection {
+	fun add(inputs: Set<InputPost>) {
+		/* ... */
+	}
+
+	fun remove(posts: Set<PostID>) {
+		/* ... */
+	}
+}
+						</code></pre>
+						<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+class Compilation  {
+	fun updateTitle(newTitle:Title) {
+		/* ... */
+	}
+
+	fun updateDescription(newDesc: Description) {
+		/* ... */
+	}
+}
+						</code></pre>
+					</div>
 				</div>
 			</section>
 
 			<section HOWTO-model-p3>
 				<h6>原则三: 创建"纯洁"的对象</h6>
-				<div class="r-stack">
-					<img class="fragment current-visible fade-out" src='./img/compilation_post.svg' />
-					<pre class="fragment fade-down"><code class="kotlin" data-trim data-noescape data-line-numbers>
-						TODO 在这里讲对象不应该知道任何外部知识
+				<!-- <div class="r-stack"> -->
+				<div>
+
+					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+class PostCollection private constructor(
+	val compilationID: CompilationID,
+	private var holdType: HoldType,
+	private var regular: Set&lt;PostID>,
+	private var tops: List&lt;PostID>
+) : SmartEntity&lt;PostCollection>() {
+	/* ... */
+}
 						
-</code></pre>
+					</code></pre>
 				</div>
 				<aside class="notes" data-markdown="">
 					1. 具体例子: 使用 PostCollection 抽象
@@ -780,16 +835,18 @@ data class CompilationID(
 	</script>
 	<style type="text/css">
 		.reveal section pre {
-			min-height: 50%;
+			min-height: 60%;
 			max-height: 100%;
 			height: inherit;
+			width: 100%;
 		}
 
 		.reveal section pre code {
 			font-size: 0.7em !important;
-			padding: 0;
 			margin: auto 0;
 			height: 90%;
+			width: 95%;
+			max-height: 100%; !important
 
 		}
 

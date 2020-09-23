@@ -14,3 +14,20 @@ fun validate(cmd: CreateCommand) {
     if (cmd.title.length >30) throw Exception("标题过长")
     if (cmd.description.length >80) throw Exception("描述过长")
 }
+
+
+
+class Compilation {
+
+    fun updateTitle(newTitle:Title) {
+        /* ...  */
+    }
+
+    fun updateDescription(newDesc: Description) {
+        /* ...  */
+    }
+
+    fun addPost(post: Post) {
+        /* ...  */
+    }
+}
