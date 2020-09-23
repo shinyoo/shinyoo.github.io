@@ -1,0 +1,22 @@
+digraph arch_dep {
+    
+    node[shape=record;style=filled]
+
+    app[label="{应用模块 | <root> compilation.application|{<c> compilation|<p> post_collection}}"; fillcolor=orange]
+
+    
+    infr[label="{基础设施模块|<root> compilation.infrastructure|{<db>persistence|<perm>permission|<censor>censorship}}"; fillcolor=lightgrey; ]
+    
+    domain[label="{领域模块|<root> compilation.domain| {{<model> model|{<c>compilation|<p>post_collection|subscription}}|<service> service}}"; fillcolor=lightgreen]
+
+    edge[minlen=3;color=orange]
+    app:c->domain:c
+    app:p->domain:p
+    edge[color=purple]
+    infr:db->domain:model
+    infr:perm->domain:service
+    infr:censor->domain:service
+
+    fontsize=20;
+    label = "模块依赖";
+}
