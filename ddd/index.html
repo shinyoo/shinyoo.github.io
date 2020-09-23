@@ -689,7 +689,7 @@ data class Title(
 				<div>
 					<p style="margin: 0;float: left;margin-top: 3vw;margin-left: 20%;">
 						<img style="height:33vw" src=" ./img/arch-data-flow.jpg" alt="数据链路关系图"></p>
-					<ul style="margin-top: 3vw; margin-left: 8%;">
+					<ul style="margin-top: 7vw; margin-left: -1%;">
 						<li>应用服务</li>
 						<li>领域对象</li>
 						<li>领域服务</li>
@@ -701,17 +701,36 @@ data class Title(
 					### 上下文的核心组件不依赖实现, 依赖抽象
 				</aside>
 			</section>
+			<section>
+				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h4>构建流程</h4>
+				<div class="r-stack">
+					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg'
+						alt="TODO 构建" />
+				</div>
+				<aside class="notes" data-markdown>
+					1. 应用接口定义与实现
+					1. 资源库实现, 将领域模型的变化映射到存储层; hibernate -> jooq, 做了大量工作
+					1. (领域服务)接口的实现, 满足契约即可保证业务完整性, 正确性
+					1.契约的基本构成
+					1. 先决条件: 执行前必须成立的条件
+					1. 后验条件: 执行后必须成立的条件
 
+					1.
+				</aside>
+			</section>
 			<section>
 				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>上下文</h4>
 				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-ctx.jpg'
+					<img style="height: 80%;" class="fragment fade-out" data-fragment-index="0" src='./img/arch-ctx.jpg'
 						alt="上下文包含什么?" />
-					<ol class="fragment fade-down-in" style="margin-top: 3vw">
-						<li>应用程序</li>
+					<ol class="fragment current-visible fade-down-in" data-fragment-index="0" style="margin-top: 3vw">
+						<li>应用程序接口</li>
+						<li>应用程序实现</li>
 						<li>领域模型</li>
-						<li>基础设施</li>
+						<li>领域服务接口</li>
+						<li>资源库接口</li>
 					</ol>
 				</div>
 			</section>
@@ -719,14 +738,14 @@ data class Title(
 			<section>
 				<h3>工序之三: 围绕领域模型构建服务</h3>
 				<h4>模块关系</h4>
-				<div class="r-stack">
-					<div class="two-in-row fragment current-fragment fade-out">
-						<img src="./img/source_structure.png" alt="目录结构 1"/>
-						<img src="./img/source_structure_2.png" alt="目录结构 2"/>
-
-					</div>
-					<img class="fragment fade-down-in" src='./img/arch-dep.svg'
-						alt="模块关系图" />
+				<div class="three-in-row">
+					<!-- <div class="three-in-row" data-fragment-index="0"> -->
+						<img src="./img/source_structure.png" alt="目录结构 1" />
+						<img src="./img/source_structure_2.png" alt="目录结构 2" />
+					<!-- </div> -->
+					<!-- <div> -->
+						<img src='./img/arch-dep.svg' alt="模块关系图" />
+					<!-- </div> -->
 				</div>
 			</section>
 
@@ -740,24 +759,6 @@ data class Title(
 			</section>
 
 
-			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
-				<h4>构建流程</h4>
-				<div class="r-stack">
-					<img style="height: 80%;" class="fragment current-visible fade-out" src='./img/arch-construct.jpg'
-						alt="TODO 构建" />
-				</div>
-				<aside class="notes" data-markdown>
-					1. 应用接口定义与实现
-					1. 资源库实现, 将领域模型的变化映射到存储层; hibernate -> jooq, 做了大量工作
-					1. (领域服务)接口的实现, 满足契约即可保证业务完整性, 正确性
-						1.契约的基本构成
-							1. 先决条件: 执行前必须成立的条件
-							1. 后验条件: 执行后必须成立的条件
-
-					1. 
-				</aside>
-			</section>
 
 			<section>
 				<h2>DDD 案例研究</h2>
@@ -906,6 +907,17 @@ data class Title(
 		.reveal section .two-in-row img {
 			display: inline-block;
 			# width: 50%;
+			height: 90%;
+			border: 1px white solid
+		}
+
+		.reveal section .three-in-row {
+			height: 500px;
+			display: flex;
+		}
+
+		.reveal section .three-in-row img {
+			display: inline-block;
 			height: 90%;
 			border: 1px white solid
 		}
