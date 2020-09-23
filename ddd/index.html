@@ -519,9 +519,14 @@ class Compilation  {
 			<section HOWTO-model-p3>
 				<h5>straight-forward: 业务共识->领域对象</h5>
 				<h6>原则三: 创建"纯洁"的对象</h6>
-				<div class="r-stack">
+				<!-- <div class="r-stack"> -->
+					<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+package com.kk.social.experimental.ddd.compilation.domain.model.post_collection
 
-					<pre class="fragment current-visible fade-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
+import com.kk.social.experimental.ddd.common.model.SmartEntity
+import com.kk.social.experimental.ddd.common.Validator
+import com.kk.social.experimental.ddd.compilation.domain.model.compilation.CompilationID
+
 class PostCollection private constructor(
 	val compilationID: CompilationID,
 	private var holdType: HoldType,
@@ -530,10 +535,8 @@ class PostCollection private constructor(
 ) : SmartEntity&lt;PostCollection>() {
 	/* ... */
 }
-						
 					</code></pre>
-					<img class="fragment fade-down-in" src='./img/dep.jpg' alt="TODO 一个包的依赖关系图" />
-				</div>
+				<!-- </div> -->
 				<aside class="notes" data-markdown="">
 					1. 具体例子: 使用 PostCollection 抽象, 领域对象只知道上下文内的一些
 					2. 宏观来讲: module "com.kk.social.experimental.ddd.compilation.application/domain"等包不应该知道任何包以外的知识!
@@ -743,10 +746,10 @@ class CompilationServiceImpl(
 					<p style="margin: 0;float: left;margin-top: 3vw;margin-left: 20%;">
 						<img style="height:33vw" src=" ./img/arch-data-flow.jpg" alt="数据链路关系图"></p>
 					<ul style="margin-top: 7vw; margin-left: -1%;">
-						<li>应用服务</li>
+						<li>适配器</li>
+						<li>应用程序</li>
 						<li>领域对象</li>
 						<li>领域服务</li>
-						<li>适配器</li>
 						<li>资源库</li>
 					</ul>
 				</div>
@@ -757,7 +760,7 @@ class CompilationServiceImpl(
 
 			<section>
 				<h3>关系一览</h3>
-				<h4>上下文</h4>
+				<h4>上下文边界</h4>
 				<div class="r-stack">
 					<img style="height: 80%;" class="fragment fade-out" data-fragment-index="0" src='./img/arch-ctx.jpg'
 						alt="上下文包含什么?" />
