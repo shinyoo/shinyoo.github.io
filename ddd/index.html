@@ -33,13 +33,6 @@
 							<p>追求编写更优雅的代码</p>
 							<p>location: 12层东南侧</p>
 						</div>
-
-						<!-- <ul>
-							<li>来自产品研发部-服务端</li>
-							<li>负责支持社区业务</li>
-							<li>追求编写更优雅的代码</li>
-						</ul> -->
-
 					</div>
 				</div>
 			</section>
@@ -111,17 +104,16 @@
 ddd 思想和工具有助于我们解决这些痛点
 1. 为什么需要研发清晰地理解需求细节?
 	1. 准确地实现产品意图
-	2. 准时交付: bad case 开始研发后会发现很多细节坑, 不断地引出新的问题, 可能导致项目进度滞后
-	2. 技术服务于业务价值， 脱离业务的技术没有价值
-	3. 业务在我司是非常重要的: 垂直领域, 当前体量+发展阶段, 需要我们懂业务
-	4. 理解业务也是程序员的关键能力之一
+	1. 准时交付: bad case 开始研发后会发现很多细节坑, 不断地引出新的问题, 可能导致项目进度滞后
+	1. 业务在我司是非常重要,很有价值的: 垂直领域, 当前体量+发展阶段, 需要我们懂业务
+	1. 技术服务于业务价值， 脱离业务的技术没有价值
+	1. 理解业务也是程序员的关键能力之一
 1. 为什么产品需要知道实现的关键细节?
 	1. 懂得解决方案, 可以更完整地理解业务
-	2. 能够更加合理地评估研发成本
-	3. 利于和研发顺利地沟通
-1. 长期迭代后, 业务需求分散, 不完整		
-   分散在多次迭代、多种规格和为之的增量式的产品文档中
-需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息
+	1. 能够更加合理地评估研发成本
+	1. 利于和研发顺利地沟通
+1. 长期迭代后, 业务需求分散, 不完整	
+   分散在多次迭代、多种规格和位置的增量式的产品文档中
 				">
 				## 为什么做这个分享?
 				### 应对产研实践的痛点
@@ -239,6 +231,8 @@ ddd 思想和工具有助于我们解决这些痛点
 				<h3>工序之一: 梳理业务逻辑</h3>
 				<img style="height:400px" src='./img/ddd-agree.svg' />
 				<aside class="notes">
+					<p>需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息</p>
+
 					<div style="font-size:0.5em;color:grey;">
 						<p style="margin-bottom:3px"><b>EVENT STORMING 步骤参考</b></p>
 						<ol>
@@ -468,8 +462,8 @@ data class Title(
 				</aside>
 				<div class="r-stack" style="margin:0">
 					<!-- <img class="fragment current-visible fade-out" data-fragment-index="0" src='./img/compilation_post.svg' /> -->
-					<blockquote style="margin-top: 10%;" class="fragment fade-out"
-						data-fragment-index="0">合集可以修改标题、 描述等属性...用户可以向自己的合集中任意添加删除帖子...
+					<blockquote style="margin-top: 10%;" class="fragment fade-out" data-fragment-index="0">合集可以修改标题、
+						描述等属性...用户可以向自己的合集中任意添加删除帖子...
 					</blockquote>
 					<pre data-fragment-index="0" class="fragment current-visible fade-in-then-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
 class Compilation {
@@ -761,8 +755,8 @@ class CompilationServiceImpl(
 				<h3>关系一览</h3>
 				<h4>上下文边界</h4>
 				<div class="r-stack">
-					<img style="height: 35vw;" class="fragment fade-out" data-fragment-index="0" src='./img/arch-ctx.jpg'
-						alt="上下文包含什么?" />
+					<img style="height: 35vw;" class="fragment fade-out" data-fragment-index="0"
+						src='./img/arch-ctx.jpg' alt="上下文包含什么?" />
 					<ol class="fragment current-visible fade-down-in" data-fragment-index="0" style="margin-top: 3vw">
 						<li>应用程序接口</li>
 						<li>应用程序实现</li>
