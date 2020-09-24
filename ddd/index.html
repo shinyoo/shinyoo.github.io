@@ -348,6 +348,7 @@ ddd 思想和工具有助于我们解决这些痛点
 				<img style="height:30vw" src='./img/arch-summary.jpg' />
 			</section>
 			<section HOWTO-arch-term data-markdown data-notes="
+在进入编码实现之前, 我们先来看一下ddd 实施我们得到的软件架构, 形成一个初步的认识
 1. 说明组件的依赖关系
 1. 领域对象/服务/事件不知道其他任何组件的存在
 1. 应用服务调度基础设施
@@ -413,6 +414,7 @@ fun validate(cmd: CreateCommand) {
 					cue: 分析这段代码, 如何模块化?
 					> 1. 使用"组合"
 					> 1, 按职责分割逻辑
+					> 1. 按照变化分割逻辑
 				</aside>
 			</section>
 			<section HOWTO-model data-markdown data-notes="
@@ -466,10 +468,10 @@ data class Title(
 				</aside>
 				<div class="r-stack" style="margin:0">
 					<!-- <img class="fragment current-visible fade-out" data-fragment-index="0" src='./img/compilation_post.svg' /> -->
-					<blockquote style="margin-top: 10%;" class="fragment current-visible fade-out"
+					<blockquote style="margin-top: 10%;" class="fragment fade-out"
 						data-fragment-index="0">合集可以修改标题、 描述等属性...用户可以向自己的合集中任意添加删除帖子...
 					</blockquote>
-					<pre class="fragment fade-in-then-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
+					<pre data-fragment-index="0" class="fragment current-visible fade-in-then-out"><code class="kotlin" data-trim data-noescape data-line-numbers>
 class Compilation {
 	fun updateTitle(newTitle:Title) {
 		/* ... */
@@ -692,7 +694,7 @@ data class Title(
 				</aside>
 			</section>
 			<section>
-				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
+				<pre style="margin-top:0"><code class="kotlin" data-trim data-noescape data-line-numbers>
 class CompilationServiceImpl(
 	private val compilationRepo: CompilationRepository,
 	private val thirdPartyCensorService: ThirdPartyCensorService,
@@ -901,7 +903,7 @@ class CompilationServiceImpl(
 		}
 
 		.reveal section pre code {
-			font-size: 0.7em !important;
+			font-size: 0.8em !important;
 			margin: auto 0;
 			height: 90%;
 			width: 95%;
