@@ -347,40 +347,10 @@ ddd 思想和工具有助于我们解决这些痛点
 				
 				</section>
 	
-			<section HOWTO-arch-term data-markdown data-notes="
-在进入编码实现之前, 我们先来看一下ddd 实施我们得到的软件架构, 形成一个初步的认识
-1. 说明组件的依赖关系
-1. 领域对象/服务/事件不知道其他任何组件的存在
-1. 应用服务调度基础设施
-1. 说明领域的封闭特性			
-						">
-				<!--## DDD 案例研究-->
-				### 架构一览
-				|组件|说明|
-				|---|---|
-				|应用程序|接口, 操作领域对象的唯一入口|
-				|基础设施|持久化、IO 操作在这一层|
-				|领域对象|业务知识的抽象|
-				|领域服务|不能抽象为对象的业务逻辑|
-				|领域事件|有意义的业务事件|
-			</section>
-			<section HOWTO-arch>
-					<img style="height:30vw" src='./img/arch-summary.jpg' />
-				</section>
-			<!-- <section HOWTO-arch-dir>
-				<div class="two-in-row">
-					<img src='./img/source_structure.png' />
-
-					<img src='./img/source_structure_2.png' />
-				</div>
-			</section> -->
-
 			<section HOWTO-model data-markdown data-notes="
 忘记 DB, 避免持久化对领域对象的负面影响						
 			">
 				#### 把业务逻辑映射到代码上!
-				* detour: 业务共识->过程式
-				* straight-forward: 共识->领域对象
 			</section>
 
 			<section HOWTO-model data-notes="
@@ -669,16 +639,46 @@ data class Title(
 
 
 			<section HOWTO-full>
-				<h2>DDD 案例研究</h2>
+				<!-- <h2>DDD 案例研究</h2> -->
 				<h3>步骤三: 围绕领域模型构建服务</h3>
 				<ul>
+					<li>架构一栏</li>
 					<li>构建流程</li>
 					<li>关系一览</li>
 				</ul>
 
 			</section>
+
+			<section HOWTO-arch-term data-markdown data-notes="
+在进入编码实现之前, 我们先来看一下ddd 实施我们得到的软件架构, 形成一个初步的认识
+1. 说明组件的依赖关系
+1. 领域对象/服务/事件不知道其他任何组件的存在
+1. 应用服务调度基础设施
+1. 说明领域的封闭特性			
+						">
+				<!--## DDD 案例研究-->
+				### 架构一览
+				|组件|说明|
+				|---|---|
+				|应用程序|接口, 操作领域对象的唯一入口|
+				|基础设施|持久化、IO 操作在这一层|
+				|领域对象|业务知识的抽象|
+				|领域服务|不能抽象为对象的业务逻辑|
+				|领域事件|有意义的业务事件|
+			</section>
+			<section HOWTO-arch>
+					<img style="height:30vw" src='./img/arch-summary.jpg' />
+				</section>
+			<!-- <section HOWTO-arch-dir>
+				<div class="two-in-row">
+					<img src='./img/source_structure.png' />
+
+					<img src='./img/source_structure_2.png' />
+				</div>
+			</section> -->
+
 			<section>
-				<h3>步骤三: 围绕领域模型构建服务</h3>
+				<!-- <h3>步骤三: 围绕领域模型构建服务</h3> -->
 				<h4>构建流程</h4>
 				<img style="height: 500px" src='./img/construct_flow.svg' alt="构建流程" />
 				<aside class="notes" data-markdown>
