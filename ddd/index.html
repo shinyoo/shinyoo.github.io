@@ -31,7 +31,6 @@
 							<p>来自产品研发部-服务端</p>
 							<p>负责支持社区业务</p>
 							<p>追求编写更优雅的代码</p>
-							<p>location: 12层东南侧</p>
 						</div>
 					</div>
 				</div>
@@ -91,7 +90,7 @@
 					在这个过程中, 对于 DDD 抽象、模糊的概念有了一些感性的认识，也有了一些有益的收获, 今天想要分享给大家
 					优雅的代码实现
 				</aside>
-				<h2>为什么做这个分享?</h2>
+				<!-- <h2>为什么做这个分享?</h2> -->
 				<h3>应对编码中的痛点</h3>
 				<ul>
 					<li data-fragment-index="1">代码可读性差</li>
@@ -115,7 +114,6 @@ ddd 思想和工具有助于我们解决这些痛点
 1. 长期迭代后, 业务需求分散, 不完整	
    分散在多次迭代、多种规格和位置的增量式的产品文档中
 				">
-				## 为什么做这个分享?
 				### 应对产研实践的痛点
 				* 研发不能清晰地理解需求细节
 				* 产品不知道技术实现的关键细节
@@ -130,7 +128,7 @@ ddd 思想和工具有助于我们解决这些痛点
 				1. 关键术语
 			</section>
 			<section ABOUT-DDD0>
-				<h2>关于领域驱动设计</h2>
+				<!-- <h2>关于领域驱动设计</h2> -->
 				<h3>1. 背景介绍</h3>
 				<aside class="notes" data-markdown>
 					1. 他不是一种设计模式
@@ -147,7 +145,7 @@ ddd 思想和工具有助于我们解决这些痛点
 			</section>
 
 			<section ABOUT-DDD1>
-				<h2>关于领域驱动设计</h2>
+				<!-- <h2>关于领域驱动设计</h2> -->
 				<h3>2. 核心原则</h3>
 				<h4>以业务为<span class="ustrong">核心</span>开展活动</h4>
 				<ul>
@@ -174,7 +172,7 @@ ddd 思想和工具有助于我们解决这些痛点
 
 			<!--1.2 概念说明-->
 			<section ABOUT-DDD-TERM>
-				<h2>关于领域驱动设计</h2>
+				<!-- <h2>关于领域驱动设计</h2> -->
 				<h3>3. 关键术语</h3>
 
 				<table style="font-size:1em">
@@ -202,7 +200,7 @@ ddd 思想和工具有助于我们解决这些痛点
 			</section>
 			<section>
 				<!-- <h2>关于领域驱动设计</h2> -->
-				<h3>3. 关键术语</h3>
+				<h3>3. 关键术语 - 示例图</h3>
 				<img class="r-strech" src="./img/domain-plain.jpg" />
 			</section>
 
@@ -211,25 +209,25 @@ ddd 思想和工具有助于我们解决这些痛点
 			<section HOWTO data-markdown>
 				## DDD 案例研究
 				* 案例背景介绍
-				* 工序之一: 梳理业务逻辑
-				* 工序之二: 创建领域模型
-				* 工序之三: 围绕模型构建服务
+				* 步骤一: 梳理业务
+				* 步骤二: 创建领域模型
+				* 步骤三: 围绕模型构建服务
 			</section>
 			<section HOWTO-bg data-markdown>
-				## DDD 案例研究
 				### 案例背景介绍
 				"社区合集需求"
 
-				> 由于快看的生产者发布作品可能是连续性的，或者是需要归类整理的，所以需要使用合集形式对内容进行整理
-			</section>
-			<section HOWTO-pre>
-				<h2>DDD 案例研究</h2>
-				<h3>工序之一: 梳理业务逻辑</h3>
-				<h4>梳理<span class="ustrong">业务逻辑</span>, 输出业务<span class="ustrong">共识</span></h4>
+				 由于快看的生产者发布作品可能是连续性的，或者是需要归类整理的，所以需要使用合集形式对内容进行整理
 			</section>
 			<section HOWTO-pre>
 				<!-- <h2>DDD 案例研究</h2> -->
-				<h3>工序之一: 梳理业务逻辑</h3>
+				<h3>步骤一: 梳理业务</h3>
+				<h4>整理<span class="ustrong">业务逻辑</span</h4>
+					<h4>输出业务<span class="ustrong">共识</span></h4>
+			</section>
+			<section HOWTO-pre>
+				<!-- <h2>DDD 案例研究</h2> -->
+				<!-- <h3>梳理业务逻辑</h3> -->
 				<img style="height:400px" src='./img/ddd-agree.svg' />
 				<aside class="notes">
 					<p>需求评审时产品 owner 使用非标准化的方式去宣讲需求, 研发只能作为听众, 尝试理解需求, 被动接受信息</p>
@@ -249,16 +247,21 @@ ddd 思想和工具有助于我们解决这些痛点
 			</section>
 			<section HOWTO-biz>
 				<!-- <h2>DDD 案例研究</h2> -->
-				<h3>工序之一: 输出业务共识</h3>
-				<h4>输出之一: 领域和上下文</h4>
+				<!-- <h3>输出业务共识</h3> -->
+				<h4>输出: 领域和上下文</h4>
 				<div>
 					<p class="fragment"><span class="term">领域</span> = 如何让用户组织自己已发表的内容?</p>
-					<p class="fragment"><span class="term">限界上下文</span> = <span class="ustrong">合集上下文</span>,
-						使用"合集"功能解决用户组织内容的问题; 该上下文包含合集生产与消费方案:
-					<ul class="fragment">
-						<li>用户界面</li>
-						<li>后端系统</li>
-					</ul>
+					<p class="fragment"><span class="term">限界上下文</span> = <span class="ustrong">合集上下文</span>
+						<!-- 使用"合集"功能解决用户组织内容的问题;  -->
+						<p>
+
+						<ul class="fragment">
+							<li>合集的生产方案</li>
+							<li>合集的消费方案</li>
+							</ul>
+
+						<!-- <li>用户界面</li>
+						<li>后端系统</li> -->
 					</p>
 				</div>
 				<aside class="notes">
@@ -268,13 +271,13 @@ ddd 思想和工具有助于我们解决这些痛点
 				</aside>
 			</section>
 			<section HOWTO-biz>
-				<h4>输出之一: 领域和上下文</h4>
+				<!-- <h4>输出之一: 领域和上下文</h4> -->
 				<img class="r-strech" src="./img/domain-plain.jpg" />
 			</section>
 			<section HOWTO-biz id="dict">
 				<!-- <h2>DDD 案例研究</h2> -->
-				<h3>工序之一: 梳理业务逻辑</h3>
-				<h4>输出之二: "合集"上下文的用语词典</h4>
+				<!-- <h3>步骤一: 梳理业务逻辑</h3> -->
+				<h4>输出: "合集"上下文的用语词典</h4>
 				<div style="font-size:1em">
 					<table>
 						<tr>
@@ -304,10 +307,13 @@ ddd 思想和工具有助于我们解决这些痛点
 				</aside>
 			</section>
 
+			<section >
+					<h4>输出: "合集"的业务流程图</h4>
+			</section>
 			<section HOWTO-biz id="flow">
 				<!-- <h2>DDD 案例研究</h2> -->
-				<h3>工序之一: 输出业务共识</h3>
-				<h4>输出之三: "合集"的操作流程图</h4>
+				<!-- <h3>步骤一: 输出业务共识</h3> -->
+				<h5>"合集"的业务流程图</h5>
 				<img style="margin-top:0; height: 430px" src="./img/compilation.svg" />
 				<aside class="notes" data-markdown>
 					1. 在合集开发中, 用流程图和产品方进行了确认
@@ -317,8 +323,8 @@ ddd 思想和工具有助于我们解决这些痛点
 			</section>
 			<section HOWTO-biz id="flow2">
 				<!-- <h2>DDD 案例研究</h2>
-				<h3>工序之一: 输出业务共识</h3> -->
-				<h4>输出之三: "合集"-"帖子"关系的操作流程图</h4>
+				<h3>步骤一: 输出业务共识</h3> -->
+				<h5>"合集"-"帖子"关系的操作流程图</h5>
 				<img style="margin-top:0; height: 430px" src="./img/compilation_post.svg" />
 				<aside class="notes" data-markdown>
 					1. 在合集开发中, 用流程图和产品方进行了确认
@@ -326,22 +332,21 @@ ddd 思想和工具有助于我们解决这些痛点
 					cue: 是否有问题?
 				</aside>
 			</section>
-
+<!-- 
 			<section HOWTO-biz>
-				<h2>DDD 案例研究</h2>
 				<h3>小结之一</h3>
 				<ul>
 					<li><span class="ustrong">"理解领域(业务)"</span>是实施 DDD 的第一步</li>
 					<li>"业务"包含实际的解决方案, <u>包含必要的技术细节</u></li>
 					<li>达成并输出<span class="ustrong">共识</span>十分重要</li>
 				</ul>
-			</section>
-
+			</section> -->
 			<section HOWTO-arch>
-				<h2>DDD 案例研究</h2>
-				<h3>架构一览</h3>
-				<img style="height:30vw" src='./img/arch-summary.jpg' />
-			</section>
+
+					<h3>步骤二: 创建领域模型</h3>
+				
+				</section>
+	
 			<section HOWTO-arch-term data-markdown data-notes="
 在进入编码实现之前, 我们先来看一下ddd 实施我们得到的软件架构, 形成一个初步的认识
 1. 说明组件的依赖关系
@@ -359,22 +364,20 @@ ddd 思想和工具有助于我们解决这些痛点
 				|领域服务|不能抽象为对象的业务逻辑|
 				|领域事件|有意义的业务事件|
 			</section>
-			<section HOWTO-arch-dir>
-				<h2>DDD 案例研究</h2>
-				<h3>代码目录一瞥</h3>
+			<section HOWTO-arch>
+					<img style="height:30vw" src='./img/arch-summary.jpg' />
+				</section>
+			<!-- <section HOWTO-arch-dir>
 				<div class="two-in-row">
 					<img src='./img/source_structure.png' />
 
 					<img src='./img/source_structure_2.png' />
 				</div>
-			</section>
-
+			</section> -->
 
 			<section HOWTO-model data-markdown data-notes="
 忘记 DB, 避免持久化对领域对象的负面影响						
 			">
-				## DDD 案例研究
-				### 工序之二: 创建领域模型
 				#### 把业务逻辑映射到代码上!
 				* detour: 业务共识->过程式
 				* straight-forward: 共识->领域对象
@@ -382,10 +385,10 @@ ddd 思想和工具有助于我们解决这些痛点
 
 			<section HOWTO-model data-notes="
 ## DDD 案例研究
-### 工序之二: 创建领域模型		
+### 步骤二: 创建领域模型		
 			">
-				<h4>把业务逻辑映射到代码!</h4>
-				<h5>detour: 业务共识->过程式</h5>
+				<!-- <h4>把业务逻辑映射到代码!</h4> -->
+				<h5>detour &#10060;: 业务共识->过程式</h5>
 				<pre><code class="kotlin" data-trim data-noescape data-line-numbers>
 fun create(cmd: CreateCommand) {
     val permissions = getUserPermissionsFromExternalService(cmd.uid)
@@ -414,9 +417,9 @@ fun validate(cmd: CreateCommand) {
 			</section>
 			<section HOWTO-model data-markdown data-notes="
 ## DDD 案例研究
-### 工序之二: 创建领域模型
+### 步骤二: 创建领域模型
 			">
-				#### 把业务逻辑映射到代码!
+				<!-- #### 把业务逻辑映射到代码! -->
 				##### straight-forward: 业务共识->领域对象
 				* 原则1: 创建富有行为的对象
 				* 原则2: 创建单一职责的对象
@@ -542,7 +545,7 @@ class PostCollection private constructor(
 
 			<section>
 				<!-- <h2>DDD 案例研究</h2> -->
-				<h3>工序之二: 创建领域模型</h3>
+				<h3>步骤二: 创建领域模型</h3>
 				<h4>重要概念: <span class="term">"值对象"</span></h4>
 				<ul class="fragment">
 					<li>不唯一</li>
@@ -592,7 +595,7 @@ data class Title(
 
 			<section>
 				<!-- <h2>DDD 案例研究</h2> -->
-				<h3>工序之二: 创建领域模型</h3>
+				<h3>步骤二: 创建领域模型</h3>
 				<h4>重要概念: <span class="term">"实体对象"</span></h4>
 				<ul>
 					<li>唯一性/身份</li>
@@ -656,8 +659,8 @@ data class Title(
 
 
 			<section>
-				<h2>DDD 案例研究</h2>
-				<h3>小结之二</h3>
+				<!-- <h2>DDD 案例研究</h2> -->
+				<!-- <h3>小结之二</h3> -->
 				<ul>
 					<li>把<span class="ustrong">业务逻辑</span>封装到领域模型中</li>
 					<li>创建<span class="ustrong">恰当</span>的领域对象</li>
@@ -667,7 +670,7 @@ data class Title(
 
 			<section HOWTO-full>
 				<h2>DDD 案例研究</h2>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h3>步骤三: 围绕领域模型构建服务</h3>
 				<ul>
 					<li>构建流程</li>
 					<li>关系一览</li>
@@ -675,7 +678,7 @@ data class Title(
 
 			</section>
 			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h3>步骤三: 围绕领域模型构建服务</h3>
 				<h4>构建流程</h4>
 				<img style="height: 500px" src='./img/construct_flow.svg' alt="构建流程" />
 				<aside class="notes" data-markdown>
@@ -723,7 +726,7 @@ class CompilationServiceImpl(
 				</code></pre>
 			</section>
 			<section>
-				<h3>工序之三: 围绕领域模型构建服务</h3>
+				<h3>步骤三: 围绕领域模型构建服务</h3>
 				<h4>关系一览</h4>
 				<ul>
 					<li>数据链路</li>
@@ -733,7 +736,7 @@ class CompilationServiceImpl(
 				</ul>
 			</section>
 			<section HOWTO-full>
-				<h3>关系一览</h3>
+				<!-- <h3>关系一览</h3> -->
 				<!-- <h4>数据链路</h4> -->
 				<h5>数据链路</h5>
 				<div>
@@ -753,7 +756,7 @@ class CompilationServiceImpl(
 			</section>
 
 			<section>
-				<h3>关系一览</h3>
+				<!-- <h3>关系一览</h3> -->
 				<h4>上下文边界</h4>
 				<div class="r-stack">
 					<img style="height: 35vw;" class="fragment fade-out" data-fragment-index="0"
@@ -769,7 +772,7 @@ class CompilationServiceImpl(
 			</section>
 
 			<section>
-				<h3>关系一览</h3>
+				<!-- <h3>关系一览</h3> -->
 				<h4>模块关系</h4>
 				<div class="three-in-row">
 					<!-- <div class="three-in-row" data-fragment-index="0"> -->
@@ -783,7 +786,7 @@ class CompilationServiceImpl(
 			</section>
 
 			<section>
-				<h3>关系一览</h3>
+				<!-- <h3>关系一览</h3> -->
 				<h4>集成</h4>
 				<div>
 					<img style="height:35vw" src='./img/arch-int.jpg' alt="集成" />
@@ -793,8 +796,8 @@ class CompilationServiceImpl(
 
 
 			<section>
-				<h2>DDD 案例研究</h2>
-				<h3>小结之三</h3>
+				<!-- <h2>DDD 案例研究</h2> -->
+				<!-- <h3>小结之三</h3> -->
 				<ul>
 					<li>基础设施实现与<span class="term">领域模型</span>解耦</li>
 					<li>使用 CQRS 模式</li>
